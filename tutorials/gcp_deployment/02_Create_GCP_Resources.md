@@ -34,7 +34,7 @@ Enable services:
 gcloud services enable artifactregistry.googleapis.com storage-component.googleapis.com container.googleapis.com
 ```
 
-## Create a Google Cloud Storage (GCS) bucket
+## Create Google Cloud Storage (GCS) buckets
 
 Create a bucket with [uniform bucket-level access](https://cloud.google.com/storage/docs/uniform-bucket-level-access):
 
@@ -42,12 +42,17 @@ Create a bucket with [uniform bucket-level access](https://cloud.google.com/stor
 gsutil mb -b on -l $REGION gs://$BUCKET_NAME
 ```
 
+```bash
+gsutil mb -b on -l $REGION gs://$BUCKET_NAME_MLFLOW
+```
+
 > `gsutil` command should be availble from `gcloud` installation.
 
-Set up versioning to track remote in Google Cloud Storage bucket created before:
+Set up versioning to track remote in Google Cloud Storage buckets created before:
 
 ```bash
 gsutil versioning set on gs://$BUCKET_NAME
+gsutil versioning set on gs://$BUCKET_NAME_MLFLOW
 ```
 
 ## Create an artifact registry repository
@@ -192,6 +197,7 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
 gcloud projects add-iam-policy-binding $PROJECT_ID \
     --member="serviceAccount:$MLFLOW_SERVICE_ACCOUNT_ID@$PROJECT_ID.iam.gserviceaccount.com" \
     --role="roles/storage.objectViewer"
+
 ## Kubeflow
 gcloud projects add-iam-policy-binding $PROJECT_ID \
     --member="serviceAccount:$KUBEFLOW_SERVICE_ACCOUNT_ID@$PROJECT_ID.iam.gserviceaccount.com" \

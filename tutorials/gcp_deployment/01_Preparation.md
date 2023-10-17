@@ -41,9 +41,12 @@ export ZONE=europe-west1-b
 
 export RESOURCE_SUFFIX=<your-suffix>
 
-# Cloud Storage bucket for data and artifacts
+# Cloud Storage bucket for Kubeflow data and artifacts
 # For example: gs://mlops-CLIENT-NAME
 export BUCKET_NAME=mlops-${RESOURCE_SUFFIX}
+
+# MLflow storage bucket
+export BUCKET_NAME_MLFLOW=mlflow-${RESOURCE_SUFFIX}
 
 # Artifact Registry Docker repository name
 # For example: mlops-CLIENT-NAME

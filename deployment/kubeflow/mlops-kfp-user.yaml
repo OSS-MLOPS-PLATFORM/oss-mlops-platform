@@ -1,0 +1,12 @@
+title: mlops-kfp-user
+description: Has access to retrieve GKE cluster credentials and port-forward to any service (including Kubeflow Pipelines API) on GKE
+stage: alpha
+includedPermissions:
+- container.clusters.get
+- container.clusters.getCredentials
+- container.clusters.list
+- container.pods.get
+- container.pods.list
+- container.services.get
+- container.services.list
+- container.services.proxy
