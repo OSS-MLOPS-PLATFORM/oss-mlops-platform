@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: mlflow
+
+bases:
+- ../../base
+- ../../postgres
+
+configMapGenerator:
+- name: mlflow-configmap
+  env: config.env
+  behavior: merge

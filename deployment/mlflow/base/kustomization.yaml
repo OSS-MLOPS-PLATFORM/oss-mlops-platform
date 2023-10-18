@@ -1,0 +1,15 @@
+resources:
+- mlflow-namespace.yaml
+- mlflow-deployment.yaml
+- mlflow-service.yaml
+- mlflow-sa.yaml
+
+configMapGenerator:
+- name: mlflow-configmap
+  env: config.env
+
+secretGenerator:
+- name: mlflow-secret
+  literals:
+    # Default password in in-cluster database
+    - DB_PASSWORD=KFSg-AYoiPdfRun64z2-w89Kk7z5cJL2IbVvSd3l8Og

@@ -1,0 +1,86 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    name: mlflow
+  name: mlflow
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: mlflow
+  template:
+    metadata:
+      labels:
+        app: mlflow
+      name: mlflow
+    spec:
+      serviceAccountName: mlflow
+      containers:
+        - name: mlflow
+          env:
+            - name: DEFAULT_ARTIFACT_ROOT
+              valueFrom:
+                configMapKeyRef:
+                  name: mlflow-configmap
+                  key: DEFAULT_ARTIFACT_ROOT
+            - name: DB_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: mlflow-configmap
+                  key: DB_USER
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: mlflow-configmap
+                  key: DB_NAME
+            - name: DB_DIALECT
+              valueFrom:
+                configMapKeyRef:
+                  name: mlflow-configmap
+                  key: DB_DIALECT
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: mlflow-configmap
+                  key: DB_HOST
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: mlflow-configmap
+                  key: DB_PORT
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mlflow-secret
+                  key: DB_PASSWORD
+            - name: BACKEND_STORE_URI
+              value: $(DB_DIALECT)://$(DB_USER):$(DB_PASSWORD)@$(DB_HOST):$(DB_PORT)/$(DB_NAME)
+          image: europe-north1-docker.pkg.dev/silo-terraform1/rd-iml4e-public/mlflow_v2:0.0.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
+              protocol: TCP
+          resources:
+            requests:
+              cpu: 300m
+              memory: 512Mi
+          livenessProbe:
+            failureThreshold: 30
+            tcpSocket:
+              port: 5000
+            initialDelaySeconds: 10
+            timeoutSeconds: 30
+          readinessProbe:
+            tcpSocket:
+              port: 5000
+            initialDelaySeconds: 20
+            timeoutSeconds: 10
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30

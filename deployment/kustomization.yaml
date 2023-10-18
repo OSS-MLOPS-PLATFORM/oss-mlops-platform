@@ -5,6 +5,6 @@ bases:
 - ./kubeflow/manifests/apps/pipeline/upstream/cluster-scoped-resources
 - ./kubeflow/manifests/example
 - ./kubeflow-custom
-#- ./mlflow/
+- ./mlflow/
 #- ./nginx/
 #- ./monitoring/
