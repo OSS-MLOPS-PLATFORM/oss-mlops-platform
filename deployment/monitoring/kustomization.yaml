@@ -1,0 +1,10 @@
+namespace: monitoring
+
+resources:
+  - monitoring-namespace.yaml
+
+bases:
+  - prometheus/
+  - prometheus-pushgateway/
+  - alert-manager/
+  # - grafana/

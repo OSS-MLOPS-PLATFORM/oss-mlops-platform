@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: prometheus-pushgateway
+  name: prometheus-pushgateway
+  namespace: monitoring
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/path: /metrics
+    prometheus.io/port: "9090"
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus-pushgateway
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: prometheus-pushgateway
+    spec:
+      containers:
+      - name: prometheus-pushgateway
+        image: prom/pushgateway
+        imagePullPolicy: ""
+        ports:
+        - containerPort: 9091
+        resources: {}
+      restartPolicy: Always
+      serviceAccountName: ""
+status: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus-pushgateway
+  namespace: monitoring
+  annotations:
+      prometheus.io/scrape: 'true'
+      prometheus.io/port:   '9091'
+spec:
+  selector:
+    app: prometheus-pushgateway
+  type: NodePort
+  ports:
+    - port: 9091
+      targetPort: 9091
+      nodePort: 31000

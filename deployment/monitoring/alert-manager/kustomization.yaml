@@ -1,0 +1,7 @@
+namespace: monitoring
+
+resources:
+  - alert-manager-configmap.yaml
+  - alert-templates-configmap.yaml
+  - deployment.yaml
+  - service.yaml

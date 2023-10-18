@@ -1,0 +1,8 @@
+
+resources:
+- prometheus-cluster-role-binding.yaml
+- prometheus-cluster-role.yaml
+- prometheus-config-map.yaml
+- prometheus-deployment.yaml
+- prometheus-service.yaml
+- prometheus-pvc.yaml
