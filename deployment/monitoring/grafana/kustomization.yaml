@@ -1,0 +1,8 @@
+
+resources:
+- grafana-deployment.yaml
+- grafana-service.yaml
+- grafana-datasource-config.yaml
+- grafana-pvc.yaml
+- dashboards-config-map.yaml
+- dashboards-json-config-map.yaml

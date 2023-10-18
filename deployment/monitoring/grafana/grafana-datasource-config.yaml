@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: datasources-conf
+  labels:
+    name: datasources-conf
+data:
+  prometheus.yaml: |-
+    {
+        "apiVersion": 1,
+        "datasources": [
+            {
+               "access":"proxy",
+                "editable": true,
+                "name": "prometheus",
+                "orgId": 1,
+                "type": "prometheus",
+                "url": "http://prometheus-service.monitoring.svc:8080",
+                "version": 1
+            }
+        ]
+    }
+#  dashboardproviders.yaml: |
+#      apiVersion: 1
+#      providers:
+#      - disableDeletion: false
+#        editable: true
+#        folder: ""
+#        name: default
+#        options:
+#          path: /etc/grafana/dashboards/default
+#        orgId: 1
+#        type: file
