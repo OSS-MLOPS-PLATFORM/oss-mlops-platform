@@ -47,6 +47,13 @@ nodes:
   - containerPort: 443
     hostPort: 443
     protocol: TCP
+
+# uncomment to enable local registry    
+#containerdConfigPatches:
+#- |-
+#  [plugins."io.containerd.grpc.v1.cri".registry.mirrors."${HOST_IP}:5001"]
+#    endpoint = ["http://kind-registry:5000"]
+
 EOF
 ```
 
@@ -69,3 +76,5 @@ hostname -I | cut -d' ' -f1
 # on macOS (given that you need th IP of the default en0 interface)
 ipconfig getifaddr en0
 ```
+
+> **Note:** If you want to use a local registry, you can uncomment the `containerdConfigPatches` section.
