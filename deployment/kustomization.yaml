@@ -6,5 +6,4 @@ resources:
 - ./kubeflow/manifests/in-cluster-setup
 - ./kubeflow-custom
 - ./mlflow/env/local
-- ./monitoring/
-#- ./nginx/
+- ./monitoring
