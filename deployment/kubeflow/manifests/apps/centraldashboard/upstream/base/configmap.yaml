@@ -72,6 +72,24 @@ data:
           "link": "/pipeline/#/executions",
           "text": "Executions",
           "icon": "av:play-arrow"
+        },
+        {
+          "type": "item",
+          "link": "/mlflow/",
+          "text": "MLflow",
+          "icon": "icons:account-balance"
+        },
+        {
+          "type": "item",
+          "link": "/prometheus/",
+          "text": "Prometheus",
+          "icon": "icons:visibility"
+        },
+        {
+          "type": "item",
+          "link": "/grafana/",
+          "text": "Grafana",
+          "icon": "icons:assessment"
         }
       ],
       "externalLinks": [ ],

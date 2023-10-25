@@ -1,0 +1,21 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: prometheus
+  namespace: monitoring
+spec:
+  gateways:
+  - kubeflow/kubeflow-gateway
+  hosts:
+  - '*'
+  http:
+  - match:
+    - uri:
+        prefix: /prometheus/
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: prometheus-service.monitoring.svc.cluster.local
+        port:
+          number: 8080

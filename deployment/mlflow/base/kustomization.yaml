@@ -3,10 +3,12 @@ resources:
 - mlflow-deployment.yaml
 - mlflow-service.yaml
 - mlflow-sa.yaml
+- mlflow-virtualservice.yaml
 
 configMapGenerator:
 - name: mlflow-configmap
-  env: config.env
+  envs:
+  - config.env
 
 secretGenerator:
 - name: mlflow-secret

@@ -142,7 +142,7 @@ spec:
       containers:
       - args:
         - --provider=google
-        - --email-domain=silo.ai
+        - --email-domain=iml4e.com
         - --upstream=file:///dev/null
         - --http-address=0.0.0.0:4180
         - --cookie-refresh=1h
@@ -251,10 +251,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - mlflow.abc.silobrain.com
+    - mlflow.mlopsplatformv2.iml4e.com
     secretName: mlflow-ingress-cert
   rules:
-  - host: mlflow.abc.silobrain.com
+  - host: mlflow.mlopsplatformv2.iml4e.com
     http:
       paths:
       - path: /oauth2
