@@ -154,3 +154,7 @@ from kfp.gcp import use_gcp_secret
 pull_data_step = ... # Define Kubeflow Pipeline step
 pull_data_step.apply(use_gcp_secret(secret_name="user-gcp-sa"))
 ```
+
+## Creating User Profiles
+
+To see how to create user profiles, please refer to official documentation: [link](https://www.kubeflow.org/docs/components/multi-tenancy/getting-started/).
