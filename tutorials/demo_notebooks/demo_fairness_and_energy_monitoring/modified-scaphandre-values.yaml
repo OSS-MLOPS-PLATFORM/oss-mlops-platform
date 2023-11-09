@@ -1,0 +1,24 @@
+image:
+  name: hubblo/scaphandre
+  tag: latest
+
+# original 8080
+port: 8081
+
+resources:
+  limits:
+    memory: 75Mi
+  requests:
+    cpu: 75m
+    memory: 50Mi
+
+scaphandre:
+  command: prometheus
+  args: {}
+  extraArgs:
+    containers: true
+#  rustBacktrace: '1'
+
+# Run as root user to get proper permissions
+userID: 0
+groupID: 0

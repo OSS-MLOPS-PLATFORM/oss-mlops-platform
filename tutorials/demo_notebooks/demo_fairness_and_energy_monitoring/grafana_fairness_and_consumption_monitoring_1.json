@@ -1,0 +1,1080 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 4,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P1809F7CD0C75ACF3"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 8,
+      "options": {
+        "alertInstanceLabelFilter": "",
+        "alertName": "",
+        "dashboardAlerts": false,
+        "groupBy": [],
+        "groupMode": "default",
+        "maxItems": 20,
+        "sortOrder": 1,
+        "stateFilter": {
+          "error": true,
+          "firing": true,
+          "inactive": false,
+          "noData": false,
+          "normal": false,
+          "pending": true
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "exemplar": true,
+          "expr": "",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "title": "Prometheus Alerts",
+      "type": "alertlist"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P1809F7CD0C75ACF3"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "pattern": "#[a-zA-Z ]+",
+                "result": {
+                  "index": 0,
+                  "text": "$1"
+                }
+              },
+              "type": "regex"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value #Accuracy"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Accuracy"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value #True positives"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "True positives"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value #False positives"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "False positives"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value #True negatives"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "True negatives"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value #False negatives"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "False negatives"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "exemplar": true,
+          "expr": "M_Acc",
+          "format": "table",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "Accuracy"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "exemplar": true,
+          "expr": "M_TP",
+          "format": "table",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "True positives"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "exemplar": true,
+          "expr": "M_FP",
+          "format": "table",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "False positives"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "exemplar": true,
+          "expr": "M_TN",
+          "format": "table",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "True negatives"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "exemplar": true,
+          "expr": "M_FN",
+          "format": "table",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "False negatives"
+        }
+      ],
+      "title": "Model Performance",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P1809F7CD0C75ACF3"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value #Training set disparate impact"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Training set disparate impact"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value #Test set disparate impact"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Test set disparate impact"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value #Training set statistical parity"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Training set statistical parity"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value #Test set statistical parity"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Test set statistical parity"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      "id": 4,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "exemplar": true,
+          "expr": "Tr_D_DI",
+          "format": "table",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "Training set disparate impact"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "exemplar": true,
+          "expr": "Te_D_DI",
+          "format": "table",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "Test set disparate impact"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "exemplar": true,
+          "expr": "Tr_D_SP",
+          "format": "table",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "Training set statistical parity"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "exemplar": true,
+          "expr": "Te_D_SP",
+          "format": "table",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "Test set statistical parity"
+        }
+      ],
+      "title": "Dataset Fairness Metrics",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P1809F7CD0C75ACF3"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value #Balanced accuracy"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Balanced accuracy"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value #Disparate impact"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Disparate impact"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value #Statistical parity"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Statistical parity"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value #Equal odds"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Equal odds"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value #Average odds"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Average odds"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value #Theil index"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Theil index"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
+      "id": 2,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {
+          "titleSize": 15,
+          "valueSize": 40
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "exemplar": true,
+          "expr": "M_BA",
+          "format": "table",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "Balanced accuracy"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "exemplar": true,
+          "expr": "M_DI",
+          "format": "table",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "Disparate impact"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "exemplar": true,
+          "expr": "M_SP",
+          "format": "table",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "Statistical parity"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "exemplar": true,
+          "expr": "M_EOD",
+          "format": "table",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "Equal odds"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "exemplar": true,
+          "expr": "M_AOD",
+          "format": "table",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "Average odds"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "exemplar": true,
+          "expr": "M_TI",
+          "format": "table",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "Theil index"
+        }
+      ],
+      "title": "Model Fairness Metrics",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P1809F7CD0C75ACF3"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisGridShow": true,
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 16
+      },
+      "id": 10,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "hidden",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "exemplar": true,
+          "expr": "sum(scaph_process_power_consumption_microwatts{app_kubernetes_io_managed_by=\"Helm\"}) / 1000000",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "title": "Cluster Power Consumption",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P1809F7CD0C75ACF3"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "kwatth"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 16
+      },
+      "id": 12,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "exemplar": true,
+          "expr": "sum(sum_over_time(scaph_process_power_consumption_microwatts{app_kubernetes_io_managed_by=\"Helm\"}[1d])) / (1000000 * 1000 * 24)",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "Whole cluster",
+          "refId": "Whole cluster"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "exemplar": true,
+          "expr": "sum(sum_over_time(scaph_process_power_consumption_microwatts{app_kubernetes_io_managed_by=\"Helm\", cmdline!~\".*(bin/|app/|conf/|--loglevelinfo|scaphandreprometheus--port8081).*\", exe!~\".*(containerd-shim|nginx|postgres|sleep|workflow-contro|pause|minio|grafana-server|systemd-journal|manager|etcd|kube-apiserver|kube-controller|kube-scheduler|local-path-prov|mysqld|node|persistence_age).*\"}[1d])) / (1000000 * 1000 * 24)",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "KFP",
+          "refId": "Kubeflow pipeline"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "exemplar": true,
+          "expr": "sum(sum_over_time(scaph_process_power_consumption_microwatts{app_kubernetes_io_managed_by=\"Helm\", cmdline =~\".*mlflow.*\"}[1d])) / (1000000 * 1000 * 24)",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "MLflow",
+          "refId": "MLflow"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "exemplar": true,
+          "expr": "sum(sum_over_time(scaph_process_power_consumption_microwatts{app_kubernetes_io_managed_by=\"Helm\", exe=\"prometheus\"}[1d])) / (1000000 * 1000 * 24)",
+          "interval": "",
+          "legendFormat": "Prometheus",
+          "refId": "Prometheus"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "exemplar": true,
+          "expr": "sum(sum_over_time(scaph_process_power_consumption_microwatts{app_kubernetes_io_managed_by=\"Helm\", cmdline =~\".*grafana.*\"}[1d])) / (1000000 * 1000 * 24)",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "Grafana",
+          "refId": "Grafana"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "exemplar": true,
+          "expr": "sum(sum_over_time(scaph_process_power_consumption_microwatts{app_kubernetes_io_managed_by=\"Helm\", cmdline =~\".*minio.*\"}[1d])) / (1000000 * 1000 * 24)",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "Minio",
+          "refId": "Minio"
+        }
+      ],
+      "title": "Energy Consumption of Cluster (1day)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P1809F7CD0C75ACF3"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "sum(scaph_process_power_consumption_microwatts{app_kubernetes_io_managed_by=\"Helm\", cmdline!~\".*(bin/|app/|conf/|--loglevelinfo|scaphandreprometheus--port8081).*\", exe!~\".*(containerd-shim|nginx|postgres|sleep|workflow-contro|pause|minio|grafana-server|systemd-journal|manager|etcd|kube-apiserver|kube-controller|kube-scheduler|local-path-prov|mysqld|node|persistence_age).*\"}) / 1000000"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 24
+      },
+      "id": 14,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "hidden",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "exemplar": true,
+          "expr": "sum(scaph_process_power_consumption_microwatts{app_kubernetes_io_managed_by=\"Helm\", cmdline!~\".*(bin/|app/|conf/|--loglevelinfo|scaphandreprometheus--port8081).*\", exe!~\".*(containerd-shim|nginx|postgres|sleep|workflow-contro|pause|minio|grafana-server|systemd-journal|manager|etcd|kube-apiserver|kube-controller|kube-scheduler|local-path-prov|mysqld|node|persistence_age).*\"}) / 1000000",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "title": "KFP Power Consumption",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P1809F7CD0C75ACF3"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "kwatth"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 24
+      },
+      "id": 18,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "exemplar": true,
+          "expr": "sum(sum_over_time(scaph_process_power_consumption_microwatts{app_kubernetes_io_managed_by=\"Helm\", cmdline=~\".*(pull_data_component|python3-mpipinstall--quiet--no-warn-script-locationpandas~=1.4.2numpyfolktableskfp==1.8.22).*\"}[1d])) / (1000000 * 1000 * 24)",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "Pull data",
+          "refId": "Pull data"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "exemplar": true,
+          "expr": "sum(sum_over_time(scaph_process_power_consumption_microwatts{app_kubernetes_io_managed_by=\"Helm\", cmdline=~\".*(preprocess_component|python3-mpipinstall--quiet--no-warn-script-locationpandas~=1.4.2scikit-learn~=1.0.2numpykfp==1.8.22).*\"}[1d])) / (1000000 * 1000 * 24)",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "Preprocess",
+          "refId": "Preprocess"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "exemplar": true,
+          "expr": "sum(sum_over_time(scaph_process_power_consumption_microwatts{app_kubernetes_io_managed_by=\"Helm\", cmdline=~\".*(train_component|python3-mpipinstall--quiet--no-warn-script-locationnumpypandas~=1.4.2aif360scikit-learn~=1.0.2mlflow~=1.25.0boto3~=1.21.0kfp==1.8.22).*\"}[1d])) / (1000000 * 1000 * 24)",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "Train",
+          "refId": "Train"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "exemplar": true,
+          "expr": "sum(sum_over_time(scaph_process_power_consumption_microwatts{app_kubernetes_io_managed_by=\"Helm\", cmdline=~\".*(evaluate_component|python3-mpipinstall--quiet--no-warn-script-locationnumpymlflow~=1.25.0prometheus_clientkfp==1.8.22).*\"}[1d])) / (1000000 * 1000 * 24)",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "Evaluate",
+          "refId": "Evaluate"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "exemplar": true,
+          "expr": "sum(sum_over_time(scaph_process_power_consumption_microwatts{app_kubernetes_io_managed_by=\"Helm\", cmdline=~\".*(deploy_model_component|python3-mpipinstall--quiet--no-warn-script-locationkservekfp==1.8.22).*\"}[1d])) / (1000000 * 1000 * 24)",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "Deploy",
+          "refId": "Deploy"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "exemplar": true,
+          "expr": "sum(sum_over_time(scaph_process_power_consumption_microwatts{app_kubernetes_io_managed_by=\"Helm\", cmdline!~\".*(bin/|app/|conf/|--loglevelinfo|scaphandreprometheus--port8081|preprocess|pull_data|train|evaluate|deploy_model|numpy|python3-mpipinstall--quiet--no-warn-script-locationkservekfp==1.8.22|metadata|msklearnserver|python3server.py).*\", exe!~\".*(containerd-shim|nginx|postgres|sleep|workflow-contro|pause|minio|grafana-server|systemd-journal|manager|etcd|kube-apiserver|kube-controller|kube-scheduler|local-path-prov|mysqld|node|persistence_age).*\"}[1d])) / (1000000 * 1000 * 24) ",
+          "interval": "",
+          "legendFormat": "Inference",
+          "refId": "Inference"
+        }
+      ],
+      "title": "Energy Consumption of KFP Components (1day)",
+      "type": "stat"
+    }
+  ],
+  "schemaVersion": 35,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "OSS_Monitoring_1",
+  "uid": "kGRTQMX4k",
+  "version": 11,
+  "weekStart": ""
+}

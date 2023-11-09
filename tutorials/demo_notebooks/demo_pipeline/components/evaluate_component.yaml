@@ -1,0 +1,74 @@
+name: Evaluate
+description: 'Evaluate component: Compares metrics from training with given thresholds.'
+inputs:
+- {name: run_id, type: String, description: ' MLflow run ID'}
+- {name: mlflow_tracking_uri, type: String, description: MLflow tracking URI}
+- {name: threshold_metrics, type: JsonObject, description: Minimum threshold values
+    for each metric}
+outputs:
+- {name: Output, type: Boolean}
+implementation:
+  container:
+    image: python:3.10
+    command:
+    - sh
+    - -c
+    - |2
+
+      if ! [ -x "$(command -v pip)" ]; then
+          python3 -m ensurepip || python3 -m ensurepip --user || apt-get install python3-pip
+      fi
+
+      PIP_DISABLE_PIP_VERSION_CHECK=1 python3 -m pip install --quiet     --no-warn-script-location 'numpy' 'mlflow~=2.4.1' 'kfp==1.8.22' && "$0" "$@"
+    - sh
+    - -ec
+    - |
+      program_path=$(mktemp -d)
+      printf "%s" "$0" > "$program_path/ephemeral_component.py"
+      python3 -m kfp.v2.components.executor_main                         --component_module_path                         "$program_path/ephemeral_component.py"                         "$@"
+    - |2+
+
+      import kfp
+      from kfp.v2 import dsl
+      from kfp.v2.dsl import *
+      from typing import *
+
+      def evaluate(
+          run_id: str,
+          mlflow_tracking_uri: str,
+          threshold_metrics: dict
+      ) -> bool:
+          """
+          Evaluate component: Compares metrics from training with given thresholds.
+
+          Args:
+              run_id (string):  MLflow run ID
+              mlflow_tracking_uri (string): MLflow tracking URI
+              threshold_metrics (dict): Minimum threshold values for each metric
+          Returns:
+              Bool indicating whether evaluation passed or failed.
+          """
+          from mlflow.tracking import MlflowClient
+          import logging
+
+          logging.basicConfig(level=logging.INFO)
+          logger = logging.getLogger(__name__)
+
+          client = MlflowClient(tracking_uri=mlflow_tracking_uri)
+          info = client.get_run(run_id)
+          training_metrics = info.data.metrics
+
+          logger.info(f"Training metrics: {training_metrics}")
+
+          # compare the evaluation metrics with the defined thresholds
+          for key, value in threshold_metrics.items():
+              if key not in training_metrics or training_metrics[key] > value:
+                  logger.error(f"Metric {key} failed. Evaluation not passed!")
+                  return False
+          return True
+
+    args:
+    - --executor_input
+    - {executorInput: null}
+    - --function_to_execute
+    - evaluate

@@ -1,0 +1,84 @@
+name: Inference
+description: Test inference.
+inputs:
+- {name: model_name, type: String}
+- {name: scaler_in, type: Artifact}
+implementation:
+  container:
+    image: python:3.9
+    command:
+    - sh
+    - -c
+    - |2
+
+      if ! [ -x "$(command -v pip)" ]; then
+          python3 -m ensurepip || python3 -m ensurepip --user || apt-get install python3-pip
+      fi
+
+      PIP_DISABLE_PIP_VERSION_CHECK=1 python3 -m pip install --quiet     --no-warn-script-location 'kserve' 'scikit-learn~=1.0.2' 'kfp==1.8.22' && "$0" "$@"
+    - sh
+    - -ec
+    - |
+      program_path=$(mktemp -d)
+      printf "%s" "$0" > "$program_path/ephemeral_component.py"
+      python3 -m kfp.v2.components.executor_main                         --component_module_path                         "$program_path/ephemeral_component.py"                         "$@"
+    - |2+
+
+      import kfp
+      from kfp.v2 import dsl
+      from kfp.v2.dsl import *
+      from typing import *
+
+      def inference(
+          model_name: str,
+          scaler_in: Input[Artifact]
+      ):
+          """
+          Test inference.
+          """
+          from kserve import KServeClient
+          import requests
+          import pickle
+          import logging
+          from kserve import utils
+
+          logging.basicConfig(level=logging.INFO)
+          logger = logging.getLogger(__name__)
+
+          namespace = utils.get_default_target_namespace()
+
+          input_sample = [[5.6, 0.54, 0.04, 1.7, 0.049, 5, 13, 0.9942, 3.72, 0.58, 11.4],
+                          [11.3, 0.34, 0.45, 2, 0.082, 6, 15, 0.9988, 2.94, 0.66, 9.2]]
+
+          logger.info(f"Loading standard scaler from: {scaler_in.path}")
+          with open(scaler_in.path, 'rb') as fp:
+              scaler = pickle.load(fp)
+
+          logger.info(f"Standardizing sample: {scaler_in.path}")
+          input_sample = scaler.transform(input_sample)
+
+          # get inference service
+          KServe = KServeClient()
+
+          # wait for deployment to be ready
+          KServe.get(model_name, namespace=namespace, watch=True, timeout_seconds=120)
+
+          inference_service = KServe.get(model_name, namespace=namespace)
+          print(inference_service)
+          is_url = inference_service['status']['address']['url']
+
+          logger.info(f"\nInference service status:\n{inference_service['status']}")
+          logger.info(f"\nInference service URL:\n{is_url}\n")
+
+          inference_input = {
+                'instances': input_sample.tolist()
+              }
+
+          response = requests.post(is_url, json=inference_input)
+          logger.info(f"\nPrediction response:\n{response.text}\n")
+
+    args:
+    - --executor_input
+    - {executorInput: null}
+    - --function_to_execute
+    - inference

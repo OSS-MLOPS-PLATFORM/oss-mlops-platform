@@ -45,33 +45,24 @@ To set up the platform locally, execute the [`setup.sh`](setup.sh) script. For a
 
 Dive into our demo examples to see the platform in action:
 
-> TODO
+- **Jupyter Notebooks (e2e)**:
 
-[//]: # (- **Jupyter Notebooks**:)
+  - [Demo Wine quality ML pipeline.](tutorials/demo_notebooks/demo_pipeline)
 
-[//]: # (  - Explore ML pipelines related to wine quality analysis.)
+  - [Demo Fairness and energy monitoring pipeline.](tutorials/demo_notebooks/demo_fairness_and_energy_monitoring)
 
-[//]: # (  - Investigate fairness and energy monitoring in ML pipelines.)
 
-[//]: # (  - [Demo Notebooks]&#40;tutorials/demo_notebooks&#41;)
+- **Project Use-Case (e2e)**:
 
-[//]: # ()
-[//]: # (- **Project Use-Case**:)
+  - TODO
 
-[//]: # (  - Examine the RD/IML4E Siemens use-case featuring TTPLA/YOLACT.)
+- **ML tools demos**:
 
-[//]: # (  - [Siemens Use-Case Project]&#40;https://bitbucket.org/siloai/rd-iml4e-ttpla-siemens-usecase/src/master/&#41;)
+    - [Try out MLflow](tutorials/ml_components_demos/try-mlflow)
 
-[//]: # ()
-[//]: # (- **Interactive Tutorials**:)
+    - [Try out Kubeflow Pipelines](tutorials/ml_components_demos/try-kubeflow-pipelines)
 
-[//]: # (  - Get hands-on with MLflow, Kubeflow Pipelines, and KServe through these interactive resources:)
-
-[//]: # (    - [Try out MLflow]&#40;tutorials/resources/try-mlflow&#41;)
-
-[//]: # (    - [Try out Kubeflow Pipelines]&#40;tutorials/resources/try-kubeflow-pipelines&#41;)
-
-[//]: # (    - [Try out Kserve]&#40;tutorials/resources/try-kserve&#41;)
+    - [Try out Kserve](tutorials/ml_components_demos/try-kserve)
 
 ## High-Level Architecture Overview
 
