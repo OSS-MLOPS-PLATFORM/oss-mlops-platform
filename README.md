@@ -80,7 +80,3 @@ The following diagram illustrates the architectural design of the MLOps platform
 - **Kubeflow**: Orchestrates ML workflows.
 - **KServe**: Facilitates model deployment and serving.
 - **Prometheus & Grafana**: Provides monitoring solutions with advanced visualization capabilities.
-
----
-
-By following this guide, you'll be well on your way to leveraging the full potential of the Silo AI MLOps Platform for your machine learning workflows.
