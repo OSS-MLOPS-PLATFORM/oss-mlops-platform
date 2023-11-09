@@ -4,7 +4,6 @@ import pathlib
 import time
 
 import kfp
-import kfp_server_api
 import pytest
 import re
 import requests
@@ -88,7 +87,8 @@ def get_istio_auth_session(url: str, username: str, password: str) -> dict:
             #     path=re.sub(r"/auth$", "/auth/ldap", redirect_url_obj.path)
             # )
 
-        # if we are at `/auth/xxxx/login` path, then no further action is needed (we can use it for login POST)
+        # if we are at `/auth/xxxx/login` path, then no further action is needed
+        # (we can use it for login POST)
         if re.search(r"/auth/.*/login$", redirect_url_obj.path):
             auth_session["dex_login_url"] = redirect_url_obj.geturl()
 
@@ -98,7 +98,8 @@ def get_istio_auth_session(url: str, username: str, password: str) -> dict:
             resp = s.get(redirect_url_obj.geturl(), allow_redirects=True)
             if resp.status_code != 200:
                 raise RuntimeError(
-                    f"HTTP status code '{resp.status_code}' for GET against: {redirect_url_obj.geturl()}"
+                    f"HTTP status code '{resp.status_code}' "
+                    f"for GET against: {redirect_url_obj.geturl()}"
                 )
 
             # set the login url
@@ -119,7 +120,9 @@ def get_istio_auth_session(url: str, username: str, password: str) -> dict:
             )
 
         # store the session cookies in a "key1=value1; key2=value2" string
-        auth_session["session_cookie"] = "; ".join([f"{c.name}={c.value}" for c in s.cookies])
+        auth_session["session_cookie"] = "; ".join(
+            [f"{c.name}={c.value}" for c in s.cookies]
+        )
 
     return auth_session
 
@@ -138,7 +141,8 @@ def run_pipeline(pipeline_file: str, experiment_name: str):
 
             client = kfp.Client(
                 host=f"{KUBEFLOW_ENDPOINT}/pipeline",
-                cookies=auth_session["session_cookie"]
+                cookies=auth_session["session_cookie"],
+                namespace=NAMESPACE,
             )
 
             created_run = client.create_run_from_pipeline_package(
@@ -172,7 +176,7 @@ def run_pipeline(pipeline_file: str, experiment_name: str):
             proc.terminate()
 
 
-def _handle_job_end(run_detail: kfp_server_api.ApiRunDetail):
+def _handle_job_end(run_detail):
     finished_run = run_detail.to_dict()["run"]
 
     created_at = finished_run["created_at"]
@@ -209,3 +213,7 @@ def test_run_pipeline():
 
     # submit and run pipeline
     run_pipeline(pipeline_file=str(PIPELINE_FILE), experiment_name=EXPERIMENT_NAME)
+
+
+if __name__ == "__main__":
+    test_run_pipeline()
