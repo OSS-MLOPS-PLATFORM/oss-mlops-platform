@@ -16,6 +16,7 @@ Welcome to the Silo AI MLOps Platform, a comprehensive suite designed to streaml
 - **Tutorials and Guides**
   - [`tutorials/`](tutorials): A collection of resources to help you understand and utilize the platform effectively.
     - [`local_deployment/`](tutorials/local_deployment): A comprehensive guide for local deployment, including configuration and testing instructions.
+    - [`gcp_deployment/`](tutorials/gcp_deployment): A guide for deployment of the platform to GCP.
     - [`demo_notebooks/`](tutorials/demo_notebooks): A set of Jupyter notebooks showcasing example ML pipelines.
 
 - **Testing Suite**
