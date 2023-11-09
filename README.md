@@ -2,8 +2,7 @@
 
 Welcome to the Silo AI MLOps Platform, a comprehensive suite designed to streamline your machine learning operations from experimentation to deployment.
 
-<img src="resources/img/Silo-logo-dark.png" width="300" style="margin-right: 40px;"> 
-<img src="resources/img/iml4e_full.png" width="140">
+![siloai-iml4e-logos.png](resources/img/siloai-iml4e-logos.png)
 
 ## Overview of Project Structure
 
