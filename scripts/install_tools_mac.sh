@@ -22,13 +22,6 @@ fi
 # INSTALL TOOLS
 #######################################################################################
 
-### Install jq (?) ###
-if ! [[ $(which jq) ]]; then
-    echo "jq not found"
-    echo "Installing jq"
-    brew install jq
-fi
-
 ### Install curl (?) ###
 
 if ! [[ $(which curl) ]]; then

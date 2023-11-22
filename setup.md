@@ -5,7 +5,7 @@ Change the settings in [`config.env`](config.env) if needed.
 Install the experimentation platform with:
 
 ```bash
-./install.sh [--test] [--debug]
+./setup.sh [--test] [--debug]
 ```
 
 - `--test`: Use this flag to run the tests right after installation.

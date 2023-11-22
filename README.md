@@ -54,9 +54,9 @@ Dive into our demo examples to see the platform in action:
   - [Demo Fairness and energy monitoring pipeline.](tutorials/demo_notebooks/demo_fairness_and_energy_monitoring)
 
 
-- **Project Use-Case (e2e)**:
+- **Project Use-Cases (e2e)**:
 
-  - TODO
+  - [Fashion-MNIST MLOPS pipeline](https://bitbucket.org/siloai/iml4e-demo-fmnist-mlops-pipeline/src/main/)
 
 - **ML tools demos**:
 

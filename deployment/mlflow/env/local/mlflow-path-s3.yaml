@@ -23,3 +23,6 @@ spec:
                 secretKeyRef:
                   name: mlflow-secrets
                   key: AWS_SECRET_ACCESS_KEY
+  selector:
+    matchLabels:
+      app: mlflow

@@ -5,15 +5,23 @@ namespace: mlflow
 
 configMapGenerator:
 - name: mlflow-configmap
-  env: config.env
+  envs:
+    - config.env
   behavior: merge
 
 secretGenerator:
 - name: mlflow-secrets
   envs:
-  - secret.env
+    - secret.env
 
-bases:
+# patch mlflow deployment
+patches:
+- path: mlflow-path-s3.yaml
+  target:
+    kind: Deployment
+    name: mlflow
+
+resources:
   - ../../base
   - ../../postgres
   - ../../minio
