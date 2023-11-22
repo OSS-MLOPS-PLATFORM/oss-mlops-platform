@@ -70,11 +70,6 @@ kubectl config use-context kind-$CLUSTER_NAME
 
 while ! kustomize build deployment | kubectl apply -f -; do echo "Retrying to apply resources. Be patient, this might takes a while..."; sleep 10; done
 
-## DEPLOY KSERVE
-#if [ "$INSTALL_KSERVE" = true ]; then
-#  /bin/bash scripts/install_kserve.sh
-#fi
-
 echo
 echo Installation completed!
 echo
