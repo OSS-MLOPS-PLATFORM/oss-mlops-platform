@@ -33,23 +33,19 @@ kubectl config get-contexts
 Render manifests:
 
 ```bash
-kustomize build deployment/kubeflow/manifests/example
+kustomize build deployment/kubeflow/manifests/in-cluster-setup
 ```
 
 See differences to existing deployment:
 
 ```bash
-kustomize build deployment/kubeflow/manifests/example | kubectl diff -f -
+kustomize build deployment/kubeflow/manifests/in-cluster-setup | kubectl diff -f -
 ```
 
 Deploy:
 
 ```bash
-kustomize build deployment/kubeflow/manifests/apps/pipeline/upstream/cluster-scoped-resources | kubectl apply -f -
-```
-
-```bash
-kustomize build deployment/kubeflow/manifests/example | kubectl apply -f -
+kustomize build deployment/kubeflow/manifests/in-cluster-setup | kubectl apply -f -
 ```
 
 > **Deployment will take several minutes.** If you see any errors in the previous
