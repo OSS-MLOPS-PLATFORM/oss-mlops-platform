@@ -52,7 +52,7 @@ To add additional targets for metric scraping you have two options:
   ```
 - **Option 2** - Customize the prometheus configuration
 
-  Customize the scraping [configuration file](../../deployment/monitoring/prometheus/prometheus-config-map.yaml) by adding new jobs and targets.
+  Customize the scraping [configuration file](../../deployment/monitoring/prometheus/prometheus-config-map-ori.yaml) by adding new jobs and targets.
   Please, refer to the [official documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/)
   for detailed instructions.
 
@@ -77,10 +77,10 @@ kubectl apply -k grafana
 To access Grafana dashboard locally, forward a local port with
 
 ```bash
-kubectl port-forward svc/grafana 5000:3000 --namespace monitoring
+kubectl port-forward svc/grafana 3000:3000 --namespace monitoring
 ```
 
-Now it should be reachable at [http://localhost:5000](http://localhost:5000).
+Now it should be reachable at [http://localhost:3000](http://localhost:5000).
 
 When logging in for the first time, the user and password are:
 
