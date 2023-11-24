@@ -2,7 +2,7 @@
 
 [TOC]
 
-## Prerequisites
+## 1. Prerequisites
 
 - [curl](https://curl.se/)
 - [docker](https://docs.docker.com/engine/install/ubuntu/)

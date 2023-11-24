@@ -20,13 +20,13 @@ export ZONE=europe-north1-b
 export CLUSTER_NAME=rd-kubeflow-test
 
 # GKE cluster machine type
-export MACHINE_TYPE="e2-standard-2"
+export MACHINE_TYPE="e2-standard-4"
 
 # Kubeflow pipeline runner Google service accountIAM
 export KFP_SERVICE_ACCOUNT_ID=kubeflow-test-kfp-sa
 
 # max number of nodes
-export MAX_NUMBER_OF_NODES=10
+export MAX_NUMBER_OF_NODES="5"
 ```
 
 ## Create an artifact registry repository
