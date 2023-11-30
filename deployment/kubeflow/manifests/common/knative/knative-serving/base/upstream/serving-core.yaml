@@ -4739,6 +4739,7 @@ metadata:
   annotations:
     knative.dev/example-checksum: "26c09de5"
 data:
+  example.com: ''
   _example: |
     ################################
     #                              #

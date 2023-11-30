@@ -153,7 +153,7 @@ Define the role ID:
 
 ```bash
 
-export KUBEFLOW_USER_ROLE_ID=mlops_kubeflow_user
+export KFP_USER_ROLE_ID=mlops_kfp_user
 
 ```
 
@@ -161,7 +161,7 @@ Create the role:
 
 ```bash
 
-gcloud iam roles create $KUBEFLOW_USER_ROLE_ID --project=$PROJECT_ID --file=mmlops_kubeflow_user.yaml
+gcloud iam roles create $KFP_USER_ROLE_ID --project=$PROJECT_ID --file=mlops_kfp_user.yaml
 
 ```
 
