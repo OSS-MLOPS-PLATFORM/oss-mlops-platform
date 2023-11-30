@@ -6,4 +6,3 @@ resources:
 - grafana-pvc.yaml
 - dashboards-config-map.yaml
 - dashboards-json-config-map.yaml
-- grafana-virtualservice.yaml
