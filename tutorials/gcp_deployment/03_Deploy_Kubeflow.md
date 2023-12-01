@@ -70,6 +70,17 @@ kubectl get pods --all-namespaces
 All pods should be in `Running` state.
 
 
+## Custom Kubeflow resources
+
+In order to run the [demo notebooks](../tutorials/demo_notebooks) and other use-cases, we need to create these two additional resources:
+
+- A secret that MLflow can use to access the storage bucket (MinIO): [aws-secret.yaml](../../deployment/kubeflow-custom/aws-secret.yaml)
+- A service account to allow Kserve to access the storage bucket (MinIO) where the model artifacts are stored: [kserve-sa.yaml](../../deployment/kubeflow-custom/kserve-sa.yaml)
+
+```bash
+kubectl apply -k deployment/kubeflow-custom
+```
+
 ## Access Kubeflow dashboard
 
 Run the following to port-forward Istio's Ingress-Gateway to local port `8080`:

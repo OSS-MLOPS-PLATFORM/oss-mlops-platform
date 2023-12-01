@@ -7,15 +7,13 @@ In this section, we deploy Prometheus and Grafana on the cluster for monitoring.
 Check that your overlay is correct by rendering the Kubernetes resources:
 
 ```bash
-# /deployment
-kubectl kustomize prometheus
+kubectl kustomize deployment/monitoring/prometheus
 ```
 
 Create the stack:
 
 ```bash
-# /deployment
-kubectl apply -k prometheus
+kubectl apply -k deployment/monitoring/prometheus
 ```
 
 ### Access the dashboard (Prometheus)
@@ -61,15 +59,13 @@ To add additional targets for metric scraping you have two options:
 Check that your overlay is correct by rendering the Kubernetes resources:
 
 ```bash
-# deployment/
-kubectl kustomize grafana
+kubectl kustomize deployment/monitoring/grafana
 ```
 
 Create the stack:
 
 ```bash
-# deployment/
-kubectl apply -k grafana
+kubectl apply -k deployment/monitoring/grafana
 ```
 
 ### Access the dashboard (Grafana)
