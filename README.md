@@ -58,14 +58,6 @@ Dive into our demo examples to see the platform in action:
 
   - [Fashion-MNIST MLOPS pipeline](https://bitbucket.org/siloai/iml4e-demo-fmnist-mlops-pipeline/src/main/)
 
-- **ML tools demos**:
-
-    - [Try out MLflow](tutorials/ml_components_demos/try-mlflow)
-
-    - [Try out Kubeflow Pipelines](tutorials/ml_components_demos/try-kubeflow-pipelines)
-
-    - [Try out Kserve](tutorials/ml_components_demos/try-kserve)
-
 ## High-Level Architecture Overview
 
 The following diagram illustrates the architectural design of the MLOps platform:
