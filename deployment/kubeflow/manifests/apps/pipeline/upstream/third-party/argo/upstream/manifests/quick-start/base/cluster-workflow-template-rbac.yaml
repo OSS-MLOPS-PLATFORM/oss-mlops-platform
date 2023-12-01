@@ -2,8 +2,6 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata: # kpt-merge: /argo-server-clusterworkflowtemplate-role
   name: argo-server-clusterworkflowtemplate-role
-  annotations:
-    internal.kpt.dev/upstream-identifier: 'rbac.authorization.k8s.io|ClusterRole|default|argo-server-clusterworkflowtemplate-role'
 rules:
   - apiGroups:
       - argoproj.io
@@ -22,8 +20,6 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata: # kpt-merge: /argo-clusterworkflowtemplate-role
   name: argo-clusterworkflowtemplate-role
-  annotations:
-    internal.kpt.dev/upstream-identifier: 'rbac.authorization.k8s.io|ClusterRole|default|argo-clusterworkflowtemplate-role'
 rules:
   - apiGroups:
       - argoproj.io
@@ -39,8 +35,6 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata: # kpt-merge: /argo-clusterworkflowtemplate-role-binding
   name: argo-clusterworkflowtemplate-role-binding
-  annotations:
-    internal.kpt.dev/upstream-identifier: 'rbac.authorization.k8s.io|ClusterRoleBinding|default|argo-clusterworkflowtemplate-role-binding'
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -54,8 +48,6 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata: # kpt-merge: /argo-server-clusterworkflowtemplate-role-binding
   name: argo-server-clusterworkflowtemplate-role-binding
-  annotations:
-    internal.kpt.dev/upstream-identifier: 'rbac.authorization.k8s.io|ClusterRoleBinding|default|argo-server-clusterworkflowtemplate-role-binding'
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
