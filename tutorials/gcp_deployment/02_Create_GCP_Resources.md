@@ -135,7 +135,7 @@ gcloud artifacts repositories add-iam-policy-binding $REPOSITORY_NAME \
 A custom role is needed for the users to access Kubeflow the different services. Create the following YAML file and name it, for example, as `mlops-kfp-user.yaml`:
 
 ```yaml
-title: mlops-kfp-user
+title: mlops_kfp_user
 description: Has access to retrieve GKE cluster credentials and port-forward to any service (including Kubeflow API) on GKE
 stage: alpha
 includedPermissions:
