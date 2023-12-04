@@ -1,7 +1,5 @@
 <h1>Deployment</h1>
 
-[TOC]
-
 ## 1. Prerequisites
 
 - [curl](https://curl.se/)
