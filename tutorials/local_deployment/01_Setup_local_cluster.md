@@ -2,8 +2,6 @@
 
 Set up a local kubernetes cluster with [Kind](https://kind.sigs.k8s.io/).
 
-[TOC]
-
 ### 1. Install kubectl
 
 ```bash

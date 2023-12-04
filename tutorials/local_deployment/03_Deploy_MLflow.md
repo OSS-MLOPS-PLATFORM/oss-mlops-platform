@@ -9,8 +9,6 @@ MinIO is a High Performance Object Storage native to Kubernetes and API compatib
 
 MLflow also requires an SQL database as backend store. This deployment uses an in-cluster PostgreSQL database for that purpose.
 
-[TOC]
-
 ## Pre-requisites
 
 - [1_Setup_local_cluster.md](1_Setup_local_cluster.md)

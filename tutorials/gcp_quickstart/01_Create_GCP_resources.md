@@ -1,7 +1,5 @@
 <h1>Create Google Cloud resources</h1>
 
-[TOC]
-
 ## Set environment variables
 
 ```bash

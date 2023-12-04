@@ -1,7 +1,5 @@
 <h1>Deploy Kubeflow Pipelines (KFP)</h1>
 
-[TOC]
-
 ## Pre-requisites
 
 - [1_Setup_local_cluster.md](1_Setup_local_cluster.md)
