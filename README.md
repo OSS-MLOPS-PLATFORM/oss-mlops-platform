@@ -56,7 +56,7 @@ Dive into our demo examples to see the platform in action:
 
 - **Project Use-Cases (e2e)**:
 
-  - [Fashion-MNIST MLOPS pipeline](https://bitbucket.org/siloai/iml4e-demo-fmnist-mlops-pipeline/src/main/)
+  - [Fashion-MNIST MLOPS pipeline](https://github.com/OSS-MLOPS-PLATFORM/demo-fmnist-mlops-pipeline)
 
 ## High-Level Architecture Overview
 
