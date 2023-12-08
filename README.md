@@ -74,3 +74,15 @@ The following diagram illustrates the architectural design of the MLOps platform
 - **Kubeflow**: Orchestrates ML workflows.
 - **KServe**: Facilitates model deployment and serving.
 - **Prometheus & Grafana**: Provides monitoring solutions with advanced visualization capabilities.
+
+## Support & Feedback
+
+Slack channel [#oss-mlops-platform-support](https://siloai-internal.slack.com/archives/C069M1PD9A5)
+can be used for issues, support requests or just discussing feedback.
+Alternatively, feel free to use GitHub Issues for bugs, tasks or ideas to be discussed.
+
+Contact people:
+
+Harry Souris - harry.souris@silo.ai
+
+Joaquin Rives - joaquin.rives@silo.ai
