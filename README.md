@@ -77,8 +77,8 @@ The following diagram illustrates the architectural design of the MLOps platform
 
 ## Support & Feedback
 
-Slack channel [#oss-mlops-platform-support](https://siloai-internal.slack.com/archives/C069M1PD9A5)
-can be used for issues, support requests or just discussing feedback.
+Join our Slack [oss-mlops-platform-support](https://join.slack.com/t/oss-mlops-platform/shared_invite/zt-28m00bllw-0zl2cuKILh6oa2dIwDN_DQ)
+workspace for issues, support requests or just discussing feedback.
 Alternatively, feel free to use GitHub Issues for bugs, tasks or ideas to be discussed.
 
 Contact people:
