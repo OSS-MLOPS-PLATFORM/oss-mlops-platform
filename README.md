@@ -1,6 +1,6 @@
-# Silo AI MLOps Platform
+# OSS MLOps Platform
 
-Welcome to the Silo AI MLOps Platform, a comprehensive suite designed to streamline your machine learning operations from experimentation to deployment.
+Welcome to the OSS MLOps Platform, a comprehensive suite designed to streamline your machine learning operations from experimentation to deployment.
 
 ![siloai-iml4e-logos.png](resources/img/siloai-iml4e-logos.png)
 
