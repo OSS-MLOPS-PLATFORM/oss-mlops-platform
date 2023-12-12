@@ -2,7 +2,7 @@
 
 Welcome to the OSS MLOps Platform, a comprehensive suite designed to streamline your machine learning operations from experimentation to deployment.
 
-![siloai-iml4e-logos.png](resources/img/siloai-iml4e-logos.png)
+![logos.png](resources/img/logos.png)
 
 ## Overview of Project Structure
 
