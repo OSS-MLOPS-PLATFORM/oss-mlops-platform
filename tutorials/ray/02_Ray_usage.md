@@ -7,6 +7,7 @@
     - [1.3 Run a Ray job](#33-run-a-ray-job)
   - [2. Access Ray dashboard](#4-access-ray-dashboard)
   - [3. Connect to Ray cluster (via local machine)](#5-connect-to-ray-cluster-from-local-machine)
+  - [4. Environment Dependencies](#6-environment-dependencies)
 
 ## 1. Connect to Ray and run a job (via Kubeflow)
 
@@ -119,3 +120,30 @@ import ray
 ray.init(address="ray://localhost:10001")
 print(ray.cluster_resources())
 ```
+
+## 4. Environment Dependencies
+
+Your Ray application may have dependencies that exist outside of your Ray script. For example:
+
+- Your Ray script may import/depend on some Python packages.
+
+- Your Ray script may be looking for some specific environment variables to be available.
+
+- Your Ray script may import some files outside of the script.
+
+To address this problem, you can (1) prepare your dependencies on the cluster in advance
+(e.g. using a container image) using the Ray Cluster Launcher, or (2) use Ray’s runtime environments to install them on the fly.
+
+```python
+# e.g. runtime environments
+import ray
+
+runtime_env = {
+    "pip": ["matplotlib==3.8.2"],
+    # "env_vars": {"TF_WARNINGS": "none"},
+    # "working_dir": "/some/path",
+}
+ray.init(runtime_env=runtime_env)
+```
+
+For more details, see [Ray environment-dependencies](https://docs.ray.io/en/latest/ray-core/handling-dependencies.html#environment-dependencies).
