@@ -39,4 +39,12 @@ kubectl get pod -l ray.io/cluster=raycluster-kuberay
 # raycluster-kuberay-worker-workergroup-8gr5q   1/1     Running   0          63s
 ```
 
+To customize the Ray cluster (e.g. number of worker Pods), you can modify the default Helm values:
+
+```bash
+helm show values kuberay/ray-cluster > values.yaml
+# Modify the values.yaml, then install the Ray cluster with the customized values.
+helm install raycluster kuberay/ray-cluster -f values.yaml --version 1.0.0 --set image.tag=2.2.0-py38-cpu
+```
+
 For more details, please refer to Ray-Kubeflow [documentation](https://docs.ray.io/en/latest/cluster/kubernetes/k8s-ecosystem/kubeflow.html).
