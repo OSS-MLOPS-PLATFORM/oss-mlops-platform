@@ -19,6 +19,7 @@ Welcome to the OSS MLOps Platform, a comprehensive suite designed to streamline 
     - [`gcp_quickstart/`](tutorials/gcp_quickstart): A guide for a quickstart deployment of the platform to GCP.
     - [`gcp_deployment/`](tutorials/gcp_deployment): A guide for a production-ready deployment of the platform to GCP.
     - [`demo_notebooks/`](tutorials/demo_notebooks): A set of Jupyter notebooks showcasing example ML pipelines.
+    - [`ray/`](tutorials/ray): A guide for setting up and using [Ray](https://docs.ray.io/en/latest/index.html).
 
 - **Testing Suite**
   - [`tests/`](tests): A suite of tests designed to ensure the platform's integrity post-deployment.
@@ -52,6 +53,8 @@ Dive into our demo examples to see the platform in action:
   - [Demo Wine quality ML pipeline.](tutorials/demo_notebooks/demo_pipeline)
 
   - [Demo Fairness and energy monitoring pipeline.](tutorials/demo_notebooks/demo_fairness_and_energy_monitoring)
+  
+  - [Demo Ray-Kubeflow pipeline.](tutorials/ray/notebooks/ray_kubeflow.ipynb)
 
 
 - **Project Use-Cases (e2e)**:

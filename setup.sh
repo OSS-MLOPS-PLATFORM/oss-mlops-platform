@@ -70,6 +70,13 @@ kubectl config use-context kind-$CLUSTER_NAME
 
 while ! kustomize build deployment | kubectl apply -f -; do echo "Retrying to apply resources. Be patient, this might takes a while..."; sleep 10; done
 
+# DEPLOY RAY
+if [ "$INSTALL_RAY" = true ]; then
+  echo "Installing Ray"
+  /bin/bash scripts/install_helm.sh
+  /bin/bash scripts/install_ray.sh
+fi
+
 echo
 echo Installation completed!
 echo
