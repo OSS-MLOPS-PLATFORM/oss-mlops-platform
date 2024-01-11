@@ -53,6 +53,8 @@ Dive into our demo examples to see the platform in action:
   - [Demo Wine quality ML pipeline.](tutorials/demo_notebooks/demo_pipeline)
 
   - [Demo Fairness and energy monitoring pipeline.](tutorials/demo_notebooks/demo_fairness_and_energy_monitoring)
+  
+  - [Demo Ray-Kubeflow pipeline.](tutorials/ray/notebooks/ray_kubeflow.ipynb)
 
 
 - **Project Use-Cases (e2e)**:
