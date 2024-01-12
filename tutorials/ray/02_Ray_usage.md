@@ -35,11 +35,8 @@ Open a terminal in the JupyterLab:
 python --version 
 # Python 3.8.10
 
-# Install Ray 2.2.0
-pip install -U ray[default]==2.2.0
-
-# Downgrade pydantic to a version < 2.0.0 compatible with Ray 2.2.0
-pip install "pydantic<2"
+# Install Ray 2.9.0
+pip install -U ray[client]==2.9.0
 ```
 
 Open a new Python notebook and run the following code:
@@ -99,13 +96,13 @@ Go to http://localhost:8265/ and you should see the Ray dashboard.
 
 ## 3. Connect to Ray cluster from local machine
 
-> The version of the Ray client must match the version of the Ray cluster (2.2.0).
+> The version of the Ray client must match or be compatible the version of the Ray cluster (2.9.0).
+> Ray is also sensitive to the Python version, so make sure the Python version of the Ray client matches the Python version of the Ray cluster.
 
 ```bash
 conda create -n ray-env python=3.8.10
 conda activate ray-env
-pip install ray==2.2.0
-pip install "pydantic<2"
+pip install "ray[default]"==2.9.0
 ```
 
 Run a port forwarding to the Ray head service:
