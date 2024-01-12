@@ -35,3 +35,4 @@ In summary, Ray is a powerful framework for building complex, high-performance, 
 - [Ray basic 1](./notebooks/ray_basic_1.ipynb)
 - [Ray basic 2](./notebooks/ray_basic_2.ipynb)
 - [Ray-Kubeflow](./notebooks/ray_kubeflow.ipynb)
+- [Ray Train](ray_train/README.md)
