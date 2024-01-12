@@ -13,3 +13,4 @@ kubectl wait --for=condition=available --timeout=600s deployment/kuberay-operato
 
 # Install KubeRay cluster
 helm install raycluster kuberay/ray-cluster --version 1.0.0 --set image.tag=2.7.0
+
