@@ -26,6 +26,17 @@ fi
 
 ### Install kubectl (?) ###
 
+function add_local_bin_to_path {
+  # make sure ~/.local/bin is in $PATH
+  BASE=~
+  if [[ ":$PATH:" != *:${BASE}/.local/bin:* ]]; then
+    echo 'Adding ~/.local/bin to $PATH in ~/.profile)'
+    echo "" >> ~/.profile
+    echo 'PATH="$HOME/.local/bin:$PATH"' >> ~/.profile
+    source ~/.profile
+  fi
+}
+
 RECOMMENDED_KUBECTL_VERSION="v1.28.2"
 RECOMMENDED_MAJOR=$(echo $RECOMMENDED_KUBECTL_VERSION | cut -d'v' -f 2 | cut -d'.' -f 1)
 RECOMMENDED_MINOR=$(echo $RECOMMENDED_KUBECTL_VERSION | cut -d'.' -f 2)
@@ -36,16 +47,7 @@ function install_kubectl {
   chmod +x kubectl
   mkdir -p ~/.local/bin
   mv ./kubectl ~/.local/bin/kubectl
-
-  # make sure ~/.local/bin is in $PATH
-  BASE=~
-  if [[ ":$PATH:" != *:${BASE}/.local/bin:* ]]; then
-    echo 'Adding ~/.local/bin to $PATH in ~/.profile)'
-    echo "" >> ~/.profile
-    echo 'PATH="$HOME/.local/bin:$PATH"' >> ~/.profile
-    source ~/.profile
-  fi
-
+  add_local_bin_to_path
   kubectl version --client
 }
 
@@ -85,6 +87,7 @@ function install_kustomize {
   chmod +x kustomize
   mkdir -p ~/.local/bin
   mv ./kustomize ~/.local/bin/kustomize
+  add_local_bin_to_path
   kustomize version
 }
 
