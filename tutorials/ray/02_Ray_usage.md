@@ -35,16 +35,8 @@ Open a terminal in the JupyterLab:
 python --version 
 # Python 3.8.10
 
-<<<<<<< HEAD
 # Install Ray 2.9.0
 pip install -U ray[client]==2.9.0
-=======
-# Install Ray 2.2.0
-pip install -U ray[default]==2.2.0
-
-# Downgrade pydantic to a version < 2.0.0 compatible with Ray 2.2.0
-pip install "pydantic<2"
->>>>>>> 9db8dceec6475de7185f4ea75440dc937e9293c7
 ```
 
 Open a new Python notebook and run the following code:
