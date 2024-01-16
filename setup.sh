@@ -43,6 +43,33 @@ if [[ DISK_SPACE < $RECOMMENDED_DISK_SPACE ]]; then
       done
 fi
 
+# CHECK CPU COUNT
+RECOMMENDED_CPUS=16
+
+# Detect the OS
+OS=$(uname)
+
+if [ "$OS" = "Darwin" ]; then
+    # For macOS
+    CPU_COUNT=$(sysctl -n hw.ncpu)
+else
+    # For Linux
+    CPU_COUNT=$(nproc)
+fi
+
+if [[ $CPU_COUNT -lt $RECOMMENDED_CPUS ]]; then
+    echo "WARNING: Not enough CPU cores detected!"
+    echo "The recommended is >= ${RECOMMENDED_CPUS} CPU cores. You have ${CPU_COUNT} cores."
+    while true; do
+        read -p "Do you want to continue with the installation? (y/n): " yn
+        case $yn in
+            [Yy]* ) break;;
+            [Nn]* ) exit 1;;
+            * ) echo "Please answer yes or no.";;
+        esac
+    done
+fi
+
 # INSTALL TOOLS
 if [[ "$(uname)" == "Darwin" ]]; then
   bash scripts/install_tools_mac.sh  # Using default bash because /bin/bash is an old version (3)
