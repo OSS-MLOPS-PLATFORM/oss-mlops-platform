@@ -30,7 +30,7 @@ kubectl get pods
 ```bash
 # Create a RayCluster CR, and the KubeRay operator will reconcile a Ray cluster
 # with 1 head Pod and 1 worker Pod.
-helm install raycluster kuberay/ray-cluster --version 1.0.0 --set image.tag=2.2.0-py38-cpu
+helm install raycluster kuberay/ray-cluster --version 1.0.0 --set image.tag=2.7.0
 
 # Check RayCluster
 kubectl get pod -l ray.io/cluster=raycluster-kuberay
@@ -44,7 +44,7 @@ To customize the Ray cluster (e.g. number of worker Pods), you can modify the de
 ```bash
 helm show values kuberay/ray-cluster > values.yaml
 # Modify the values.yaml, then install the Ray cluster with the customized values.
-helm install raycluster kuberay/ray-cluster -f values.yaml --version 1.0.0 --set image.tag=2.2.0-py38-cpu
+helm install raycluster kuberay/ray-cluster -f values.yaml --version 1.0.0 --set image.tag=2.7.0
 ```
 
 For more details, please refer to Ray-Kubeflow [documentation](https://docs.ray.io/en/latest/cluster/kubernetes/k8s-ecosystem/kubeflow.html).

@@ -35,11 +35,8 @@ Open a terminal in the JupyterLab:
 python --version 
 # Python 3.8.10
 
-# Install Ray 2.2.0
-pip install -U ray[default]==2.2.0
-
-# Downgrade pydantic to a version < 2.0.0 compatible with Ray 2.2.0
-pip install "pydantic<2"
+# Install Ray 2.9.0
+pip install -U ray[client]==2.9.0
 ```
 
 Open a new Python notebook and run the following code:
@@ -99,13 +96,13 @@ Go to http://localhost:8265/ and you should see the Ray dashboard.
 
 ## 3. Connect to Ray cluster from local machine
 
-> The version of the Ray client must match the version of the Ray cluster (2.2.0).
+> The version of the Ray client must match or be compatible the version of the Ray cluster (2.9.0).
+> Ray is also sensitive to the Python version, so make sure the Python version of the Ray client matches the Python version of the Ray cluster.
 
 ```bash
 conda create -n ray-env python=3.8.10
 conda activate ray-env
-pip install ray==2.2.0
-pip install "pydantic<2"
+pip install "ray[client]"==2.9.0
 ```
 
 Run a port forwarding to the Ray head service:
@@ -123,13 +120,13 @@ print(ray.cluster_resources())
 
 ## 4. Environment Dependencies
 
-Your Ray application may have dependencies that exist outside of your Ray script. For example:
+Your Ray application may have dependencies that exist outside your Ray script. For example:
 
 - Your Ray script may import/depend on some Python packages.
 
 - Your Ray script may be looking for some specific environment variables to be available.
 
-- Your Ray script may import some files outside of the script.
+- Your Ray script may import some files outside the script.
 
 To address this problem, you can (1) prepare your dependencies on the cluster in advance
 (e.g. using a container image) using the Ray Cluster Launcher, or (2) use Ray’s runtime environments to install them on the fly.
