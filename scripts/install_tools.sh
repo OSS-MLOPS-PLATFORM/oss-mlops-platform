@@ -79,11 +79,11 @@ fi
 
 ### Install Kustomize (?)
 
-MINIMUM_VERSION_MAJOR=5
+RECOMMENDED_VERSION_MAJOR=5
 
 function install_kustomize {
   echo "Installing kustomize"
-  curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
+  curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash -s -- 5.2.1
   chmod +x kustomize
   mkdir -p ~/.local/bin
   mv ./kustomize ~/.local/bin/kustomize
@@ -100,10 +100,10 @@ if ! [[ $(which kustomize) ]]; then
     KUSTOMIZE_VERSION=$(kustomize version)
     VERSION_MAJOR=$(echo $KUSTOMIZE_VERSION | cut -d'v' -f 2 | cut -d'.' -f 1)
 
-    if [[ $VERSION_MAJOR < $MINIMUM_VERSION_MAJOR ]] ; then
+    if [[ $VERSION_MAJOR != $RECOMMENDED_VERSION_MAJOR ]] ; then
 
       echo
-      echo "The minimum compatible version is $MINIMUM_VERSION_MAJOR, your is $VERSION_MAJOR"
+      echo "The recommended version is $RECOMMENDED_VERSION_MAJOR.x.x, your is $VERSION_MAJOR.x.x"
       while true; do
         read -p "Do you wish to install a newer kustomize version? (y/n): " yn
         case $yn in
