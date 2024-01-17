@@ -58,7 +58,7 @@ print(ray.cluster_resources())
 # cell 3
 
 # Try Ray task
-@ray.remote
+@ray.remote(num_cpus=1)
 def f(x):
     return x * x
 
@@ -70,7 +70,7 @@ print(ray.get(futures)) # [0, 1, 4, 9]
 # cell 4
 
 # Try Ray actor
-@ray.remote
+@ray.remote(num_cpus=1)
 class Counter(object):
     def __init__(self):
         self.n = 0
