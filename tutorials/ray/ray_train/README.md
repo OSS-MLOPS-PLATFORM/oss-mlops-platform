@@ -110,5 +110,5 @@ Connect to the cluster head node and run the script:
 $ kubectl exec -it raycluster-kuberay-head-gdrz6 -- bash
 
 # run the script
-ray@raycluster-kuberay-head-gdrz6:~$ python pytorch_training_e2e.py
+ray@raycluster-kuberay-head-gdrz6:~$ python pytorch_training_e2e.py --data-size-gb=1 --num-epochs=2 --num-workers=1 --smoke-test
 ```
