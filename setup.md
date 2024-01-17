@@ -1,5 +1,7 @@
 ## Installation
 
+> Supported OS: Linux, macOS.
+
 Change the settings in [`config.env`](config.env) if needed.
 
 Install the experimentation platform with:
