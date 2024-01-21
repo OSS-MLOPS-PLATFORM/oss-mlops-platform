@@ -95,7 +95,25 @@ fi
 # DEPLOY STACK
 kubectl config use-context kind-$CLUSTER_NAME
 
-while ! kustomize build deployment | kubectl apply -f -; do echo "Retrying to apply resources. Be patient, this might takes a while..."; sleep 10; done
+for subdir in deployment/*; do
+  if [ -d "$subdir" ]; then
+    echo "Processing directory: $subdir"
+    
+    # Run kustomize build on the current subdirectory
+    output=$(kustomize build "$subdir" 2>&1)
+
+    # Check for errors in the output
+    if [ $? -eq 0 ]; then
+      echo "SUCCESSFULLY processed directory: $subdir"
+      echo "$output" | kubectl apply -f -
+    else
+      # Exit the script
+      echo "ERROR processing directory: $subdir"
+      echo "$output"
+    fi
+    echo "----------------------"
+  fi
+done
 
 # DEPLOY RAY
 if [ "$INSTALL_RAY" = true ]; then
