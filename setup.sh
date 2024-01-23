@@ -95,7 +95,27 @@ fi
 # DEPLOY STACK
 kubectl config use-context kind-$CLUSTER_NAME
 
-while ! kustomize build deployment | kubectl apply -f -; do echo "Retrying to apply resources. Be patient, this might takes a while..."; sleep 10; done
+while true; do
+    # Create a temporary file
+    tmpfile=$(mktemp)
+
+    # Run kustomize build and capture its output in the temporary file
+    if kustomize build deployment > "$tmpfile"; then
+        # If kustomize build succeeds, apply the configuration
+        if kubectl apply -f "$tmpfile"; then
+            echo "Resources successfully applied."
+            rm "$tmpfile"  # Remove temporary file
+            break
+        else
+            echo "Retrying to apply resources. Be patient, this might take a while..."
+            sleep 10
+        fi
+    else
+        echo "kustomize build failed, exiting..."
+        rm "$tmpfile"  # Remove temporary file
+        exit 1
+    fi
+done
 
 # DEPLOY RAY
 if [ "$INSTALL_RAY" = true ]; then
