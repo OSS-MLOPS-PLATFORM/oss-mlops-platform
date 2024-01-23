@@ -71,7 +71,16 @@ This is not an error, and it is expected. Some of the things being deployed depe
 For example, the namespace `kubeflow-user-example-com` is created by a `kubeflow` component. That's why we deploy in a loop until everything is applied successfully:
 
 ```bash
-while ! kustomize build deployment | kubectl apply -f -; do echo "Retrying to apply resources. Be patient, this might takes a while..."; sleep 10; done
+while true; do
+  if kubectl apply -f "$tmpfile"; then
+      echo "Resources successfully applied."
+      rm "$tmpfile"
+      break
+  else
+      echo "Retrying to apply resources. Be patient, this might take a while..."
+      sleep 10
+  fi
+done
 ```
 
 Once the main `kubeflow` deployment is ready, the `kubeflow-user-example-com` namespace will be created, and the command should finish successfully.
