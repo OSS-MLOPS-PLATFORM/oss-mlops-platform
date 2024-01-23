@@ -84,7 +84,7 @@ kubectl get pods --all-namespaces
 
 Everything should be either in `Running` state, or being deployed (`ContainerCreating`). If there is an error, you will see it in the `STATUS` column.
 
-IF there is an error, you can check the logs of the pod with:
+If there is an error, you can check the logs of the pod with:
 
 ```bash
 kubectl logs -n [NAMESPACE] [POD_NAME]
