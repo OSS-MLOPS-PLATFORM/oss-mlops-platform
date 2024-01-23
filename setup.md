@@ -22,15 +22,18 @@ the following script to make sure the deployment is ready and all resource are r
 correctly.
 
 ```bash
+# install test requirements
+pip install -r tests/requirements-tests.txt
+```
+
+```bash
+# wait for the deployment to be ready
 python tests/wait_deployment_ready.py --timeout 30
 ```
 
 Run the tests with:
 
 ```bash
-# install test requirements
-pip install -r tests/requirements-tests.txt
-# run tests
 pytest tests/ [-vrP] [--log-cli-level=INFO]
 ```
 
