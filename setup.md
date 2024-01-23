@@ -62,3 +62,30 @@ CONTAINER ID   IMAGE        COMMAND                  CREATED        STATUS      
 # delete it
 docker rm -f $(docker ps -aqf "name=kind-registry")
 ```
+
+## Troubleshooting
+
+### Error: namespace "kubeflow-user-example-com not found
+
+This is not an error, and it is expected. Some of the things being deployed depend on other components, which need to be deployed and become ready first.
+For example, the namespace `kubeflow-user-example-com` is created by a `kubeflow` component. That's why we deploy in a loop until everything is applied successfully:
+
+```bash
+while ! kustomize build deployment | kubectl apply -f -; do echo "Retrying to apply resources. Be patient, this might takes a while..."; sleep 10; done
+```
+
+Once the main `kubeflow` deployment is ready, the `kubeflow-user-example-com` namespace will be created, and the command should finish successfully.
+
+However, if there is an underlying issue, the loop might never finish. In this case, you can check the status of the deployment with:
+
+```bash
+kubectl get pods --all-namespaces
+```
+
+Everything should be either in `Running` state, or being deployed (`ContainerCreating`). If there is an error, you will see it in the `STATUS` column.
+
+IF there is an error, you can check the logs of the pod with:
+
+```bash
+kubectl logs -n [NAMESPACE] [POD_NAME]
+```
