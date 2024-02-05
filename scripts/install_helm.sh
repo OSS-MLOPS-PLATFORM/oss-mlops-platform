@@ -2,6 +2,17 @@
 
 set -xeo pipefail
 
+function add_local_bin_to_path {
+  # make sure ~/.local/bin is in $PATH
+  BASE=~
+  if [[ ":$PATH:" != *${BASE}/.local/bin* ]]; then
+    echo 'Adding ~/.local/bin to $PATH in ~/.profile)'
+    echo "" >> ~/.profile
+    echo 'PATH="$HOME/.local/bin:$PATH"' >> ~/.profile
+    source ~/.profile
+  fi
+}
+
 ### Install helm (?) ###
 if ! [[ $(which helm) ]]; then
   echo "helm not found"
@@ -40,7 +51,10 @@ if ! [[ $(which helm) ]]; then
 
   # Move Helm to a system path
   chmod +x ${TAR_FOLDER}/helm
-  mv ${TAR_FOLDER}/helm /usr/local/bin/helm
+  mkdir -p ~/.local/bin
+  mv ${TAR_FOLDER}/helm ~/.local/bin/helm
+  add_local_bin_to_path
+  helm version
 
   # Clean up
   rm -rf ${TAR_FOLDER}

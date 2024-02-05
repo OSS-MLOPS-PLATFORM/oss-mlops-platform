@@ -29,7 +29,7 @@ fi
 function add_local_bin_to_path {
   # make sure ~/.local/bin is in $PATH
   BASE=~
-  if [[ ":$PATH:" != *:${BASE}/.local/bin:* ]]; then
+  if [[ ":$PATH:" != *${BASE}/.local/bin* ]]; then
     echo 'Adding ~/.local/bin to $PATH in ~/.profile)'
     echo "" >> ~/.profile
     echo 'PATH="$HOME/.local/bin:$PATH"' >> ~/.profile
@@ -123,7 +123,10 @@ if ! [[ $(which kind) ]]; then
     echo "Installing kind"
     curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.14.0/kind-linux-amd64
     chmod +x ./kind
-    sudo mv ./kind /usr/local/bin/kind
+    mkdir -p ~/.local/bin
+    mv ./kind ~/.local/bin/kind
+    add_local_bin_to_path
+    kind version
 fi
 
 echo Done!
