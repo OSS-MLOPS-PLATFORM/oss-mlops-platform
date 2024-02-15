@@ -2,10 +2,8 @@
 
 ## 1. Prerequisites
 
-- [curl](https://curl.se/)
-- [docker](https://docs.docker.com/engine/install/ubuntu/)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)
-- [kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
+- [kustomize](https://kubectl.docs.kubernetes.io/installation/kustomize/)
 
 ## 2. Deploy the stack
 
