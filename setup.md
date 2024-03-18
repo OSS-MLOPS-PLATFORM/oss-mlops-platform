@@ -1,6 +1,6 @@
 ## Installation
 
-> Supported OS: Linux.
+> Supported OS: Linux, macOS.
 
 Change the settings in [`config.env`](config.env) if needed.
 
