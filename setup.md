@@ -65,7 +65,7 @@ docker rm -f $(docker ps -aqf "name=kind-registry")
 
 ## Troubleshooting
 
-### Error: namespace "kubeflow-user-example-com not found
+### Error: namespace "kubeflow-user-example-com" not found
 
 This is not an error, and it is expected. Some of the things being deployed depend on other components, which need to be deployed and become ready first.
 For example, the namespace `kubeflow-user-example-com` is created by a `kubeflow` component. That's why we deploy in a loop until everything is applied successfully:
