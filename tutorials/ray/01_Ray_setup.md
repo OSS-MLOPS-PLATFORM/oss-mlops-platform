@@ -10,6 +10,15 @@
   - [4. Access Ray dashboard](#4-access-ray-dashboard)
   - [5. Connect to Ray cluster from local machine](#5-connect-to-ray-cluster-from-local-machine)
 
+## Prerequisites
+
+- [Helm](https://helm.sh/)
+
+    ```bash
+    # you can use the install_helm.sh script to install Helm if you haven't already
+    bash scripts/install_helm.sh
+    ```
+
 ## 1. Install KubeRay operator
 
 ```bash
