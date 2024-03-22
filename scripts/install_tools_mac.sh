@@ -69,8 +69,15 @@ if ! [[ $(which kubectl) ]]; then
     echo "kubectl not found"
     install_kubectl
 else
-    # Check if kubectl version is the recommended one
-    CURRENT_KUBECTL_VERSION=$(kubectl version --client | grep -oE '(GitVersion:)[^ ]*' | cut -f 2 -d'"')
+    # Try to fetch and parse kubectl client version
+    KUBECTL_VERSION_OUTPUT=$(kubectl version --client=true --output=yaml)
+    if [[ $? -ne 0 ]]; then
+        echo "Failed to get kubectl version"
+        echo "Output was: $KUBECTL_VERSION_OUTPUT"
+        exit 1
+    fi
+
+    CURRENT_KUBECTL_VERSION=$(echo "$KUBECTL_VERSION_OUTPUT" | grep -oE 'gitVersion: v[0-9]+\.[0-9]+\.[0-9]+' | cut -d' ' -f2)
     CURRENT_MAJOR=$(echo "$CURRENT_KUBECTL_VERSION" | cut -d'v' -f 2 | cut -d'.' -f 1)
     CURRENT_MINOR=$(echo "$CURRENT_KUBECTL_VERSION" | cut -d'.' -f 2)
 
@@ -85,7 +92,6 @@ else
             * ) echo "Please answer yes or no.";;
         esac
       done
-
     fi
 fi
 
@@ -95,6 +101,16 @@ if ! [[ $(which kind) ]]; then
     echo "kind not found"
     echo "Installing kind"
     brew install kind
+fi
+
+### Install Kustomize ###
+
+if ! [[ $(which kustomize) ]]; then
+    echo "kustomize not found"
+    echo "Installing kustomize"
+    brew install kustomize
+else
+    echo "Kustomize is already installed."
 fi
 
 echo Done!

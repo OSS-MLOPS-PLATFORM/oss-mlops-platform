@@ -24,6 +24,22 @@ Welcome to the OSS MLOps Platform, a comprehensive suite designed to streamline 
 - **Testing Suite**
   - [`tests/`](tests): A suite of tests designed to ensure the platform's integrity post-deployment.
 
+
+## Special Instructions for Mac Users
+
+> **Important Notice for Mac Users:** Ensure Docker Desktop is installed on your machine, not Rancher Desktop, to avoid conflicts during the `kubectl` installation process.
+If Rancher Desktop was previously installed, please uninstall it and switch to Docker Desktop. Update your Docker context with the following command:
+
+```bash
+docker context use default
+```
+
+Additionally, confirm that Xcode is installed correctly to prevent potential issues:
+
+```bash
+xcode-select --install
+```
+
 ## Getting Started with a local setup
 
 To set up the platform locally, execute the [`setup.sh`](setup.sh) script. For a concise setup overview, refer to the [setup guide](setup.md), or for a more detailed approach, consult the [manual setup instructions](tutorials/local_deployment).
