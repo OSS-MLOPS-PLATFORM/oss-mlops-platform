@@ -6,7 +6,7 @@
 
 ## 1. Prepare `kubectl` context
 
-Check your current context in `kubectl` and make sure it is pointing to the target cluster we created in the previous tutorial (`kind-kind-ep`). 
+Check your current context in `kubectl` and make sure it is pointing to the target cluster we created in the previous tutorial (`kind-mlops-platform`). 
 
 ```bash
 # check current context
@@ -16,7 +16,7 @@ kubectl config current-context
 Switch `kubectl` to the right context by modifying the variables if necessary:
 
 ```bash
-kubectl config use-context kind-kind-ep
+kubectl config use-context kind-mlops-platform
 ```
 
 You can also list all the available contexts with:

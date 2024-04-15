@@ -21,7 +21,7 @@ sudo mv ./kind /usr/local/bin/kind
 ### 3. Create a cluster
 
 ```bash
-export CLUSTER_NAME="kind-ep"
+export CLUSTER_NAME="mlops-platform"
 export HOST_IP="127.0.0.1"  # cluster IP address
 
 cat <<EOF | kind create cluster --name $CLUSTER_NAME --image=kindest/node:v1.24.0 --config=-

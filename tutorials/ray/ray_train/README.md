@@ -31,7 +31,7 @@ After that, you might still need to change the permissions of the shared volume 
 
 ```bash
 # get the name of the Ray head pod
-$ kubectl get pods -n default | grep ray-head                                                                                                                                                  ✔  ray   kind-kind-ep ⎈  FI  
+$ kubectl get pods -n default | grep ray-head
 raycluster-kuberay-head-gdrz6   1/1     Running   0     94m
 
 # Change the permission of the shared nfs volume
