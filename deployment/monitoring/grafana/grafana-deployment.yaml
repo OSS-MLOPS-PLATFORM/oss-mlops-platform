@@ -28,7 +28,7 @@ spec:
             cpu: "1000m"
           requests: 
             memory: 500M
-            cpu: "500m"
+            cpu: "250m"
         volumeMounts:
           - mountPath: /var/lib/grafana
             name: grafana-storage

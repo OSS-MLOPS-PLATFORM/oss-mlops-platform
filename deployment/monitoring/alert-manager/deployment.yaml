@@ -25,7 +25,7 @@ spec:
           containerPort: 9093
         resources:
             requests:
-              cpu: 500m
+              cpu: 250m
               memory: 500M
             limits:
               cpu: 1
