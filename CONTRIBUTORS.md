@@ -2,7 +2,7 @@
 
 This file lists all the individuals who have contributed to this project. Thanks to each and every one of you for your valuable contributions!
 
-### Silo AI:
+### [Silo AI](https://www.silo.ai/):
 
 Original project leads and main developers:
 
@@ -40,12 +40,14 @@ Other developers and testers of the platform:
 - Kristian Sikiric
 - Kaustav Tamuly
 - Jonathan Burdge
+- Ammar Aldhahyani
 
-### IML4E project and other contributors:
+### [IML4E](https://itea4.org/project/iml4e.html) project and other contributors:
 
 Univerwity of Helsinki:
 
 - Niila Siilasjoki
+- Dennis Muiruri
 
 Fraunhofer Institute:
 
