@@ -44,7 +44,7 @@ Other developers and testers of the platform:
 
 ### [IML4E](https://itea4.org/project/iml4e.html) project and other contributors:
 
-Univerwity of Helsinki:
+[University of Helsinki](https://www.helsinki.fi/en/researchgroups/empirical-software-engineering):
 
 - Niila Siilasjoki
 - Dennis Muiruri
