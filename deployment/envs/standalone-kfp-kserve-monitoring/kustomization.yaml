@@ -3,7 +3,7 @@ kind: Kustomization
 
 resources:
 - ../../kubeflow/manifests/in-cluster-setup/standalone-kfp-kserve
-- ../../custom/kubeflow-custom/env/standalone-kfp
+- ../../custom/kubeflow-custom/env/standalone-kfp-kserve
 - ../../custom/kserve-custom/env/standalone-kfp
 - ../../mlflow/env/local
 - ../../monitoring
