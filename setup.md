@@ -24,6 +24,9 @@ Install the experimentation platform with:
 5. **Standalone KFP and Kserve:** Standalone KFP and Kserve deployment.
 6. **Standalone KFP and Kserve (without monitoring):** Standalone KFP and Kserve deployment without monitoring components (prometheus, grafana).
 
+> The minimum recommended machine requirements are: 
+> - **Kubeflow** options: 12 CPU cores, 25GB free disk space.
+> - **Standalone KFP** options: 8 CPU cores, 18GB free disk space.
 
 ## Test the deployment (manually)
 
