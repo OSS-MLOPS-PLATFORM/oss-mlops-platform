@@ -60,7 +60,7 @@ esac
 
 INSTALL_RAY=false
 echo
-read -p "Install Ray? (y/n) (default is [n]): " choice
+read -p "Install Ray? (It requires ~4 additional CPUs) (y/n) (default is [n]): " choice
 case "$choice" in
     y|Y ) INSTALL_RAY=true ;;
     * ) INSTALL_RAY=false ;;
