@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -xeoa pipefail
+set -eoa pipefail
 
 #######################################################################################
 # CHECK PRE-REQUISITES

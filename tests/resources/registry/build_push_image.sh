@@ -14,8 +14,5 @@ cd "$(dirname "$0")"
 
 docker build -t "$FULL_IMAGE_NAME" .
 
-# load the image into the local "kind" cluster with name "kind-ep"
-#kind load docker-image "$FULL_IMAGE_NAME" --name kind-ep
-
 # to push the image to a remote repository instead
 docker push "$FULL_IMAGE_NAME"

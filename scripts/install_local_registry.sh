@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -xeoa pipefail
+set -eoa pipefail
 
 #######################################################################################
 # The following shell script will create a local docker registry and connect the

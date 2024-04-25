@@ -63,3 +63,4 @@ tutorials/openstack/secure.yaml
 old/
 istio*
 temp/
+.platform/

@@ -1,0 +1,8 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- ../../kubeflow/manifests/in-cluster-setup/standalone-kfp-kserve
+- ../../custom/kubeflow-custom/env/standalone-kfp-kserve
+- ../../custom/kserve-custom/env/standalone-kfp
+- ../../mlflow/env/local

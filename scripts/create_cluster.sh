@@ -1,11 +1,11 @@
 #!/bin/bash
 
-set -xeoa pipefail
+set -eoa pipefail
 
 #######################################################################################
 # Create and configure a cluster with Kind
 #
-# Usage: $ export HOST_IP=127.0.0.1; export CLUSTER_NAME="kind-ep"; ./create_cluster.sh
+# Usage: $ export HOST_IP=127.0.0.1; export CLUSTER_NAME="mlops-platform"; ./create_cluster.sh
 #######################################################################################
 
 
@@ -67,7 +67,7 @@ fi
 
 
 # see https://github.com/kubernetes-sigs/kind/issues/2586
-CONTAINER_ID=$(docker ps -aqf "name=kind-ep-control-plane")
+CONTAINER_ID=$(docker ps -aqf "name=$CLUSTER_NAME-control-plane")
 docker exec -t ${CONTAINER_ID} bash -c "echo 'fs.inotify.max_user_watches=1048576' >> /etc/sysctl.conf"
 docker exec -t ${CONTAINER_ID} bash -c "echo 'fs.inotify.max_user_instances=512' >> /etc/sysctl.conf"
 docker exec -i ${CONTAINER_ID} bash -c "sysctl -p /etc/sysctl.conf"

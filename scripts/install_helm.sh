@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -xeo pipefail
+set -eo pipefail
 
 function add_local_bin_to_path {
   # make sure ~/.local/bin is in $PATH
