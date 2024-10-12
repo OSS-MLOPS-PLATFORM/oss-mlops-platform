@@ -189,7 +189,7 @@ kubectl delete ns kubeflow
 while ! kustomize build deployment | kubectl apply -f -; do echo "Retrying to apply resources"; sleep 10; done
 ```
 
-Sometimes, just deleting the failing pod, so that it get recreated, will fix the issue. 
+Sometimes, just deleting the failing pod, so that it gets recreated, will fix the issue. 
 
 ```bash
 kubectl delete pod -n kubeflow <pod_name>

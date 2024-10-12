@@ -106,7 +106,7 @@ Annotate the Kubernetes service account with the email address of the IAM servic
 kubectl -n mlflow annotate serviceaccount mlflow iam.gke.io/gcp-service-account=$MLFLOW_SERVICE_ACCOUNT_ID@$PROJECT_ID.iam.gserviceaccount.com
 ```
 
-### Cloud SQL access (only for Cloud SQL
+### Cloud SQL access (only for Cloud SQL)
 
 > Only needed when using the alternative 1: Using Cloud SQL
 
@@ -117,7 +117,7 @@ To allow MLflow to access Cloud SQL, we need to grant the kubernetes service acc
 Create a new GCP service account:
 
 ```bash
-export MLFLOW_CLOUDSQL_SERVICE_ACCOUNT_ID=mlops-mlflow-cloudsql-proxy-${RESOURCE_SUFFIX}
+export MLFLOW_CLOUDSQL_SERVICE_ACCOUNT_ID=mlflow-csql-proxy-${RESOURCE_SUFFIX}
 ```
 
 ```bash
@@ -132,7 +132,6 @@ Grant the service account with permissions to access Cloud SQL:
 gcloud projects add-iam-policy-binding $PROJECT_ID \
   --member="serviceAccount:$MLFLOW_CLOUDSQL_SERVICE_ACCOUNT_ID@$PROJECT_ID.iam.gserviceaccount.com" \
   --role="roles/cloudsql.client"
-  
 ````
 
 Allow the Kubernetes service account `mlflow-cloudsql-proxy` in `mlflow` namespace to
