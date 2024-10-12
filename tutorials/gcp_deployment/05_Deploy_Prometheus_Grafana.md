@@ -4,6 +4,13 @@ In this section, we deploy Prometheus and Grafana on the cluster for monitoring.
 
 ## Deploy Prometheus
 
+
+Create monitoring namespace:
+
+```bash
+kubectl create namespace monitoring
+```
+
 Check that your overlay is correct by rendering the Kubernetes resources:
 
 ```bash
