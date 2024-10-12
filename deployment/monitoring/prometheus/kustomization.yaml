@@ -1,3 +1,4 @@
+namespace: monitoring
 
 resources:
 - prometheus-cluster-role-binding.yaml
