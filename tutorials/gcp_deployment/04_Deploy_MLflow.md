@@ -132,7 +132,6 @@ Grant the service account with permissions to access Cloud SQL:
 gcloud projects add-iam-policy-binding $PROJECT_ID \
   --member="serviceAccount:$MLFLOW_CLOUDSQL_SERVICE_ACCOUNT_ID@$PROJECT_ID.iam.gserviceaccount.com" \
   --role="roles/cloudsql.client"
-  
 ````
 
 Allow the Kubernetes service account `mlflow-cloudsql-proxy` in `mlflow` namespace to
