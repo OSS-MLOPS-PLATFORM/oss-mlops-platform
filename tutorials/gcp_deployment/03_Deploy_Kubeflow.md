@@ -1,4 +1,4 @@
-# Deploy Kubeflow Pipelines
+# Deploy Kubeflow
 
 In this step, we deploy Kubeflow Pipelines (KFP) to our GKE cluster.
 
@@ -96,35 +96,6 @@ You should see the login screen. You can use the default user's credential to lo
 The default email address is `user@example.com` and the default password is `12341234`.
 
 
-## Option 2: Deploy using Cloud SQL and storage bucket for artifacts
-
-> TODO
-
-```bash
-# TODO
-```
-
-Run the script for setting up workload identities and service accounts:
-
-```bash
-PROJECT_ID=$PROJECT_ID RESOURCE_PREFIX=$RESOURCE_PREFIX NAMESPACE=kubeflow USE_GCP_MANAGED_STORAGE=true ./gcp-workload-identity-setup.sh
-```
-
-The script will not add IAM policies to grant these GSAs with permissions KFP needs, you need to do this by yourself:
-
-```bash
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-  --member="serviceAccount:$RESOURCE_PREFIX-kfp-user@$PROJECT_ID.iam.gserviceaccount.com" \
-  --role="roles/storage.admin"
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-  --member="serviceAccount:$RESOURCE_PREFIX-kfp-system@$PROJECT_ID.iam.gserviceaccount.com" \
-  --role="roles/cloudsql.client"
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-  --member="serviceAccount:$RESOURCE_PREFIX-kfp-system@$PROJECT_ID.iam.gserviceaccount.com" \
-  --role="roles/storage.admin"
-```
-
-
 ## Set up access to Google Cloud resources
 
 We need to ensure containers running in Kubeflow Pipelines can access Google Cloud services like storage buckets. [Workload identity](https://cloud.google.com/kubernetes-engine/docs/concepts/workload-identity) is the recommended way. Alternatively, one can export service account keys and store them as Kubernetes secrets.
@@ -133,20 +104,20 @@ We need to ensure containers running in Kubeflow Pipelines can access Google Clo
 
 Here we setup access using [workload identity federation](https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity).
 
-**This step is only required when deploying Option 2.** Allow the Kubernetes service account `pipeline-runner` to impersonate the IAM Kubeflow service account by adding an IAM policy binding between the two service accounts. This binding allows the Kubernetes service account to act as the IAM service account:
+**This step is only required when deploying Option 2.** Allow the Kubernetes service account `default-editor` to impersonate the IAM Kubeflow service account by adding an IAM policy binding between the two service accounts. This binding allows the Kubernetes service account to act as the IAM service account:
 
 ```bash
 gcloud iam service-accounts add-iam-policy-binding $KUBEFLOW_SERVICE_ACCOUNT_ID@$PROJECT_ID.iam.gserviceaccount.com \
     --role roles/iam.workloadIdentityUser \
-    --member "serviceAccount:$PROJECT_ID.svc.id.goog[kubeflow/pipeline-runner]"
+    --member "serviceAccount:$PROJECT_ID.svc.id.goog[kubeflow-user-example-com/default-editor]"
 ```
 
-> The part `[kubeflow/pipeline-runner]` refers to the Kubernetes service account `pipeline-runner` in namespace `kubeflow`. Adjust accordingly if needed.
+> The part `[kubeflow/pipeline-runner]` refers to the Kubernetes service account `default-editor` in namespace `kubeflow-user-example-com`. Adjust accordingly if needed.
 
 Annotate the Kubernetes service account with the email address of the IAM service account:
 
 ```bash
-kubectl -n kubeflow annotate serviceaccount pipeline-runner iam.gke.io/gcp-service-account=$KUBEFLOW_SERVICE_ACCOUNT_ID@$PROJECT_ID.iam.gserviceaccount.com
+kubectl -n kubeflow-user-example-com annotate serviceaccount default-editor iam.gke.io/gcp-service-account=$KUBEFLOW_SERVICE_ACCOUNT_ID@$PROJECT_ID.iam.gserviceaccount.com
 ```
 
 ### Alternative 2: Service account keys
@@ -164,6 +135,14 @@ from kfp.gcp import use_gcp_secret
 # ...
 pull_data_step = ... # Define Kubeflow Pipeline step
 pull_data_step.apply(use_gcp_secret(secret_name="user-gcp-sa"))
+```
+
+## Create Kubeflow secret
+
+Create the necessary secrets for KFP to access the storage bucket:
+
+```bash
+kubectl apply -k deployment/custom/kubeflow-custom/env/kubeflow
 ```
 
 ## Creating User Profiles
