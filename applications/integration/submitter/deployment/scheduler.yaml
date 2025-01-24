@@ -1,0 +1,21 @@
+version: '3.8'
+
+networks:
+  app_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
+
+services:
+  submitter-scheduler:
+    image: t9k4b5ndjok1/cloud-hpc-integration:submitter_scheduler_v1.00.0
+    restart: no
+    environment:
+      - REDIS_ENDPOINT=submitter-redis
+      - REDIS_PORT=6379
+      - REDIS_DB=0
+      - SCHEDULER_TIMES=75|50|95|230 
+    networks:
+      app_network:
+        ipv4_address: 172.28.0.6

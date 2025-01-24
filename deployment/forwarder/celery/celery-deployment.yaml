@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: celery-server
+  labels:
+    app: celery-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: celery-server
+  template:
+    metadata:
+      labels:
+        app: celery-server
+    spec:
+      serviceAccountName: celery-sa
+      containers:
+        - name: celery-server
+          image: t9k4b5ndjok1/cloud-hpc-integration:forwarder_backend_v1.00.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 6502
+          env:
+          - name: REDIS_ENDPOINT
+            value: 'redis-service.forwarder.svc.cluster.local'
+          - name: REDIS_PORT
+            value: '6379'
+          - name: REDIS_DB 
+            value: '0'
+          - name: CELERY_CONCURRENCY
+            value: '8'
+          - name: CELERY_LOGLEVEL
+            value: 'warning'
+          - name: FLOWER_ENDPOINT
+            value: 'flower-service.forwarder.svc.cluster.local'
+          - name: FLOWER_PORT
+            value: '6501'
+          - name: FLOWER_USERNAME
+            value: 'flower123'
+          - name: FLOWER_PASSWORD
+            value: 'flower456'

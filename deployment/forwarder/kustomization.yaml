@@ -1,0 +1,8 @@
+namespace: forwarder 
+
+resources:
+  - forwarder-namespace.yaml
+  - redis/
+  - fastapi/
+  - flower/
+  - celery/

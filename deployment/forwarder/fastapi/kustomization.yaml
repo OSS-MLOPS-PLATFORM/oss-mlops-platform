@@ -1,0 +1,3 @@
+resources:
+- fastapi-deployment.yaml
+- fastapi-service.yaml
