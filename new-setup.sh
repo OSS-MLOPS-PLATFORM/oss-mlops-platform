@@ -38,7 +38,7 @@ case "$choice" in
     * ) SETUP_INTEGRATION=false ;;
 esac
 
-if [[ $SETUP_INTEGRATION == false ]]; then
+if [[ "$SETUP_INTEGRATION" = false ]]; then
     DEFAULT_DEPLOYMENT_OPTION="kubeflow-monitoring"
     echo
     echo "Please choose the deployment option:"
@@ -86,7 +86,7 @@ esac
 
 SETUP_GPU_CLUSTER=false
 echo
-read -p "Setup GPU Cluster (Requires atleast 1 NVIDIA GPU) (y/n) (default is [n]): " choice
+read -p "Setup GPU Cluster (Requires atleast 1 GPU) (y/n) (default is [n]): " choice
 case "$choice" in
     y|Y ) SETUP_GPU_CLUSTER=true ;;
     * ) SETUP_GPU_CLUSTER=false ;;
@@ -102,7 +102,7 @@ esac
 
 SETUP_GPU_RAY=false
 echo
-read -p "Setup GPU Ray (Requires atleast 1 NVIDIA GPU) (y/n) (default is [n]): " choice
+read -p "Setup GPU Ray (Requires atleast 1 GPU) (y/n) (default is [n]): " choice
 case "$choice" in
     y|Y ) SETUP_GPU_RAY=true ;;
     * ) SETUP_GPU_RAY=false ;;
@@ -213,7 +213,11 @@ if kind get clusters | grep -q "^$CLUSTER_NAME$"; then
   done
 else
     echo "Creating kind cluster..."
-    /bin/bash "$SCRIPT_DIR/scripts/create_gpu_cluster.sh"
+    if [[ "$SETUP_GPU_CLUSTER" = false ]]; then
+        /bin/bash "$SCRIPT_DIR/scripts/create_cluster.sh"
+    else
+        /bin/bash "$SCRIPT_DIR/scripts/create_gpu_cluster.sh"
+    fi
 fi
 
 kubectl cluster-info --context kind-$CLUSTER_NAME
@@ -257,12 +261,27 @@ while true; do
   fi
 done
 
+# Install Helm and GPU pods
+if [[ "$SETUP_GPU_CLUSTER" = true || "$INSTALL_RAY" = true ]]; then
+    echo "Installing Helm"
+    /bin/bash "$SCRIPT_DIR/scripts/install_helm.sh"
+    if [[ "$SETUP_GPU_CLUSTER" = true ]]; then
+        echo "Installing NVIDIA GPU operator"
+        /bin/bash "$SCRIPT_DIR/scripts/install_gpu_operator.sh" 
+        echo "Installing NVIDIA Nvshare"
+        /bin/bash "$SCRIPT_DIR/scripts/install_nvshare.sh"
+    fi
+fi
+
 # DEPLOY RAY
 if [ "$INSTALL_RAY" = true ]; then
-  echo "Installing Ray"
-  /bin/bash "$SCRIPT_DIR/scripts/install_helm.sh"
-  /bin/bash "$SCRIPT_DIR/scripts/install_ray.sh" 
-  /bin/bash "$SCRIPT_DIR/scripts/install_gpu_operator.sh" 
+  if [[ "$SETUP_GPU_RAY" = false ]]; then
+    echo "Installing CPU Ray"
+    /bin/bash "$SCRIPT_DIR/scripts/install_ray.sh" 
+  else
+    echo "Installing CPU+GPU Ray"
+    /bin/bash "$SCRIPT_DIR/scripts/install_gpu_ray.sh"
+  fi
 fi
 
 echo
