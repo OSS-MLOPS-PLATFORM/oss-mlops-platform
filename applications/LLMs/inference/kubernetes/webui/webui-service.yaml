@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: webui-service
+spec:
+  selector: 
+    app: webui-server
+  ports:
+    - port: 7101
+      targetPort: 8080

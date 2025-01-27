@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: express-service
+spec:
+  selector: 
+    app: express-server
+  ports:
+    - port: 7200
+      targetPort: 8081

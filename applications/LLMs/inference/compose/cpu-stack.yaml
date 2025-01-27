@@ -1,0 +1,27 @@
+version: '3.8'
+
+networks:
+  app_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
+
+services:
+  ollama-open-webui:
+    image: ghcr.io/open-webui/open-webui:ollama
+    restart: no
+    ports:
+      - '127.0.0.1:7100:8080'
+    environment:
+     - WEBUI_AUTH=False
+    networks:
+      app_network:
+        ipv4_address: 172.28.0.10
+    volumes:
+      - ollama:/root/.ollama
+      - open-webui:/app/backend/data
+
+volumes:
+  ollama: {}
+  open-webui: {}

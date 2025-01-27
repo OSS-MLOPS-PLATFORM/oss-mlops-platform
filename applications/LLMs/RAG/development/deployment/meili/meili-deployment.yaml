@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: meili-server
+  labels:
+    app: meili-server
+spec: 
+  replicas: 1
+  selector:
+    matchLabels:
+      app: meili-server 
+  template:
+    metadata:
+      labels:
+        app: meili-server 
+    spec:
+      containers:
+        - name: meili-server
+          image: getmeili/meilisearch:v1.10.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 7700
+          volumeMounts:
+            - name: meili-storage
+              mountPath: /meili_data
+          env:
+          - name: MEILI_MASTER_KEY
+            value: 'meili_key'
+      volumes:
+        - name: meili-storage
+          persistentVolumeClaim:
+            claimName: meili-pvc

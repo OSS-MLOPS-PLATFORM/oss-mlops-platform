@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webui-server
+  labels:
+    app: webui-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webui-server 
+  template:
+    metadata:
+      labels:
+        app: webui-server 
+    spec:
+      containers:
+        - name: webui-server
+          image: ghcr.io/open-webui/open-webui:main
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: webui-volume
+              mountPath: /app/backend/data
+          env:
+          - name: WEBUI_AUTH
+            value: 'False'
+          - name: OLLAMA_BASE_URL
+            value: 'http://ollama-service.llm-inf.svc.cluster.local:7100'
+      volumes:
+        - name: webui-volume
+          persistentVolumeClaim:
+            claimName: webui-pvc

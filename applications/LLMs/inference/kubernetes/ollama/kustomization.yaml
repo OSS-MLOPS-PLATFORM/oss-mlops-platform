@@ -1,0 +1,4 @@
+resources:
+- ollama-deployment.yaml
+- ollama-service.yaml
+- ollama-pvc.yaml

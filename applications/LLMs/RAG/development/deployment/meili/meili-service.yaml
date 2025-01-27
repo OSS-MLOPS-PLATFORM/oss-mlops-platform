@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: meili-service
+spec:
+  selector: 
+    app: meili-server
+  ports:
+    - port: 7202
+      targetPort: 7700

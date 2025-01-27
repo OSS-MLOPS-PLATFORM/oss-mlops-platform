@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ollama-server
+  labels:
+    app: ollama-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ollama-server 
+  template:
+    metadata:
+      labels:
+        app: ollama-server 
+    spec:
+      containers:
+        - name: ollama-server
+          image: ollama/ollama:0.3.6
+          resources:
+            limits:
+              nvshare.com/gpu: 1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 11434
+          volumeMounts:
+            - name: ollama-volume
+              mountPath: /root/.ollama
+          env:
+          - name: WEBUI_AUTH
+            value: 'False'
+      volumes:
+        - name: ollama-volume
+          persistentVolumeClaim:
+            claimName: ollama-pvc

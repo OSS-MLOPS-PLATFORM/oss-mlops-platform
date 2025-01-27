@@ -1,0 +1,4 @@
+resources:
+- mongodb-deployment.yaml
+- mongodb-service.yaml
+- mongodb-pvc.yaml
