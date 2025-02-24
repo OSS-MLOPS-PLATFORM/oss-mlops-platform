@@ -1,0 +1,14 @@
+services:
+  ray-worker:
+    image: rayproject/ray:2.35.0
+    container_name: ray-worker
+    hostname: ray-worker
+    shm_size: '5gb'
+    command: bash -c "ray start --address=ray-head:6379 --block"
+    deploy:
+      mode: replicated
+      replicas: '1'
+      resources:
+        limits:
+         cpus: '1'
+         memory: '4g'
