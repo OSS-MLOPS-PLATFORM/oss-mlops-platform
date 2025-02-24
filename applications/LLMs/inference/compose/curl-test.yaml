@@ -1,0 +1,7 @@
+services:
+  curl:
+    image: curlimages/curl:latest
+    container_name: curl-container
+    stdin_open: true
+    tty: true
+    command: ["sh"] 
