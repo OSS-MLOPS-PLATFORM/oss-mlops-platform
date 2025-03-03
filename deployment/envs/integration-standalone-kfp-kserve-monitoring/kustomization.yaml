@@ -6,5 +6,5 @@ resources:
 - ../../custom/kubeflow-custom/env/standalone-kfp-kserve
 - ../../custom/kserve-custom/env/standalone-kfp
 - ../../mlflow/env/local
-- ../../monitoring/integration-kustomization.yaml
+- ../../monitoring/integration
 - ../../forwarder

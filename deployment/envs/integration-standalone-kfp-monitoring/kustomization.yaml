@@ -5,5 +5,5 @@ resources:
 - ../../kubeflow/manifests/in-cluster-setup/standalone-kfp
 - ../../custom/kubeflow-custom/env/standalone-kfp
 - ../../mlflow/env/local
-- ../../monitoring/integration-kustomization.yaml
+- ../../monitoring/integration
 - ../../forwarder
