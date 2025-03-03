@@ -18,4 +18,43 @@ When Ray is run in a single machine, we can create Ray workers and give them the
 bash -c "ray start --address=ray-head:6379 --block"
 ```
 
-The main problem of connecting separated Ray workers is that how exactly can container, virtual machine and system isolated applications connect to each other in a secure manner. A good way to do this is just creating SSH connections between the separated computer, but this will quickly get manually cumbersome with system differences. Thus, we need to have a way that enables easy access to a remote addess with the ability to block any other addresses from connecting to it.
+The main problem of connecting separated Ray workers is that how exactly can container, virtual machine and system isolated applications connect to each other in a secure manner. The default way to do this is just creating SSH connections between the separated computers. Check the following
+
+
+```
+sudo systemctl status ssh
+cat /etc/ssh/sshd_config
+```
+
+If these exists, but ssh server is inactive, run 
+
+
+```
+sudo systemctl start ssh
+```
+
+and modify the sshd_config to have the following:
+
+
+```
+sudo nano /etc/ssh/sshd_config
+
+PubkeyAuthentication yes
+AllowTcpForwarding yes
+GatewayPorts yes
+```
+
+to make these changes, run 
+
+```
+sudo systemctl restart ssh
+```
+
+Now, generate a private key for ray worker computers:
+
+```
+ssh-keygen -f ~/.ssh/ray_worker_key
+```
+
+
+but this will quickly get manually cumbersome with system differences. Thus, we need to have a way that enables easy access to a remote addess with the ability to block any other addresses from connecting to it.

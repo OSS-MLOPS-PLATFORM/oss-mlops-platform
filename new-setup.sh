@@ -59,7 +59,7 @@ if [[ "$SETUP_INTEGRATION" = false ]]; then
         * ) DEPLOYMENT_OPTION="$DEFAULT_DEPLOYMENT_OPTION" ;;
     esac
 else
-    DEFAULT_DEPLOYMENT_OPTION="integration/kubeflow-monitoring"
+    DEFAULT_DEPLOYMENT_OPTION="integration-kubeflow-monitoring"
     echo
     echo "Please choose the deployment option:"
     echo "[1] Kubeflow (all components)"
@@ -68,10 +68,10 @@ else
     echo "[4] Standalone KFP and Kserve"
     read -p "Enter the number of your choice [1-6] (default is [1]): " choice
     case "$choice" in
-        1 ) DEPLOYMENT_OPTION="integration/kubeflow-monitoring" ;;
-        2 ) DEPLOYMENT_OPTION="integration/reduced-kubeflow-monitoring" ;;
-        3 ) DEPLOYMENT_OPTION="integration/standalone-kfp-monitoring" ;;
-        4 ) DEPLOYMENT_OPTION="integration/standalone-kfp-kserve-monitoring" ;;
+        1 ) DEPLOYMENT_OPTION="integration-kubeflow-monitoring" ;;
+        2 ) DEPLOYMENT_OPTION="integration-reduced-kubeflow-monitoring" ;;
+        3 ) DEPLOYMENT_OPTION="integration-standalone-kfp-monitoring" ;;
+        4 ) DEPLOYMENT_OPTION="integration-standalone-kfp-kserve-monitoring" ;;
         * ) DEPLOYMENT_OPTION="$DEFAULT_DEPLOYMENT_OPTION" ;;
     esac
 fi

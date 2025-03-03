@@ -1,5 +1,5 @@
 #!/bin/bash
-
+ 
 set -eoa pipefail
 
 # Internal directory where to store platform settings
