@@ -59,7 +59,7 @@ spec:
                   key: DB_PASSWORD
             - name: BACKEND_STORE_URI
               value: $(DB_DIALECT)://$(DB_USER):$(DB_PASSWORD)@$(DB_HOST):$(DB_PORT)/$(DB_NAME)
-          image: europe-north1-docker.pkg.dev/silo-terraform1/rd-iml4e-public/mlflow_v2:0.0.1
+          image: t9k4b5ndjok1/cloud-hpc-integration:mlflow_v2.17.2
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5000
