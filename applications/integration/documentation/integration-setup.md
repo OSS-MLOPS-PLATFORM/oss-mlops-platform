@@ -116,7 +116,7 @@ To install and configure Docker into the VM, use the following official document
 
 ### Storage
 
-You can [optionally](applications/integration/documentation/docker-storage.md) add more disk memory for the Docker VM.
+You can [optionally](docker-storage.md) add more disk memory for the Docker VM.
 
 ### Networking
 
@@ -166,7 +166,7 @@ ps aux | grep ssh
 
 ### GPUs
 
-If your VM has access to GPUs, they can be [setup](applications/integration/documentation/gpu-setup.md) for Docker and KinD 
+If your VM has access to GPUs, they can be [setup](gpu-setup.md) for Docker and KinD 
 
 ### OSS
 
