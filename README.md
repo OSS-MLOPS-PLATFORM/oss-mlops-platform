@@ -28,7 +28,7 @@ Welcome to the OSS MLOps Platform, a comprehensive suite designed to streamline 
 
 ## What are MLOps platforms
 
-Machine learning operations (MLOps) is a intersection paradigm that uses principles to create machine learning products:
+Machine learning operations (MLOps) is a intersection paradigm that [uses principles](https://arxiv.org/abs/2205.02302) to create machine learning products:
 
 ![Integrated MLOps Platform Architecture](resources/img/mlops-principle-diagram.png)
 
@@ -127,6 +127,15 @@ Dive into our demo examples to see the integrated platform in action:
 The following diagram illustrates the architectural design of the cloud-HPC integrated MLOps platform:
 
 ![Integrated MLOps Platform Architecture](resources/img/cloud-hpc-platform-diagram.png)
+
+### Key Components
+
+- **SSH**: Secure connective bridge between enviroments.
+- **Submitter**: Enables interactions between local and HPC enviroments.
+- **Forwarder**: Provides a proxy for creating requests and provide Prometheus gauges for metrics .
+- **Docker Compose**: Enables light deployment of Submitter.
+- **Allas**: Global storage for communication and artifacts.
+- **SLURM Ray**: Computing framework for Python that abstract away HPC details.
 
 ## Support & Feedback
 
