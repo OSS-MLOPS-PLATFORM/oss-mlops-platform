@@ -9,6 +9,8 @@ Welcome to the OSS MLOps Platform, a comprehensive suite designed to streamline 
 - **Setup Scripts**
   - [`setup.sh`](setup.sh): The primary script to install and configure the platform on your local machine.
   - [`setup.md`](setup.md): Detailed documentation for platform setup and testing procedures.
+  - [`integration-setup.sh`](integration-setup.sh): The secondary script to install and configure the integrated platform on your cloud machine.
+  - [`integration-setup.md`](/applications/integration/documentation/integration-setup.md): Detailed documentation for integrated platform setup.
 
 - **Deployment Resources**
   - [`deployment/`](deployment): Contains Kubernetes deployment manifests and configurations for Infrastructure as Code (IaC) practices.
@@ -56,7 +58,6 @@ Dive into our demo examples to see the platform in action:
   
   - [Demo Ray-Kubeflow pipeline.](tutorials/ray/notebooks/ray_kubeflow.ipynb)
 
-
 - **Project Use-Cases (e2e)**:
 
   - [Fashion-MNIST MLOPS pipeline](https://github.com/OSS-MLOPS-PLATFORM/demo-fmnist-mlops-pipeline)
@@ -77,6 +78,42 @@ The following diagram illustrates the architectural design of the MLOps platform
 - **Kubeflow**: Orchestrates ML workflows.
 - **KServe**: Facilitates model deployment and serving.
 - **Prometheus & Grafana**: Provides monitoring solutions with advanced visualization capabilities.
+
+## Getting Started with a integrated setup
+
+To set up the integrated platform to cloud, you first need to have a CSC account and projects with access to the following services:
+
+- [CPouta](https://docs.csc.fi/cloud/pouta/): Infrastructure as a service cloud platfrom
+- [Allas](https://docs.csc.fi/data/Allas/): S3-based object storage platform
+- [Puhti](https://docs.csc.fi/computing/systems-puhti/): SLURM-based HPC platform offering:
+  - Petaflops: 1.8 CPU and 2.7 GPU
+  - Nodes: 682 CPU and 80 GPU
+  - Max nodes: 26 CPU and 20 GPU
+  - Max time: 14 days for CPU and 3 days for GPU 
+- [Mahti](https://docs.csc.fi/computing/systems-mahti/): SLURM-based HPC platform offering:
+  - Petaflops: 7.5 CPU and 2.0 GPU
+  - Nodes: 1404 CPU and 24 GPU
+  - Max nodes: 700 CPU and 6 GPU
+  - Max time: 7 days for CPU and 36 hours for GPU 
+- [LUMI](https://docs.lumi-supercomputer.eu/hardware/): SLURM-based HPC platform offering:
+  - Petaflops: 10.3 CPU and 379.70 GPU
+  - Nodes: 2048 CPU and 2978 GPU
+  - Max nodes: 512 CPU and 1024 GPU
+  - Max time: 2 days for CPU and 2 days for GPU 
+
+To integrate these into the OSS MLOps platform, see detailed setup [guide](/applications/integration/documentation/integration-setup.md).
+
+## Exploring integration examples
+
+Dive into our demo examples to see the integrated platform in action:
+
+- **Jupyter Notebooks (e2e)**:
+  
+  - [Demo Cloud-HPC FMNIST pipeline.](tutorials/demo_notebooks/demo_cloud_hpc_integration/demo_cloud_hpc_fmnist_pipeline.ipynb)
+
+## High-Level Integration Overview
+
+The following diagram illustrates the architectural design of the integrated MLOps platform:
 
 ## Support & Feedback
 
