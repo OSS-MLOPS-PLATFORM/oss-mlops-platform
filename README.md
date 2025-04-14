@@ -132,7 +132,7 @@ The following diagram illustrates the architectural design of the cloud-HPC inte
 
 - **SSH**: Secure connective bridge between enviroments.
 - **Submitter**: Enables interactions between local and HPC enviroments.
-- **Forwarder**: Provides a proxy for creating requests and provide Prometheus gauges for metrics .
+- **Forwarder**: Provides a proxy for creating requests and Prometheus gauges for metrics in OSS.
 - **Docker Compose**: Enables light deployment of Submitter.
 - **Allas**: Global storage for communication and artifacts.
 - **SLURM Ray**: Computing framework for Python that abstract away HPC details.
