@@ -1,4 +1,4 @@
-# How to use GPUs in the platform
+# How to setup GPUs for containers
 
 We will go through the necessery configuration on how to make the KinD cluster utilize available GPUs in local and cloud Ubuntu 22.04 enviroments. We assume that you have not yet created the cluster. The premilinary configuration is the following:
 

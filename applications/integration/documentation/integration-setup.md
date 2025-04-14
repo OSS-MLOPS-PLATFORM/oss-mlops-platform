@@ -1,6 +1,10 @@
 # How to Setup Cloud-HPC Integrated OSS Platform
 
-We will go thorugh the necessery configuration on how to make the OSS MLOps platofrm run in CSC CPouta and utilize Ray clusters run in CSC Mahti. We assume that you start from scratch. Here are the done modifications: 
+We will go thorugh the necessery configuration on how to make the OSS MLOps platofrm run in CSC CPouta and utilize Ray clusters run in CSC Mahti. We assume that you start from scratch. 
+
+## Modifications
+
+Here are the done modifications: 
 
 1. In kubeflow/in-cluster-setup/kubeflow/kustomization.yaml the following components are removed
    - Katib, 
@@ -21,6 +25,8 @@ We will go thorugh the necessery configuration on how to make the OSS MLOps plat
 7. Grafana image in grafana-deployment.yaml was changed to newest
 8. Forwarder deployment was added
 9. The deployment envs were modified to have the forwarder deployment
+
+## Background
 
 In order to use CSC services, you need to create an CSC account, so please check the following official documentation:
 
@@ -54,9 +60,9 @@ Headless services:
 - [External services in kubernetes](https://stackoverflow.com/questions/57764237/kubernetes-ingress-to-external-service?noredirect=1&lq=1)
 - [Headless services in kubernetes](https://kubernetes.io/docs/concepts/services-networking/service/#headless-services)
 
-## Cloud Setup
+## Cloud VM Setup
 
-### VM Creation
+### Creation
 
 When you have managed to get a CSC user with a project with a access to [CPouta](https://pouta.csc.fi), you are now able to create virtual machines. Please check the following offical documentation:
 
@@ -71,7 +77,7 @@ Create a VM with the following details:
 - Instance Boot Source: Boot from image
 - Image Name: Ubuntu-22.04
 
-### VM Connection
+### Connection
 
 Please check the following offical documentation:
 
@@ -92,7 +98,7 @@ Use the following command to connect to the VM:
 ssh cpouta
 ```
 
-### VM Update
+### Update
 
 To update the VM, run the following commands
 
@@ -101,92 +107,18 @@ sudo apt update
 sudo apt upgrade # press enter, when you get a list
 ```
 
-### VM Docker
+### Docker
 
 To install and configure Docker into the VM, use the following official documentation:
 
 - [Docker engine setup](https://docs.docker.com/engine/install/ubuntu/)
 - [Remove sudo docker](https://docs.docker.com/engine/install/linux-postinstall/)
 
-### VM Storage
+### Storage
 
-To provide more storage for VM Docker, create a volume and mount it into the VM using the following documentation
+You can [optionally](applications/integration/documentation/docker-storage.md) add more disk memory for the Docker VM.
 
-- [CPouta persistent volumes](https://docs.csc.fi/cloud/pouta/persistent-volumes/)
-
-Then do the following actions:
-
-1. Check current root directory:
-   
-```
-docker info
-```
-
-2. Create a folder in volume
-   
-```
-cd /media/volume
-mkdir docker
-```
-
-3. Get its path
-   
-```
-cd docker
-pwd
-```
-
-4. Check the docker daemon.json
-```
-cat /etc/docker/daemon.json
-```
-
-5. Shutdown docker
-   
-```
-sudo systemctl stop docker
-sudo systemctl stop docker.socket
-sudo systemctl stop containerd
-```
-
-6. Edit to have data-root: '/media/volume/docker':
-   
-```
-sudo nano /etc/docker/daemon.json
-```
-
-7. Confirm path:
-
-```
-cat /etc/docker/daemon.json
-```
-
-8.  Move docker data:
-   
-```
-sudo rsync -axPS /var/lib/docker/ /media/volume/docker
-```
-
-9. Restart docker
-    
-```
-sudo systemctl start docker
-```
-
-10. Check docker info
-
-```
-docker info
-```
-
-12. Try running a container
-13. If no failures happen, check file system utilization with
-    
-```
-df -h
-```
-
-### VM Networking
+### Networking
 
 The VM security groups and SSH need to be configured in order to use Mahti Ray in CPouta. Create the following security group rules:
 
@@ -232,14 +164,18 @@ grep sshd /var/log/auth.log
 ps aux | grep ssh
 ```
 
-### VM OSS
+### GPUs
 
-To run the Cloud-HPC OSS platform in the VM, do the following:
+If your VM has access to GPUs, they can be [setup](applications/integration/documentation/gpu-setup.md) for Docker and KinD 
+
+### OSS
+
+To run the OSS MLOps platform in the VM, do the following:
 
 ```
-git clone https://github.com/K123AsJ0k1/cloud-hpc-oss-mlops-platform.git
-cd cloud-hpc-oss-mlops-platform
-setup.sh (pick any deployment with monitoring)
+git clone https://github.com/OSS-MLOPS-PLATFORM/oss-mlops-platform.git
+cd oss-mlops-platform (You might need to switch branches)
+./setup.sh (Select relevant options)
 ```
 
 When the setup is complete, use the following to confirm that all pods are running:
@@ -248,35 +184,36 @@ When the setup is complete, use the following to confirm that all pods are runni
 kubectl get pods -A
 ```
 
-## Local Setup
+## Local Compose Setup
 
-### Getting Code
+### Code
 
 Download the repository with:
 
 ```
-git clone https://github.com/K123AsJ0k1/cloud-hpc-oss-mlops-platform.git
+git clone https://github.com/OSS-MLOPS-PLATFORM/oss-mlops-platform.git
+cd oss-mlops-platform (You might need to switch branches)
 ```
 
-### Notebook Credentials
+### Credentials
 
-To use Allas in notebooks, you need to create a .env in your PC .ssh folder with the following:
+To use integration, you need to create a .env in your PC .ssh folder with the following:
 
 ```
 CSC_USERNAME = "(your_csc_username)"  
 CSC_PASSWORD = "(your_csc_password)"
 CSC_USER_DOMAIN_NAME = "Default"
-CSC_PROJECT_NAME = "project_(your_csc_project)"
+CSC_PROJECT_NAME = "project_(your_csc_project_number)"
 ```
 
-### Submitter Credentials
+### SSH
 
-To use Submitter that connects CPouta OSS and Mahti Ray, we need to setup SSH credentials. Please read through the following offical documentation:
+We need to setup SSH credentials for the submitter. Please read through the following offical documentation:
 
 - [CPouta SSH keys](https://docs.csc.fi/cloud/pouta/launch-vm-from-web-gui/#setting-up-ssh-keys)
 - [Mahti SSH key](https://docs.csc.fi/computing/connecting/ssh-keys/)
 
-Do the following actions:
+Now, if you for example want to add Mahti support, do the following actions:
 
 1. Go to PC .ssh folder and create compose-secrets.json containing the following with brackets filled:
    
@@ -317,7 +254,7 @@ IdentityFile ~/.ssh/local-mahti.pem
 5. Activate the Mahti key using MyCSC
 
 6. Test that SSH works:
-   
+
 ```
 ssh mahti
 exit/logout # CTRL + C if hangs
@@ -329,18 +266,19 @@ exit/logout # CTRL + C if hangs
 pwd
 ```
 
-8. Go to Submitter deployment folder and use the PWD paths to fill the secrets paths of stack.yaml with
+8. Go to submitter deployment folder and use the PWD paths to fill the secrets paths of stack.yaml with
 
 ```
 cd cloud-hpc-oss-mlops-platform/applications/article/submitter/deployment/production
 nano stack.yaml
+CTRL + X (Select Y to save)
 ```
 
 ## Tools
 
 ### Local
 
-To access the Submitter use the following:
+To access the submitter use the following:
 
 ```
 cd cloud-hpc-oss-mlops-platform/applications/article/submitter/deployment/production
@@ -419,7 +357,6 @@ exit/logout # CTRL + C if hangs
 ```
 
 ## Troubleshooting
-
 
 **Error: response from daemon: driver failed programming external connectivity on endpoint kind-ep-control-plane**
 
@@ -615,4 +552,12 @@ mlflow                      mlflow-minio-6fc44b6f8b-f2jln                       
 mlflow                      postgres-869457dfd8-zc868                                         1/1     Running     0             45d
 monitoring                  grafana-59489dc89-d6mxh                                           1/1     Running     0             45d
 monitoring                  prometheus-deployment-6c54c9d685-rlhhh                            1/1     Running     0             45d
+```
+
+**Failed to initilize NVML: Driver/library version mismatch**
+
+This happens, when update makes the libraries go out of sync. A common fix is to simply reboot with
+
+```
+sudo reboot
 ```
