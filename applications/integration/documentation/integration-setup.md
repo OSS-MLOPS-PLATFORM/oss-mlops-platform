@@ -9,8 +9,8 @@ Here are the done modifications:
 1. In kubeflow/in-cluster-setup/kubeflow/kustomization.yaml the following components are removed
    - Katib, 
    - Jupyter web app
-   - Notebook controlelr
-   - PVC viewere
+   - Notebook controller
+   - PVC viewer
    - Volumes web app
    - Tensorboards controller
    - Tensorboard web app
@@ -166,7 +166,7 @@ ps aux | grep ssh
 
 ### GPUs
 
-If your VM has access to GPUs, they can be [setup](gpu-setup.md) for Docker and KinD 
+If your VM has access to GPUs, they can be [setup](gpu-setup.md) for Docker and KinD. 
 
 ### OSS
 
@@ -183,6 +183,12 @@ When the setup is complete, use the following to confirm that all pods are runni
 ```
 kubectl get pods -A
 ```
+
+### Images
+
+CPouta enables creating custom VM images, which enable skipping most of the previous setup. For details check the offical documentation:
+
+- [Creating and sharing images](https://docs.csc.fi/cloud/pouta/adding-images/)
 
 ## Local Compose Setup
 
