@@ -26,6 +26,17 @@ Welcome to the OSS MLOps Platform, a comprehensive suite designed to streamline 
 - **Testing Suite**
   - [`tests/`](tests): A suite of tests designed to ensure the platform's integrity post-deployment.
 
+## What are MLOps platforms
+
+Machine learning operations (MLOps) is a intersection paradigm that uses principles to create machine learning products:
+
+![Integrated MLOps Platform Architecture](resources/img/mlops-principle-diagram.png)
+
+MLOps platforms provide a unified user interface for developing ML workflows and products:
+
+![Integrated MLOps Platform Architecture](resources/img/mlops-abstraction-diagram.png)
+
+Thus, MLOps platforms such as OSS provide a MLOps system that enable developers to focus on improving their products such as models. 
 
 ## Special Instructions for Mac Users
 
@@ -109,11 +120,13 @@ Dive into our demo examples to see the integrated platform in action:
 
 - **Jupyter Notebooks (e2e)**:
   
-  - [Demo Cloud-HPC FMNIST pipeline.](tutorials/demo_notebooks/demo_cloud_hpc_integration/demo_cloud_hpc_fmnist_pipeline.ipynb)
+  - [Demo Cloud-HPC Fashion-MNIST pipeline.](tutorials/demo_notebooks/demo_cloud_hpc_integration/demo_cloud_hpc_fmnist_pipeline.ipynb)
 
 ## High-Level Integration Overview
 
-The following diagram illustrates the architectural design of the integrated MLOps platform:
+The following diagram illustrates the architectural design of the cloud-HPC integrated MLOps platform:
+
+![Integrated MLOps Platform Architecture](resources/img/cloud-hpc-platform-diagram.png)
 
 ## Support & Feedback
 
