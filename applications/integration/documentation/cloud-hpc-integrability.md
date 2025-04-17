@@ -128,6 +128,7 @@ module list (confirm activation)
 python3 -m venv --system-site-packages exp-venv (create virtual enviroment)
 source exp-venv/bin/activate (activate the virtual enviroment)
 pip list (check provided packages)
+deactivate
 ```
 
 When we check the packages, we notice Ray==2.43.0 being already provided, which enables us to create [Ray SLURM](https://docs.ray.io/en/latest/cluster/vms/user-guides/community/slurm.html) clusters that we control with their dashboards SSH remote forwarded into a CPouta VM. This results in the following SLURM batch job Bash script with only [Puhti and Mahti partitions](https://docs.csc.fi/computing/running/batch-job-partitions/) creating a difference:
@@ -227,6 +228,8 @@ cat ray-cluster.sh (check that values are filled)
 Now, the final setup for the batch job is to bring the SSH private key to the personal directory. You need to either send or create a copy of the private SSH. The latter is easier with simply opening a terminal in your computer and copying the shown key with the following commands:
 
 ```
+local| pwd
+local| cd .ssh
 local| cat cloud-hpc.pem 
 local| CTRL + SHIFT + C
 
