@@ -224,7 +224,22 @@ Y
 cat ray-cluster.sh (check that values are filled)
 ```
 
-When the batch job is ready to be run, the third order of business is creating a local forward from your computer to the laptop. This is used to confirm that the dashboard is remote forwarded properly by allowing quick interactions. The command for SSH local forwarding is the following:
+Now, the final setup for the batch job is to bring the SSH private key to the personal directory. You need to either send or create a copy of the private SSH. The latter is easier with simply opening a terminal in your computer and copying the shown key with the following commands:
+
+```
+local| cat cloud-hpc.pem 
+local| CTRL + SHIFT + C
+
+hpc| pwd (check that you are in the personal directory)
+hpc| cd /users/(your_csc_user)
+hpc| nano cloud-hpc.pem
+hpc| CTRL + SHIFT + C
+hpc| CTRL + X
+hpc| Y
+hpc| cat cloud-hpc.pem
+```
+
+When you have filled the private key path, the third order of business is creating a local forward from your computer to the laptop. This is used to confirm that the dashboard is remote forwarded properly by allowing quick interactions. The command for SSH local forwarding is the following:
 
 ```
 ssh -L 127.0.0.1:8280:(your_VM_private_ip):8280 cpouta
