@@ -192,7 +192,9 @@ srun --nodes=1 --ntasks=1 -w "$head_node" \
 
 echo "Setting up SSH tunnel"
 
-ssh -f -o StrictHostKeyChecking=no -i $key_path -N -R $cloud_private_ip:$cloud_port:$head_node_ip:$hpc_dashboard_port $cloud_user@$cloud_floating_ip
+ssh -f -o StrictHostKeyChecking=no -i $key_path -N \
+-R $cloud_private_ip:$cloud_port:$head_node_ip:$hpc_dashboard_port \
+$cloud_user@$cloud_public_ip
 
 echo "Reverse port forward running"
 
