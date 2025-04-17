@@ -187,7 +187,8 @@ echo "IP Head: $ip_head"
 
 echo "Starting HEAD at $head_node"
 srun --nodes=1 --ntasks=1 -w "$head_node" \
-    singularity_wrapper exec ray start --head --node-ip-address="$head_node_ip" --port=$hpc_head_port --dashboard-host="$head_node_ip" --dashboard-port=$hpc_dashboard_port \
+    singularity_wrapper exec ray start --head --node-ip-address="$head_node_ip" \
+    --port=$hpc_head_port --dashboard-host="$head_node_ip" --dashboard-port=$hpc_dashboard_port \
     --num-cpus "${SLURM_CPUS_PER_TASK}" --block &
 
 echo "Setting up SSH tunnel"
