@@ -108,7 +108,7 @@ For the first cloud platforms usually provide easy ways to setup SSH keys during
 ssh-keygen
 ```
 
-When you have the new keypair for VM access, confirm that its public key is listed in VM authorized_keys. If not, go back to setup to check a way to add it there. For the HPC SSH key you might be able to generate a key pair or you need to generate one locally. For example, see CSC docs for SSH [connections](https://docs.csc.fi/computing/connecting/ssh-keys/).
+For the HPC SSH key you might be able to generate a key pair or you need to generate one locally. For example, see CSC docs for SSH [connections](https://docs.csc.fi/computing/connecting/ssh-keys/). Remember to confirm that its public key is listed in VM authorized_keys.
 
 After the HPC SSH key has been registered and you have created a SSH config for easier connections, you should now be able to open a terminal in the HPC platfrom. The first order of business is to understand the platform file system both in theory and practice by reading vendor documentation. By using the CSC [docs](https://docs.csc.fi/computing/disk/), we need to run:
 
