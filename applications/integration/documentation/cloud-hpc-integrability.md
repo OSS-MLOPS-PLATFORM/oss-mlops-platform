@@ -100,7 +100,7 @@ With all that background, the final thing you need setup is firewall rules for S
 
 ## Testing
 
-Now that your VM is ready to accept SSH connections for HPC platforms and you have access to one, you are now ready to test integrability. Be aware that there is still much setup to be done depending on the vendor. In our case we first need to create two SSH keys with the first one for the cloud VM and the second for the HPC platform.
+Now that your VM is ready to accept SSH connections for HPC platforms and you have access to one, you are now ready to test integrability. Be aware that there is still much setup to be done depending on the vendor. In our case we first need to create two SSH keys with the first one for the cloud-HPC bridge and the second for the HPC platform.
 
 For the first cloud platforms usually provide easy ways to setup SSH keys during the VM creation, which means you should utilize the provided documentation to create a key pair for the VM. For example see CPouta key pair setup. You can also generate a key pair locally with the command is:
 
@@ -108,7 +108,7 @@ For the first cloud platforms usually provide easy ways to setup SSH keys during
 ssh-keygen
 ```
 
-For the HPC SSH key you might be able to generate a key pair or you need to generate one locally. For example, see CSC docs for SSH [connections](https://docs.csc.fi/computing/connecting/ssh-keys/). Remember to confirm that its public key is listed in VM authorized_keys.
+When you have created the cloud-HPC bridge key, remember to confirm that its public key is listed in VM authorized_keys. For the HPC SSH key you might be able to generate a key pair or you need to generate one locally. For example, see CSC docs for SSH [connections](https://docs.csc.fi/computing/connecting/ssh-keys/). 
 
 After the HPC SSH key has been registered and you have created a SSH config for easier connections, you should now be able to open a terminal in the HPC platfrom. The first order of business is to understand the platform file system both in theory and practice by reading vendor documentation. By using the CSC [docs](https://docs.csc.fi/computing/disk/), we need to run:
 
