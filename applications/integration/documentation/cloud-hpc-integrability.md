@@ -100,17 +100,45 @@ With all that background, the final thing you need setup is firewall rules for S
 
 ## Testing
 
-Now that your VM is ready to accept SSH connections for HPC platforms and you have access to one, you are now ready to test integrability. Be aware that there is still much setup to be done depending on the vendor. In our case we first need to create two SSH keys with the first one for the cloud-HPC bridge and the second for the HPC platform.
+Now that your VM is ready to accept SSH connections for HPC platforms and you have access to one, you are now ready to test integrability. Be aware that there is still much setup to be done depending on the vendor.
 
-For the first cloud platforms usually provide easy ways to setup SSH keys during the VM creation, which means you should utilize the provided documentation to create a key pair for the VM. For example see CPouta key pair setup. You can also generate a key pair locally with the command is:
+### SSH
+
+You first need to create two SSH keys with the first one for the cloud-HPC and the second for the local-HPC connections. For the first use either the way provided by documentation for VM creation or generate a key pair locally with the command is:
 
 ```
 ssh-keygen
 ```
 
-When you have created the cloud-HPC bridge key, remember to confirm that its public key is listed in VM authorized_keys. For the HPC SSH key you might be able to generate a key pair or you need to generate one locally. For example, see CSC docs for SSH [connections](https://docs.csc.fi/computing/connecting/ssh-keys/). 
+When you have created the cloud-HPC key, remember to confirm that its public key is listed in VM authorized_keys. For the local-HPC key you might be able to generate a key pair or you need to generate one locally. For example, see CSC docs for HPC [connections](https://docs.csc.fi/computing/connecting/ssh-keys/). 
 
-After the HPC SSH key has been registered and you have created a SSH config for easier connections, you should now be able to open a terminal in the HPC platfrom. The first order of business is to understand the platform file system both in theory and practice by reading vendor documentation. By using the CSC [docs](https://docs.csc.fi/computing/disk/), we need to run:
+After the local-HPC key has been registered and you have created a local SSH config for easier connections, you should now be able to open a terminal in the HPC platfrom. 
+
+The first thing you usually do is to put the cloud-HPC key into your personal directory in the HPC platform. You need to either send or create a copy of the private SSH. The latter is easier with simply opening a terminal in your computer and copying the shown key with the following commands:
+
+```
+local| pwd
+local| cd .ssh
+local| cat cloud-hpc.pem 
+local| CTRL + SHIFT + C
+
+hpc| pwd (check that you are in the personal directory)
+hpc| cd /users/(your_csc_user)
+hpc| nano cloud-hpc.pem
+hpc| CTRL + SHIFT + C
+hpc| CTRL + X
+hpc| Y
+hpc| cat cloud-hpc.pem
+hpc| chmod 600 cloud-hpc.pem
+```
+
+### HPC filesystems
+
+The first order of business is to understand the platform file system both in theory and practice by reading vendor documentation.
+
+### Cases Puhti and Mahti
+
+For Puhti and Mahti, by using the CSC [docs](https://docs.csc.fi/computing/disk/), we need to run:
 
 ```
 csc-workspaces
@@ -215,7 +243,90 @@ for ((i = 1; i <= worker_num; i++)); do
 done
 ```
 
-You can copy and fill in code with the following:
+### Case LUMI
+
+LUMI has slight differences compared to Puhti and Mahti, which actions required in the filesystem, module and batch job use. By using LUMI [docs](https://docs.lumi-supercomputer.eu/runjobs/lumi_env/dailymanagement/), we need to run:
+
+```
+lumi-workspaces
+```
+
+This time we will not setup Python virtual enviroment, since we can continue to rely on CSC [PyTorch module](https://docs.csc.fi/apps/pytorch/#lumi). We only need to give the correct project code and LUMI [partition](https://docs.lumi-supercomputer.eu/runjobs/scheduled-jobs/partitions/). These result in the following small modifications to the batch job script:
+
+```
+#!/bin/bash
+#SBATCH --job-name=ray-cluster
+#SBATCH --account=project_(your_csc_project)
+#SBATCH --partition=small
+#SBATCH --time=00:10:00
+#SBATCH --nodes=2
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=10GB
+
+module use /appl/local/csc/modulefiles/
+module load pytorch
+
+echo "Loaded modules:"
+
+module list
+
+echo "Setting connection variables"
+
+key_path="/users/(your_csc_user)/cpouta-hpc.pem"
+cloud_private_ip="(your_vm_private_ip)"
+cloud_port=8280
+cloud_user="(your_vm_user)"
+cloud_public_ip="(your_vm_public_ip)"
+
+echo "Setting Ray variables"
+
+hpc_head_port=8265
+hpc_dashboard_port=8280 
+nodes=$(scontrol show hostnames "$SLURM_JOB_NODELIST")
+nodes_array=($nodes)
+head_node=${nodes_array[0]}
+head_node_ip=$(srun --nodes=1 --ntasks=1 -w "$head_node" hostname --ip-address)
+
+echo "Setting up Ray head"
+
+ip_head=$head_node_ip:$hpc_head_port
+export ip_head
+echo "IP Head: $ip_head"
+
+echo "Starting HEAD at $head_node"
+srun --nodes=1 --ntasks=1 -w "$head_node" \
+    singularity_wrapper exec ray start --head --node-ip-address="$head_node_ip" \
+    --port=$hpc_head_port --dashboard-host="$head_node_ip" --dashboard-port=$hpc_dashboard_port \
+    --num-cpus "${SLURM_CPUS_PER_TASK}" --block &
+
+echo "Setting up SSH tunnel"
+
+ssh -f -o StrictHostKeyChecking=no -i $key_path -N \
+-R $cloud_private_ip:$cloud_port:$head_node_ip:$hpc_dashboard_port \
+$cloud_user@$cloud_public_ip
+
+echo "Reverse port forward running"
+
+sleep 5
+
+echo "Setting up Ray workers"
+
+worker_num=$((SLURM_JOB_NUM_NODES - 1))
+
+for ((i = 1; i <= worker_num; i++)); do
+    node_i=${nodes_array[$i]}
+    echo "Starting WORKER $i at $node_i"
+    srun --nodes=1 --ntasks=1 -w "$node_i" \
+         singularity_wrapper exec ray start --address "$ip_head" \
+	 --num-cpus "${SLURM_CPUS_PER_TASK}" --block &
+    sleep 240
+done
+```
+
+### Confirmation
+
+To confirm that Ray SLURM clusters are possible in the HPC platform, copy and fill in code with the following:
 
 ```
 pwd
@@ -228,30 +339,13 @@ Y
 cat ray-cluster.sh (check that values are filled)
 ```
 
-Now, the final setup for the batch job is to bring the SSH private key to the personal directory. You need to either send or create a copy of the private SSH. The latter is easier with simply opening a terminal in your computer and copying the shown key with the following commands:
-
-```
-local| pwd
-local| cd .ssh
-local| cat cloud-hpc.pem 
-local| CTRL + SHIFT + C
-
-hpc| pwd (check that you are in the personal directory)
-hpc| cd /users/(your_csc_user)
-hpc| nano cloud-hpc.pem
-hpc| CTRL + SHIFT + C
-hpc| CTRL + X
-hpc| Y
-hpc| cat cloud-hpc.pem
-```
-
-When you have filled the private key path, the third order of business is creating a local forward from your computer to the laptop. This is used to confirm that the dashboard is remote forwarded properly by allowing quick interactions. The command for SSH local forwarding is the following:
+Now, create a local forward from your computer to the laptop. This is used to confirm that the dashboard is remote forwarded properly by allowing UI interactions. The command for SSH local forwarding is the following:
 
 ```
 ssh -L 127.0.0.1:8280:(your_VM_private_ip):8280 cpouta
 ```
 
-The final order of business is doing the test. By using the CSC [batch job docs](https://docs.csc.fi/computing/running/submitting-jobs/), we make the batch job run with:
+Make the batch job run with:
 
 ```
 sbatch ray-cluster.sh
@@ -263,6 +357,24 @@ You can check that it is running with:
 squeue --me
 ```
 
-When the time in the squeue starts to count up, open up your browser and type the url http://127.0.0.1:8280 or http://localhost:8280. After waiting around 40 seconds, go to the url and check that Ray dashboard is visible and it enables interactions. You should get the following views for Puhti and Mahti:
+When the time in the squeue starts to count up, open up your browser and type the url http://127.0.0.1:8280 or http://localhost:8280. After waiting around 40 seconds, go to the url and check that Ray dashboard is visible and it enables interactions. 
+
+Puhti gives the following views:
+
+![Puhti Ray Dashboard Overview](/resources/img/puhti-ray-dashboard-overview.png)
+
+![Puhti Ray Dashboard Cluster](/resources/img/puhti-ray-dashboard-cluster.png)
+
+Mahti gives the following views:
+
+![Mahti Ray Dashboard Overview](/resources/img/mahti-ray-dashboard-overview.png)
+
+![Mahti Ray Dashboard Cluster](/resources/img/mahti-ray-dashboard-cluster.png)
+
+LUMI gives the following dashboard views:
+
+![LUMI Ray Dashboard Overview](/resources/img/lumi-ray-dashboard-overview.png)
+
+![LUMI Ray Dashboard Cluster](/resources/img/lumi-ray-dashboard-cluster.png)
 
 If there is no problems with the dashboard interactions, it means the choosen HPC platform can be used in cloud-HPC integrated distributed computing. For our use case of cloud-HPC integrated MLOps, Ray was choosen due to being an abstracted computing framework for Python based ML workflows and pipelines.
