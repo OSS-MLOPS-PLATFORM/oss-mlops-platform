@@ -18,43 +18,142 @@ When Ray is run in a single machine, we can create Ray workers and give them the
 bash -c "ray start --address=ray-head:6379 --block"
 ```
 
-The main problem of connecting separated Ray workers is that how exactly can container, virtual machine and system isolated applications connect to each other in a secure manner. The default way to do this is just creating SSH connections between the separated computers. Check the following
+Unfortunately it isn't trivial to connect separated Ray workers under a single ray head without problems. The main problem is that this connection requires Ray head and Ray workers to have exactly the same depedencies, which isn't realistic to setup, when we want to have consistent distributed computing. 
+
+For this reason, we will instead create separated Ray clusters and SSH remote forward the dashboard to centralize orhestration under the same Ray cluster. We first need to setup a Ray cluster in using Docker compose that use either only CPUs or additionally GPUs. Be aware that you can find offical Ray docker images with specified python versions and GPU support [here](https://hub.docker.com/r/rayproject/ray). 
+
+Here is the CPU only cluster:
+
+```
+networks:
+  app_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.29.0.0/16
+
+services:
+  ray-head:
+    image: rayproject/ray:2.44.1-py312
+    container_name: ray-head
+    hostname: ray-head
+    restart: no
+    ports:
+      - '127.0.0.1:6379:6379'
+      - '127.0.0.1:8265:8265'
+      - '127.0.0.1:8200:8200'
+    shm_size: '5gb'
+    command: bash -c "ray start --head --port=6379 --dashboard-host=0.0.0.0 --dashboard-port=8265 --metrics-export-port=8200 --block"
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: '4g'
+    networks:
+      app_network:
+        ipv4_address: 172.29.0.15
+  ray-worker:
+    image: rayproject/ray:2.44.1-py312
+    container_name: ray-worker
+    hostname: ray-worker
+    depends_on:
+      - ray-head
+    shm_size: '5gb'
+    command: bash -c "ray start --address=ray-head:6379 --block"
+    deploy:
+      mode: replicated
+      replicas: '1'
+      resources:
+        limits:
+         cpus: '1'
+         memory: '4g'
+    networks:
+      - app_network
+```
+
+Here is the CPU+GPU(NVIDIA) cluster:
+
+```
+networks:
+  app_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.29.0.0/16
+
+services:
+  ray-head:
+    image: rayproject/ray:2.44.1-py312-gpu
+    container_name: ray-head
+    hostname: ray-head
+    restart: no
+    ports:
+      - '127.0.0.1:6379:6379'
+      - '127.0.0.1:8265:8265'
+      - '127.0.0.1:8200:8200'
+    shm_size: '5gb'
+    command: bash -c "ray start --head --port=6379 --dashboard-host=0.0.0.0 --dashboard-port=8265 --metrics-export-port=8200 --block"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+        limits:
+          cpus: '1'
+          memory: '4g'
+    networks:
+      app_network:
+        ipv4_address: 172.29.0.15
+  ray-worker:
+    image: rayproject/ray:2.44.1-py312-gpu
+    container_name: ray-worker
+    hostname: ray-worker
+    depends_on:
+      - ray-head
+    shm_size: '5gb'
+    command: bash -c "ray start --address=ray-head:6379 --block"
+    deploy:
+      mode: replicated
+      replicas: '1'
+      resources:
+        limits:
+         cpus: '1'
+         memory: '4g'
+    networks:
+      - app_network
+```
+
+When you have activated Docker Compose, run these with
 
 
 ```
-sudo systemctl status ssh
-cat /etc/ssh/sshd_config
+docker compose -f ray-cluster.yaml up 
 ```
 
-If these exists, but ssh server is inactive, run 
-
-
-```
-sudo systemctl start ssh
-```
-
-and modify the sshd_config to have the following:
+If this creates errors, check configuration, container names and network. When the cluster is running, you can check its dashboard at http://127.0.0.1:8265. We can remote forward it to a computer of our choice, which in our case is a CPouta cloud platform virtual machine (VM). Add the following into your SSH config:
 
 
 ```
-sudo nano /etc/ssh/sshd_config
-
-PubkeyAuthentication yes
-AllowTcpForwarding yes
-GatewayPorts yes
+Host rf-cpouta
+Hostname (your_vm_public_ip)
+User (your_vm_user)
+IdentityFile ~/.ssh/(your_vm_key).pem
+RemoteForward (your_vm_private_ip):8284 127.0.0.1:8265
 ```
 
-to make these changes, run 
+You might need to create a list to give unique ports if you are planning to add more Ray clusters. These clusters can be easily utilized with the dashboard connection that you can localforward with the following:
+
 
 ```
-sudo systemctl restart ssh
+Host lf-cpouta
+Hostname (your_vm_public_ip)
+User ubuntu
+IdentityFile ~/.ssh/(your_vm_key).pem
+LocalForward 127.0.0.1:8284 (your_vm_private_ip):8284
+LocalForward 127.0.0.1:8285 (your_vm_private_ip):8285
+LocalForward 127.0.0.1:8286 (your_vm_private_ip):8286 
 ```
 
-Now, generate a private key for ray worker computers:
-
-```
-ssh-keygen -f ~/.ssh/ray_worker_key
-```
-
-
-but this will quickly get manually cumbersome with system differences. Thus, we need to have a way that enables easy access to a remote addess with the ability to block any other addresses from connecting to it.
+Now, if you want to use these in a root Ray cluster, then the easiest option for you is either to setup Docker Compose with a Ray cluster that provides ingress to the Docker Network or use Kubernetes in Docker (KinD) to attach a cluster service to a specific VM address. Here we will do the latter with the OSS MLOps platform.
