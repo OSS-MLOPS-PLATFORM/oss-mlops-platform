@@ -20,8 +20,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1'
-          memory: '4g'
+          cpus: '5'
+          memory: '5g'
     networks:
       app_network:
         ipv4_address: 172.29.0.15
@@ -38,7 +38,7 @@ services:
       replicas: '1'
       resources:
         limits:
-         cpus: '1'
-         memory: '4g'
+         cpus: '5'
+         memory: '5g'
     networks:
       - app_network
