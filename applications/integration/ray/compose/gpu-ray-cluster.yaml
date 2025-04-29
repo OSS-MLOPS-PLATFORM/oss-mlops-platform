@@ -15,8 +15,9 @@ services:
       - '127.0.0.1:6379:6379'
       - '127.0.0.1:8265:8265'
       - '127.0.0.1:8200:8200'
+      - '127.0.0.1:10001:10001'
     shm_size: '5gb'
-    command: bash -c "ray start --head --port=6379 --dashboard-host=0.0.0.0 --dashboard-port=8265 --metrics-export-port=8200 --block"
+    command: bash -c "ray start --head --port=6379 --dashboard-host=0.0.0.0 --dashboard-port=8265 --metrics-export-port=8200 --ray-client-server-port=10001 --block"
     deploy:
       resources:
         reservations:
