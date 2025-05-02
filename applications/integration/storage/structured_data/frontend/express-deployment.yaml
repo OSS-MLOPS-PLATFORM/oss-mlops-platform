@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: express-server
+  labels:
+    app: express-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: express-server 
+  template:
+    metadata:
+      labels:
+        app: express-server 
+    spec:
+      containers:
+        - name: express-server
+          image: mongo-express:1.0.2
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8081
+          env:
+          - name: ME_CONFIG_MONGODB_AUTH_USERNAME
+            value: 'mongo123'
+          - name: ME_CONFIG_MONGODB_AUTH_PASSWORD
+            value: 'mongo456'
+          - name: ME_CONFIG_MONGODB_ADMINUSERNAME
+            value: 'mongo123'
+          - name: ME_CONFIG_MONGODB_ADMINPASSWORD
+            value: 'mongo456'
+          - name: ME_CONFIG_BASICAUTH_USERNAME
+            value: 'express123'
+          - name: ME_CONFIG_BASICAUTH_PASSWORD
+            value: 'express456'
+          - name: ME_CONFIG_MONGODB_PORT
+            value: '27017'
+          - name: ME_CONFIG_MONGODB_SERVER
+            value: 'mongo-service'

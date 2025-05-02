@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-server
+  labels:
+    app: mongo-server
+spec: 
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo-server 
+  template:
+    metadata:
+      labels:
+        app: mongo-server 
+    spec:
+      containers:
+        - name: mongo-server
+          image: mongo:8.0.9
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 27017
+          volumeMounts:
+            - name: mongo-data
+              mountPath: /data/db/
+            - name: mongo-log
+              mountPath: /var/log/mongodb/
+          env:
+          - name: MONGO_INITDB_ROOT_USERNAME
+            value: 'mongo123'
+          - name: MONGO_INITDB_ROOT_PASSWORD
+            value: 'mongo456'
+      volumes:
+        - name: mongo-data
+          persistentVolumeClaim:
+            claimName: mongo-data-pvc
+        - name: mongo-log
+          persistentVolumeClaim:
+            claimName: mongo-log-pvc

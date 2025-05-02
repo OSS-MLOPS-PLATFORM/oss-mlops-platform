@@ -1,0 +1,4 @@
+resources:
+- qdrant-deployment.yaml
+- qdrant-service.yaml
+- qdrant-pvc.yaml
