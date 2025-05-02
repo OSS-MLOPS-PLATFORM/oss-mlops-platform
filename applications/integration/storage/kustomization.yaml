@@ -3,6 +3,5 @@ kind: Kustomization
 namespace: storage
 resources:
 - storage-namespace.yaml
-- mongo/
-- qdrant/
-- meili/
+- structured_data/
+- vector_data/
