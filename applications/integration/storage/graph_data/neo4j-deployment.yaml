@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: neo4j-server
-          image: neo4j/neo4j:5.26.5-community
+          image: neo4j:5.26.5-community
           imagePullPolicy: Always
           ports:
             - containerPort: 7474
