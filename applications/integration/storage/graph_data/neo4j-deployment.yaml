@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: neo4j-server
+  labels:
+    app: neo4j-server
+spec: 
+  replicas: 1
+  selector:
+    matchLabels:
+      app: neo4j-server 
+  template:
+    metadata:
+      labels:
+        app: neo4j-server 
+    spec:
+      containers:
+        - name: neo4j-server
+          image: neo4j/neo4j:5.26.5-community
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 7474
+            - containerPort: 7687
+          volumeMounts:
+            - name: neo4j-data-storage
+              mountPath: /data
+            - name: neo4j-log-storage
+              mountPath: /logs
+          env:
+          - name: NEO4J_AUTH
+            value: 'neo4j/password'
+      volumes:
+        - name: neo4j-data-storage
+          persistentVolumeClaim:
+            claimName: neo4j-data-pvc
+        - name: neo4j-log-storage
+          persistentVolumeClaim:
+            claimName: neo4j-log-pvc

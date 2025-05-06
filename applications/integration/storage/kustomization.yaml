@@ -5,3 +5,4 @@ resources:
 - storage-namespace.yaml
 - structured_data/
 - vector_data/
+- graph_data/

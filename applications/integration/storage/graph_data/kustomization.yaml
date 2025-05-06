@@ -1,0 +1,4 @@
+resources:
+- neo4j-deployment.yaml
+- neo4j-service.yaml
+- neo4j-pvc.yaml
