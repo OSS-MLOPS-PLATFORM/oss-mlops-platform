@@ -2,3 +2,4 @@ resources:
 - mongo-deployment.yaml
 - mongo-service.yaml
 - mongo-pvc.yaml
+- mongo-ingress.yaml

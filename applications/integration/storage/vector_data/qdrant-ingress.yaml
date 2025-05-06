@@ -1,0 +1,32 @@
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: qdrant-gateway
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 6333
+      name: http
+      protocol: TCP
+    hosts:
+    - "*"
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: qdrant-virtualservice
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - qdrant-gateway
+  tcp:
+  - match:
+    - port: 6333
+    route:
+    - destination:
+        host: qdrant-service.storage.svc.cluster.local
+        port:
+          number: 6333

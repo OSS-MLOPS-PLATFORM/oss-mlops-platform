@@ -1,0 +1,32 @@
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: mongodb-gateway
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 27017
+      name: http
+      protocol: TCP
+    hosts:
+    - "*"
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: mongodb-virtualservice
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - mongodb-gateway
+  tcp:
+  - match:
+    - port: 27017
+    route:
+    - destination:
+        host: mongo-service.storage.svc.cluster.local
+        port:
+          number: 27017
