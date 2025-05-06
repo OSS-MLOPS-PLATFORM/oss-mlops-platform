@@ -2,14 +2,15 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kiali
-  namespace: "istio-system"
+  namespace: istio-system
   labels:
-    helm.sh/chart: kiali-server-2.5.0
+    helm.sh/chart: kiali-server-1.76.0
     app: kiali
     app.kubernetes.io/name: kiali
     app.kubernetes.io/instance: kiali
-    version: "v2.5.0"
-    app.kubernetes.io/version: "v2.5.0"
+    version: "v1.76.0"
+    app.kubernetes.io/version: "v1.76.0"
+    app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: "kiali"
 spec:
   replicas: 1
@@ -26,30 +27,30 @@ spec:
     metadata:
       name: kiali
       labels:
-        helm.sh/chart: kiali-server-2.5.0
+        helm.sh/chart: kiali-server-1.76.0
         app: kiali
         app.kubernetes.io/name: kiali
         app.kubernetes.io/instance: kiali
-        version: "v2.5.0"
-        app.kubernetes.io/version: "v2.5.0"
+        version: "v1.76.0"
+        app.kubernetes.io/version: "v1.76.0"
+        app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/part-of: "kiali"
         sidecar.istio.io/inject: "false"
       annotations:
-        checksum/config: 65c7b043159d831b0922a3224c0d004a136c4c01b0f1b8d7ec1aff9db88019d3
+        checksum/config: aebd819b94172ef9b148702b7bb438ac35bd1eb284bbb9b13769d8576374fbda
         prometheus.io/scrape: "true"
         prometheus.io/port: "9090"
         kiali.io/dashboards: go,kiali
     spec:
       serviceAccountName: kiali
       containers:
-      - image: "quay.io/kiali/kiali:v2.5"
-        imagePullPolicy: IfNotPresent
+      - image: "quay.io/kiali/kiali:v1.76"
+        imagePullPolicy: Always
         name: kiali
         command:
         - "/opt/kiali/kiali"
         - "-config"
         - "/kiali-configuration/config.yaml"
-        terminationMessagePolicy: FallbackToLogsOnError
         securityContext:
           allowPrivilegeEscalation: false
           privileged: false
@@ -77,14 +78,6 @@ spec:
             scheme: HTTP
           initialDelaySeconds: 5
           periodSeconds: 30
-        startupProbe:
-          httpGet:
-            path: /kiali/healthz
-            port: api-port
-            scheme: HTTP
-          failureThreshold: 6
-          initialDelaySeconds: 30
-          periodSeconds: 10
         env:
         - name: ACTIVE_NAMESPACE
           valueFrom:

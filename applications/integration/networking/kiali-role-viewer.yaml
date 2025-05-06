@@ -1,7 +1,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: kiali
+  name: kiali-viewer
   labels:
     helm.sh/chart: kiali-server-1.76.0
     app: kiali
@@ -31,7 +31,6 @@ rules:
   - get
   - list
   - watch
-  - patch
 - apiGroups: [""]
   resources:
   - pods/portforward
@@ -48,7 +47,6 @@ rules:
   - get
   - list
   - watch
-  - patch
 - apiGroups: ["batch"]
   resources:
   - cronjobs
@@ -57,21 +55,17 @@ rules:
   - get
   - list
   - watch
-  - patch
 - apiGroups:
   - networking.istio.io
   - security.istio.io
   - extensions.istio.io
   - telemetry.istio.io
-  - gateway.networking.k8s.io 
+  - gateway.networking.k8s.io
   resources: ["*"]
   verbs:
   - get
   - list
   - watch
-  - create
-  - delete
-  - patch
 - apiGroups: ["apps.openshift.io"]
   resources:
   - deploymentconfigs
@@ -79,7 +73,6 @@ rules:
   - get
   - list
   - watch
-  - patch
 - apiGroups: ["project.openshift.io"]
   resources:
   - projects

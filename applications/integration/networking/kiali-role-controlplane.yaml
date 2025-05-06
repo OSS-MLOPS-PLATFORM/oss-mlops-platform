@@ -1,7 +1,7 @@
-apiVersion: v1
-kind: Service
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
 metadata:
-  name: kiali
+  name: kiali-controlplane
   namespace: istio-system
   labels:
     helm.sh/chart: kiali-server-1.76.0
@@ -12,17 +12,14 @@ metadata:
     app.kubernetes.io/version: "v1.76.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: "kiali"
-  annotations:
-spec:
-  ports:
-  - name: http
-    appProtocol: http
-    protocol: TCP
-    port: 20001
-  - name: http-metrics
-    appProtocol: http
-    protocol: TCP
-    port: 9090
-  selector:
-    app.kubernetes.io/name: kiali
-    app.kubernetes.io/instance: kiali
+rules:
+- apiGroups: [""]
+  resourceNames:
+  - cacerts
+  - istio-ca-secret
+  resources:
+  - secrets
+  verbs:
+  - get
+  - list
+  - watch

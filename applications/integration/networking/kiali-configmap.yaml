@@ -2,53 +2,42 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: kiali
-  namespace: "istio-system"
+  namespace: istio-system
   labels:
-    helm.sh/chart: kiali-server-2.5.0
+    helm.sh/chart: kiali-server-1.76.0
     app: kiali
     app.kubernetes.io/name: kiali
     app.kubernetes.io/instance: kiali
-    version: "v2.5.0"
-    app.kubernetes.io/version: "v2.5.0"
+    version: "v1.76.0"
+    app.kubernetes.io/version: "v1.76.0"
+    app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: "kiali"
 data:
   config.yaml: |
-    additional_display_details:
-    - annotation: kiali.io/api-spec
-      icon_annotation: kiali.io/api-type
-      title: API Documentation
     auth:
       openid: {}
       openshift:
         client_id_prefix: kiali
       strategy: anonymous
-    clustering:
-      autodetect_secrets:
-        enabled: true
-        label: kiali.io/multiCluster=true
-      clusters: []
     deployment:
+      accessible_namespaces:
+      - '**'
       additional_service_yaml: {}
       affinity:
         node: {}
         pod: {}
         pod_anti: {}
-      cluster_wide_access: true
       configmap_annotations: {}
-      custom_envs: []
       custom_secrets: []
-      dns:
-        config: {}
-        policy: ""
       host_aliases: []
       hpa:
-        api_version: autoscaling/v2
+        api_version: autoscaling/v2beta2
         spec: {}
       image_digest: ""
       image_name: quay.io/kiali/kiali
-      image_pull_policy: IfNotPresent
+      image_pull_policy: Always
       image_pull_secrets: []
-      image_version: v2.5
+      image_version: v1.76
       ingress:
         additional_labels: {}
         class_name: nginx
@@ -67,18 +56,6 @@ data:
       pod_labels:
         sidecar.istio.io/inject: "false"
       priority_class_name: ""
-      probes:
-        liveness:
-          initial_delay_seconds: 5
-          period_seconds: 30
-        readiness:
-          initial_delay_seconds: 5
-          period_seconds: 30
-        startup:
-          failure_threshold: 6
-          initial_delay_seconds: 30
-          period_seconds: 10
-      remote_cluster_resources_only: false
       replicas: 1
       resources:
         limits:
@@ -91,16 +68,13 @@ data:
       service_annotations: {}
       service_type: ""
       tolerations: []
-      topology_spread_constraints: []
-      version_label: v2.5.0
+      version_label: v1.76.0
       view_only_mode: false
     external_services:
       custom_dashboards:
         enabled: true
       istio:
         root_namespace: istio-system
-      tracing:
-        enabled: false
       prometheus:
         url: http://prometheus-service.monitoring:8080
     identity:
@@ -108,6 +82,16 @@ data:
       private_key_file: ""
     istio_namespace: istio-system
     kiali_feature_flags:
+      certificates_information_indicators:
+        enabled: true
+        secrets:
+        - cacerts
+        - istio-ca-secret
+      clustering:
+        autodetect_secrets:
+          enabled: true
+          label: kiali.io/multiCluster=true
+        clusters: []
       disabled_features: []
       validations:
         ignore:
@@ -115,9 +99,7 @@ data:
     login_token:
       signing_key: CHANGEME00000000
     server:
-      observability:
-        metrics:
-          enabled: true
-          port: 9090
+      metrics_enabled: true
+      metrics_port: 9090
       port: 20001
       web_root: /kiali
