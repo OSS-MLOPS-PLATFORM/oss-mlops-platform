@@ -23,8 +23,8 @@ spec:
   gateways:
   - qdrant-gateway
   http:
-    route:
-    - destination:
-        host: qdrant-service.storage.svc.cluster.local
-        port:
-          number: 7201
+    - route:
+      - destination:
+          host: qdrant-service.storage.svc.cluster.local
+          port:
+            number: 7201
