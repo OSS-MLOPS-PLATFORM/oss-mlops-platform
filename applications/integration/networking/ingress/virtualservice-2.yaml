@@ -4,12 +4,13 @@ metadata:
   name: mongodb-virtualservice
 spec:
   hosts:
-  - "mongo.com"
+  - "*"
   gateways:
-  - mongodb-gateway
+  - storage-gateway
   tcp:
   - match:
-    - port: 27017
+    - uri:
+        prefix: /mongo
     route:
     - destination:
         host: mongo-service.storage.svc.cluster.local

@@ -8,7 +8,7 @@ spec:
   servers:
   - port:
       number: 80
-      name: http-qdrant
+      name: http
       protocol: HTTP
     hosts:
     - "*"

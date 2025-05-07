@@ -4,13 +4,13 @@ metadata:
   name: qdrant-virtualservice
 spec:
   hosts:
-  - '*'
+  - "*"
   gateways:
-  - qdrant-gateway
+  - storage-gateway
   http:
   - match:
     - uri:
-      prefix: /qdrant
+        prefix: /qdrant
     route:
     - destination:
         host: qdrant-service.storage.svc.cluster.local
