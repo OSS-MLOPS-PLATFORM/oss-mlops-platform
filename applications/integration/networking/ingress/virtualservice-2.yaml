@@ -7,7 +7,7 @@ spec:
   - "*"
   gateways:
   - storage-gateway
-  tcp:
+  http:
   - match:
     - uri:
         prefix: /mongo
