@@ -8,10 +8,10 @@ spec:
   servers:
   - port:
       number: 27017
-      name: http
+      name: tcp-mongo
       protocol: TCP
     hosts:
-    - "*"
+    - "mongo.com"
 ---
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
@@ -19,7 +19,7 @@ metadata:
   name: mongodb-virtualservice
 spec:
   hosts:
-  - "*"
+  - "mongo.com"
   gateways:
   - mongodb-gateway
   tcp:
