@@ -11,8 +11,10 @@ spec:
   - match:
     - uri:
         prefix: /mongo
+    rewrite:
+      uri: "/"
     route:
     - destination:
         host: mongo-service.storage.svc.cluster.local
         port:
-          number: 27017
+          number: 27017 
