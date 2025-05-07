@@ -7,11 +7,11 @@ spec:
     istio: istio-ingressgateway
   servers:
   - port:
-      number: 7201
+      number: 80
       name: http-qdrant
       protocol: HTTP
     hosts:
-    - "qdrant.com"
+    - 'qdrant.com'
 ---
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
@@ -19,12 +19,13 @@ metadata:
   name: qdrant-virtualservice
 spec:
   hosts:
-  - "qdrant.com"
+  - 'qdrant.com'
   gateways:
   - qdrant-gateway
   http:
   - match:
-    - port: 7201
+      - uri:
+          prefix: '/'
     route:
     - destination:
         host: qdrant-service.storage.svc.cluster.local
