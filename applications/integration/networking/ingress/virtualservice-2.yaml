@@ -6,7 +6,7 @@ spec:
   hosts:
   - "*"
   gateways:
-  - storage-gateway
+  - istio-ingressgateway
   http:
   - match:
     - uri:
