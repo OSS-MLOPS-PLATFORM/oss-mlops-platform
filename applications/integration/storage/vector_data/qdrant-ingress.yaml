@@ -23,9 +23,6 @@ spec:
   gateways:
   - qdrant-gateway
   http:
-  - match:
-      - uri:
-          prefix: '/'
     route:
     - destination:
         host: qdrant-service.storage.svc.cluster.local
