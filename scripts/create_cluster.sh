@@ -32,6 +32,9 @@ nodes:
   - containerPort: 443
     hostPort: 443
     protocol: TCP
+  - containerPort: 30950
+    hostPort: 5000
+    protocol: TCP
 containerdConfigPatches:
 - |-
   [plugins."io.containerd.grpc.v1.cri".registry.mirrors."${HOST_IP}:5001"]
