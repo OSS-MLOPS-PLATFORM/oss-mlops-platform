@@ -1,0 +1,20 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: qdrant-virtualservice
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - storage-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /qdrant
+    rewrite:
+      uri: "/"
+    route:
+    - destination:
+        host: qdrant-service.storage.svc.cluster.local
+        port:
+          number: 7201 
