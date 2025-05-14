@@ -10,6 +10,6 @@ spec:
   http:
   - route:
     - destination:
-        host: neo4j.storage.svc.cluster.local
+        host: neo4j-service.storage.svc.cluster.local
         port:
           number: 7474
