@@ -357,7 +357,11 @@ def check_clusters(
       return {}
 ```
 
-We can make the remote clusters install packages using [runtime_env](https://docs.ray.io/en/latest/ray-core/api/doc/ray.runtime_env.RuntimeEnv.html) either in ray.init or remote task. The only problem left is setting up easier access to UIs, applications and databases run by the OSS MLOps platform. The default way to do this is to create a local forward with SSH and port forward the service using the following list:
+We can make the remote clusters install packages using [runtime_env](https://docs.ray.io/en/latest/ray-core/api/doc/ray.runtime_env.RuntimeEnv.html) either in ray.init or remote task. 
+
+**Kubernetes Networking**
+
+The only problem left is setting up easier access to UIs, applications and databases run by the OSS MLOps platform. The default way to do this is to create a local forward with SSH and port forward the service using the following list:
 
 ```
 # Kubeflow
@@ -548,10 +552,10 @@ kubectl get virtualservices -A
 
 With this information, we decide that we want to use the existing istio-ingressgateway, which we need to modify with:
 
-'''
+```
 kubectl get svc istio-ingressgateway -n istio-system -o yaml
 nano istio-ingressgateway
-'''
+```
 
 There we need to have the following:
 
@@ -776,8 +780,7 @@ curl -v -s -I -HHost:httpbin.example.com "http://localhost:(port)" # HTTP
 curl -v http://localhost:(port) # TCP
 ```
 
-You can see connections with Kiali using its graphs
-
+You can see connections with Kiali using its graphs:
 
 
 and more details with istio logs
