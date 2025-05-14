@@ -66,7 +66,7 @@ else
     echo "[2] Kubeflow (some components removed)"
     echo "[3] Standalone KFP"
     echo "[4] Standalone KFP and Kserve"
-    read -p "Enter the number of your choice [1-6] (default is [1]): " choice
+    read -p "Enter the number of your choice [1-4] (default is [1]): " choice
     case "$choice" in
         1 ) DEPLOYMENT_OPTION="integration-kubeflow-monitoring" ;;
         2 ) DEPLOYMENT_OPTION="integration-reduced-kubeflow-monitoring" ;;
@@ -101,11 +101,13 @@ case "$choice" in
 esac
 
 SETUP_GPU_RAY=false
-echo
-read -p "Setup GPU Ray (Requires atleast 1 GPU) (y/n) (default is [n]): " choice
-case "$choice" in
-    y|Y ) SETUP_GPU_RAY=true ;;
-    * ) SETUP_GPU_RAY=false ;;
+if [ "$INSTALL_RAY" = true ]; then
+    echo
+    read -p "Setup GPU Ray (Requires atleast 1 GPU) (y/n) (default is [n]): " choice
+    case "$choice" in
+        y|Y ) SETUP_GPU_RAY=true ;;
+        * ) SETUP_GPU_RAY=false ;;
+    esac
 esac
 
 # Save selections to settings file
@@ -275,13 +277,13 @@ fi
 
 # DEPLOY RAY
 if [ "$INSTALL_RAY" = true ]; then
-  if [[ "$SETUP_GPU_RAY" = false ]]; then
-    echo "Installing CPU Ray"
-    /bin/bash "$SCRIPT_DIR/scripts/install_ray.sh" 
-  else
-    echo "Installing CPU+GPU Ray"
-    /bin/bash "$SCRIPT_DIR/scripts/install_gpu_ray.sh"
-  fi
+    if [[ "$SETUP_GPU_RAY" = false ]]; then
+        echo "Installing CPU Ray"
+        /bin/bash "$SCRIPT_DIR/scripts/install_ray.sh" 
+    else
+        echo "Installing CPU+GPU Ray"
+        /bin/bash "$SCRIPT_DIR/scripts/install_gpu_ray.sh"
+    fi
 fi
 
 echo
