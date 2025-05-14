@@ -35,6 +35,24 @@ nodes:
   - containerPort: 30950
     hostPort: 5000
     protocol: TCP
+  - containerPort: 31000
+    hostPort: 6000 
+    protocol: TCP
+  - containerPort: 31001
+    hostPort: 6001
+    protocol: TCP
+  - containerPort: 31002
+    hostPort: 6002
+    protocol: TCP
+  - containerPort: 31003
+    hostPort: 6003
+    protocol: TCP
+  - containerPort: 31004
+    hostPort: 6004
+    protocol: TCP
+  - containerPort: 31005
+    hostPort: 6005
+    protocol: TCP
   extraMounts:
     - hostPath: /dev/null
       containerPath: /var/run/nvidia-container-devices/all
