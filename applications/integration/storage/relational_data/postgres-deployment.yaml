@@ -28,7 +28,7 @@ spec:
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: relational-secrets
+                  name: mlflow-secrets
                   key: DB_PASSWORD
             - name: PGDATA
               value: /var/lib/postgresql/data/pgdata
