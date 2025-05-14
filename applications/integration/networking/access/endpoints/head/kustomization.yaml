@@ -1,0 +1,4 @@
+resources:
+- remote-local-head-1.yaml
+- remote-local-head-2.yaml
+- remote-local-head-3.yaml

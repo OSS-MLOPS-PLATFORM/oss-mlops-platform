@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: istio-system
+resources:
+- gateway.yaml
+- kubeflow-virtualservice.yaml
+- kubeflow-minio-virtualservice.yaml
+- mlflow-virtualservice.yaml
+- mlflow-minio-virtualservice.yaml
+- prometheus-virtualservice.yaml
+- grafana-virtualservice.yaml
+- mongo-virtualservice.yaml
+- qdrant-virtualservice.yaml
+- neo4j-virtualservice.yaml
+- forwarder-frontend-virtualservice.yaml
+- forwarder-monitor-virtualservice.yaml
+- kiali-virtualservice.yaml

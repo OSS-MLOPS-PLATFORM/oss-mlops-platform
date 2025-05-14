@@ -4,17 +4,12 @@ metadata:
   name: qdrant-virtualservice
 spec:
   hosts:
-  - "*"
+  - "qdrant.oss"
   gateways:
-  - storage-gateway
+  - dashboard-gateway
   http:
-  - match:
-    - uri:
-        prefix: /qdrant
-    rewrite:
-      uri: "/"
-    route:
+  - route:
     - destination:
         host: qdrant-service.storage.svc.cluster.local
         port:
-          number: 7201 
+          number: 7201

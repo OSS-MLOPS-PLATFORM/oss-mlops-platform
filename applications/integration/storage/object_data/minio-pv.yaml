@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mlflow-minio-storage
+spec:
+  storageClassName: standard
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /mnt/minio
+    type: DirectoryOrCreate
