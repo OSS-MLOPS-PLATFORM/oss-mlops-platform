@@ -24,7 +24,7 @@ spec:
             - configMapRef:
                 name: postgres-config
           env:
-            - name: POSTGRES_PASSWORD
+            - name: POSTGRES_PASSWORD 
               valueFrom:
                 secretKeyRef:
                   name: storage-secrets

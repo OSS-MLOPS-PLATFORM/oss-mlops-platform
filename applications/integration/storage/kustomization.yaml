@@ -13,7 +13,7 @@ secretGenerator:
   envs:
     - secret.env
 
-resources:
+resources: 
 - storage-namespace.yaml
 - structured_data/
 - vector_data/
