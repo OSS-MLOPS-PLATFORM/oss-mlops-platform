@@ -756,11 +756,11 @@ This results in the following table:
 | Name       | Gateway | Port  | Service              | Namespace | 
 | ---        | ---     | ---   | ---                  | ---       |
 | Mongo      | 200     | 27017 | mongo-service        | storage   |
-| MinIO      | 201     | 9100  | minio-service        | storage   |
-| Qdrant     | 202     | 7201  | qdrant-service       | storage   |
-| Neo4j      | 203     | 7687  | neo4j-service        | storage   |
-| Redis      | 204     | 7687  | redis-service        | storage   |
-| PostgreSQL | 205     | 5432  | postgres-service     | storage   |
+| Qdrant     | 201     | 7201  | qdrant-service       | storage   |
+| Neo4j      | 202     | 7687  | neo4j-service        | storage   |
+| Redis      | 204     | 6379  | redis-service        | storage   |
+| MinIO      | 205     | 9100  | minio-service        | storage   |
+| PostgreSQL | 206     | 5532  | postgres-service     | storage   |
 
 
 When you have created these gateways and virtual services, you can test them by curling the port forward or the localhost. The port forward can be created with 
@@ -820,4 +820,20 @@ http://forwarder.frontend.oss:5000
 http://forwarder.monitor.oss:5000
 
 http://kiali.oss:5000
+```
+
+The security rule can be applied using a port range of 6000:6005, giving the following:
+
+```
+mongo = vm_floating_ip:6000 
+
+qdrant = vm_floating_ip:6001
+
+neo4j = vm_floating_ip:6002
+
+redis = vm_floating_ip:6003
+
+minio = vm_floating_ip:6004
+
+postgres = vm_floating_ip:6005
 ```
