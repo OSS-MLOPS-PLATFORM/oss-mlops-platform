@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
-  name: mongo-virtualservice
+  name: express-virtualservice
 spec:
   hosts:
   - "mongo.oss"

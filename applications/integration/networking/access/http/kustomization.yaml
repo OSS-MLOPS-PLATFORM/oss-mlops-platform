@@ -6,7 +6,7 @@ resources:
 - mlflow-minio-virtualservice.yaml
 - prometheus-virtualservice.yaml
 - grafana-virtualservice.yaml
-- mongo-virtualservice.yaml
+- express-virtualservice.yaml
 - qdrant-virtualservice.yaml
 - neo4j-virtualservice.yaml
 - minio-virtualservice.yaml
