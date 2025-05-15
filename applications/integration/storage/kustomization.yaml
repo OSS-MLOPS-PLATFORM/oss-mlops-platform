@@ -19,3 +19,5 @@ resources:
 - vector_data/
 - graph_data/
 - cache_data/
+- object_data/
+- relational_data/
