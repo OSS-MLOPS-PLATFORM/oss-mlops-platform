@@ -457,6 +457,7 @@ vm_floating_ip grafana.oss
 vm_floating_ip mongo.oss
 vm_floating_ip qdrant.oss
 vm_floating_ip neo4j.oss
+vm_floating_ip minio.oss
 vm_floating_ip forwarder.frontend.oss
 vm_floating_ip forwarder.monitor.oss
 vm_floating_ip kiali.oss
@@ -652,6 +653,7 @@ spec:
     - "mongo.oss"
     - "qdrant.oss"
     - "neo4j.oss"
+    - "minio.oss"
     - "forwarder.frontend.oss"
     - "forwarder.monitor.oss"
     - "kiali.oss"
@@ -697,6 +699,7 @@ This results in a table of following virtual services:
 | Mongo              | mongo.oss              | express-service      | storage    | 7200  |
 | Qdrant             | qdrant.oss             | qdrant-service       | storage    | 7201  |
 | Neo4j              | neo4j.oss              | neo4j-service        | storage    | 7474  |
+| Minio              | minio.oss              | minio-service        | storage    | 9101  |
 | Forwarder frontend | forwarder.frontend.oss | fastapi-service      | storage    | 6500  |
 | Forwarder monitor  | forwarder.monitor.oss  | flower-service       | forwarder  | 6501  |
 | Kiali              | kiali.oss              | kiali                | forwarder  | 20001 |
@@ -753,7 +756,7 @@ This results in the following table:
 | Name       | Gateway | Port  | Service              | Namespace | 
 | ---        | ---     | ---   | ---                  | ---       |
 | Mongo      | 200     | 27017 | mongo-service        | storage   |
-| MinIO      | 201     | 9000  | mlflow-minio-service | storage   |
+| MinIO      | 201     | 9100  | minio-service        | storage   |
 | Qdrant     | 202     | 7201  | qdrant-service       | storage   |
 | Neo4j      | 203     | 7687  | neo4j-service        | storage   |
 | Redis      | 204     | 7687  | redis-service        | storage   |
@@ -809,6 +812,8 @@ http://mongo.oss:5000
 http://qdrant.oss:5000
 
 http://neo4j.oss:5000
+
+http://minio.oss:5000
 
 http://forwarder.frontend.oss:5000
 
