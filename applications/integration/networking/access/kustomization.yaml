@@ -5,4 +5,3 @@ resources:
 - integration-namespace.yaml
 - endpoints/
 - http/
-- tcp/
