@@ -7,9 +7,9 @@ spec:
   - "*"
   gateways:
   - redis-gateway
-  http:
+  tcp:
   - match:
-    - port: 6379
+    - port: 204
     route:
     - destination:
         host: redis-service.storage.svc.cluster.local

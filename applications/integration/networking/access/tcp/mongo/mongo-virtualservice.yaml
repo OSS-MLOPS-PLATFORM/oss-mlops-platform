@@ -7,9 +7,9 @@ spec:
   - "*"
   gateways:
   - mongo-gateway
-  http:
+  tcp:
   - match:
-    - port: 27017
+    - port: 200
     route:
     - destination:
         host: mongo-service.storage.svc.cluster.local

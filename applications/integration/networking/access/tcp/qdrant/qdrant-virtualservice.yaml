@@ -7,9 +7,9 @@ spec:
   - "*"
   gateways:
   - qdrant-gateway
-  http:
+  tcp:
   - match:
-    - port: 7201
+    - port: 201
     route:
     - destination:
         host: qdrant-service.storage.svc.cluster.local

@@ -7,9 +7,9 @@ spec:
   - "*"
   gateways:
   - minio-gateway
-  http:
+  tcp:
   - match:
-    - port: 9100
+    - port: 205
     route:
     - destination:
         host: minio-service.storage.svc.cluster.local

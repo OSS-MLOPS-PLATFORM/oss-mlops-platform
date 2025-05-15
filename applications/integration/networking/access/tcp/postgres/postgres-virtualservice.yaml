@@ -7,9 +7,9 @@ spec:
   - "*"
   gateways:
   - postgres-gateway
-  http:
+  tcp:
   - match:
-    - port: 5532
+    - port: 206
     route:
     - destination:
         host: postgres-service.storage.svc.cluster.local
