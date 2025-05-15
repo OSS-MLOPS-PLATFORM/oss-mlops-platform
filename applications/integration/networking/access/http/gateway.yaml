@@ -21,6 +21,7 @@ spec:
     - "mongo.oss"
     - "qdrant.oss"
     - "neo4j.oss"
+    - "minio.oss"
     - "forwarder.frontend.oss"
     - "forwarder.monitor.oss"
     - "kiali.oss"
