@@ -1,33 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mlflow-minio
+  name: minio
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mlflow-minio
+      app: minio
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: mlflow-minio
+        app: minio
     spec:
       nodeSelector:
         "kubernetes.io/os": linux
       volumes:
-      - name: mlflow-minio-pvc
+      - name: minio-pvc
         persistentVolumeClaim:
-          claimName: mlflow-minio-pvc
+          claimName: minio-pvc
       containers:
-      - name: mlflow-minio
+      - name: minio
         image: minio/minio:RELEASE.2025-01-20T14-49-07Z
         imagePullPolicy: IfNotPresent #Always
         command: [ "/bin/bash" ]
-        args: [ "-c", "mkdir -p /data/mlflow  && minio server --address :9000 --console-address :9001 /data" ]
+        args: [ "-c", "mkdir -p /data  && minio server --address :9000 --console-address :9001 /data" ]
         volumeMounts:
-        - name: mlflow-minio-pvc
+        - name: minio-pvc
           mountPath: '/data'
         env:
         - name: MINIO_PROMETHEUS_AUTH_TYPE
@@ -35,12 +35,12 @@ spec:
         - name: MINIO_ROOT_USER
           valueFrom:
             configMapKeyRef:
-              name: mlflow-configmap
+              name: storage-configmap
               key: MINIO_ROOT_USER
         - name: MINIO_ROOT_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: mlflow-secrets
+              name: storage-secrets
               key: MINIO_ROOT_PASSWORD
         ports:
         - containerPort: 9000
