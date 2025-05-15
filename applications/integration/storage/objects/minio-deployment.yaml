@@ -14,7 +14,7 @@ spec:
       labels:
         app: minio-server
     spec:
-      nodeSelector:
+      nodeSelector: 
         "kubernetes.io/os": linux
       containers:
       - name: minio-server
@@ -23,10 +23,8 @@ spec:
         command: [ "/bin/bash" ]
         args: [ "-c", "mkdir -p /data && minio server --address :9000 --console-address :9001 /data" ]
         ports:
-          - containerPort: 9100
-            hostPort: 9000
-          - containerPort: 9101
-            hostPort: 9001
+          - containerPort: 9000
+          - containerPort: 9001 
         volumeMounts:
         - name: minio-pvc
           mountPath: '/data'
