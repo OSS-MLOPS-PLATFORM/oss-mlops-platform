@@ -1,0 +1,3 @@
+resources:
+- postgres-gateway.yaml
+- postgres-virtualservice.yaml

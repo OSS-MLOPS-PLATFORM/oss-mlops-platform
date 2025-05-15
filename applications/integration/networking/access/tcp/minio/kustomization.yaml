@@ -1,0 +1,3 @@
+resources:
+- minio-gateway.yaml
+- minio-virtualservice.yaml

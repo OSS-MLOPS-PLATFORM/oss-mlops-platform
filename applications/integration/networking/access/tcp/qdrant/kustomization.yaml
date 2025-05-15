@@ -1,0 +1,3 @@
+resources:
+- qdrant-gateway.yaml
+- qdrant-virtualservice.yaml

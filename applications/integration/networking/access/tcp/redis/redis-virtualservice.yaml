@@ -1,0 +1,17 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: redis-virtualservice
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - redis-gateway
+  http:
+  - match:
+    - port: 6379
+    route:
+    - destination:
+        host: redis-service.storage.svc.cluster.local
+        port:
+          number: 6379
