@@ -3,7 +3,8 @@ kind: Service
 metadata:
   name: minio-service
 spec:
-  type: LoadBalancer
+  selector:
+    app: minio-server 
   ports:
   - port: 9000
     targetPort: 9000
@@ -13,5 +14,3 @@ spec:
     targetPort: 9001
     protocol: TCP
     name: console
-  selector:
-    app: minio

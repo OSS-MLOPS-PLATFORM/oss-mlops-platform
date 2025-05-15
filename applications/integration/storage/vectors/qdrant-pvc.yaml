@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: qdrant-pvc
+  name: qdrant-pvc 
   labels:
     app: qdrant-server
 spec:

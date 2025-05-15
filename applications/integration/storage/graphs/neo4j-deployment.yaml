@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: neo4j-server
   labels:
-    app: neo4j-server
+    app: neo4j-server 
 spec: 
   replicas: 1
   selector:

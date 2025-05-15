@@ -1,24 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: postgres
+  name: postgres-server
   labels:
-    app: postgres
+    app: postgres-server 
 spec:
   replicas: 1
-  strategy:
-    type: Recreate
   selector:
     matchLabels:
-      app: postgres
+      app: postgres-server
   template:
     metadata:
       labels:
-        app: postgres
+        app: postgres-server
     spec:
       serviceAccountName: default
       containers:
-        - name: postgres
+        - name: postgres-server
           image: postgres:17.2
           envFrom:
             - configMapRef:

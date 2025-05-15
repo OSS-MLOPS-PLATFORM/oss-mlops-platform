@@ -14,9 +14,9 @@ secretGenerator:
 
 resources: 
 - storage-namespace.yaml
-- structured_data/
-- vector_data/
-- graph_data/
-- cache_data/
-- object_data/
-- relational_data/
+- structured/
+- vectors/
+- graphs/
+- cache/
+- objects/
+- relational/

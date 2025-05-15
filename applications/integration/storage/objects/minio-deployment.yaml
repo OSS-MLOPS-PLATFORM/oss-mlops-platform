@@ -1,31 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: minio
+  name: minio-server
+  labels:
+    app: minio-server 
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: minio
-  strategy:
-    type: Recreate
+      app: minio-server
   template:
     metadata:
       labels:
-        app: minio
+        app: minio-server
     spec:
       nodeSelector:
         "kubernetes.io/os": linux
-      volumes:
-      - name: minio-pvc
-        persistentVolumeClaim:
-          claimName: minio-pvc
       containers:
-      - name: minio
+      - name: minio-server
         image: minio/minio:RELEASE.2025-01-20T14-49-07Z
-        imagePullPolicy: IfNotPresent #Always
+        imagePullPolicy: Always
         command: [ "/bin/bash" ]
         args: [ "-c", "mkdir -p /data && minio server --address :9000 --console-address :9001 /data" ]
+        ports:
+          - containerPort: 9000
+            hostPort: 9000
+          - containerPort: 9001
+            hostPort: 9001
         volumeMounts:
         - name: minio-pvc
           mountPath: '/data'
@@ -42,8 +43,7 @@ spec:
             secretKeyRef:
               name: storage-secrets
               key: MINIO_ROOT_PASSWORD
-        ports:
-        - containerPort: 9000
-          hostPort: 9000
-        - containerPort: 9001
-          hostPort: 9001
+      volumes:
+      - name: minio-pvc
+        persistentVolumeClaim:
+          claimName: minio-pvc

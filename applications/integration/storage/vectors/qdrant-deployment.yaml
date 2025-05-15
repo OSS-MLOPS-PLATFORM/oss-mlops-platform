@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: qdrant-server
   labels:
-    app: qdrant-server
+    app: qdrant-server 
 spec: 
   replicas: 1
   selector:
