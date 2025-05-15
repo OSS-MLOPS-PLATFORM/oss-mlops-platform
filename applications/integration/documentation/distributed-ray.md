@@ -776,7 +776,7 @@ docker ps
 In both cases you can curl the connections with:
 
 ```
-curl -v -s -I -HHost:httpbin.example.com "http://localhost:(port)" # HTTP
+curl -v -H "Host: qdrant.oss" http://localhost:5000 # HTTP
 curl -v http://localhost:(port) # TCP
 ```
 
@@ -789,4 +789,30 @@ and more details with istio logs
 kubectl logs istio-ingressgateway-(id) -n istio-system
 ```
 
-When you have confirmed that the connections work, you only need to open firewall to the specific ports. For openstack virtual machines this is done with custom TCP rules, where you provide the port and the allowed IP addresses. After checking curl works, modify your /etc/hosts to have the addresses:
+When you have confirmed that the connections work, you only need to open firewall to the specific ports. For openstack virtual machines this is done with custom TCP rules, where you provide the port and the allowed IP addresses. After checking curl works, modify your /etc/hosts. This creates the following addresses:
+
+```
+http://kubeflow.oss:5000
+
+http://minio.kubeflow.oss:5000
+
+http://mlflow.oss:5000
+
+http://minio.mlflow.oss:5000
+
+http://prometheus.oss:5000
+
+http://grafana.oss:5000
+
+http://mongo.oss:5000
+
+http://qdrant.oss:5000
+
+http://neo4j.oss:5000
+
+http://forwarder.frontend.oss:5000
+
+http://forwarder.monitor.oss:5000
+
+http://kiali.oss:5000
+```
