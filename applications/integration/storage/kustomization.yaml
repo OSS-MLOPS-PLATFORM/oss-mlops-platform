@@ -6,7 +6,6 @@ configMapGenerator:
 - name: storage-configmap
   envs:
     - config.env
-  behavior: merge
 
 secretGenerator:
 - name: storage-secrets
