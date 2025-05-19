@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-server
+  labels:
+    app: fastapi-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fastapi-server
+  template:
+    metadata:
+      labels:
+        app: fastapi-server
+    spec:
+      containers:
+        - name: fastapi-server
+          image: t9k4b5ndjok1/cloud-hpc-integration:forwarder_frontend_v1.00.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 6500
+          env:
+          - name: REDIS_ENDPOINT
+            value: 'redis-service.forwarder.svc.cluster.local'
+          - name: REDIS_PORT
+            value: '6379'
+          - name: REDIS_DB 
+            value: '0'

@@ -1,0 +1,38 @@
+image:
+  repository: rayproject/ray
+  tag: 2.44.1-py312
+  pullPolicy: IfNotPresent
+
+head:
+  resources:
+    limits:
+      cpu: "1"
+      memory: "10G"
+    requests:
+      cpu: "1"
+      memory: "10G"
+  volumes:
+    - name: log-volume
+      emptyDir: {}
+  volumeMounts:
+    - mountPath: /tmp/ray
+      name: log-volume
+ 
+worker:
+  groupName: worker
+  replicas: 1
+  minReplicas: 1
+  maxReplicas: 1
+  resources:
+    limits:
+      cpu: "1"
+      memory: "10G"
+    requests:
+      cpu: "1"
+      memory: "10G"
+  volumes:
+    - name: log-volume
+      emptyDir: {}
+  volumeMounts:
+    - mountPath: /tmp/ray
+      name: log-volume

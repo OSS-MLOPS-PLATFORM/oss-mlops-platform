@@ -1,0 +1,45 @@
+networks:
+  app_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.29.0.0/16
+
+services:
+  ray-head:
+    image: rayproject/ray:2.44.1-py312
+    container_name: ray-head
+    hostname: ray-head
+    restart: no
+    ports:
+      - '127.0.0.1:6379:6379'
+      - '127.0.0.1:8265:8265'
+      - '127.0.0.1:8200:8200'
+      - '127.0.0.1:10001:10001'
+    shm_size: '5gb'
+    command: bash -c "ray start --head --port=6379 --dashboard-host=0.0.0.0 --dashboard-port=8265 --metrics-export-port=8200 --ray-client-server-port=10001 --block"
+    deploy:
+      resources:
+        limits:
+          cpus: '5'
+          memory: '5g'
+    networks:
+      app_network:
+        ipv4_address: 172.29.0.15
+  ray-worker:
+    image: rayproject/ray:2.44.1-py312
+    container_name: ray-worker
+    hostname: ray-worker
+    depends_on:
+      - ray-head
+    shm_size: '5gb'
+    command: bash -c "ray start --address=ray-head:6379 --block"
+    deploy:
+      mode: replicated
+      replicas: '1'
+      resources:
+        limits:
+         cpus: '5'
+         memory: '5g'
+    networks:
+      - app_network
