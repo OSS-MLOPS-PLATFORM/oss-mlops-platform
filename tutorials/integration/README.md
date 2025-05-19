@@ -36,6 +36,14 @@ To set up the integrated platform to cloud, you first need to have a CSC account
   - Max nodes: 512 CPU and 1024 GPU
   - Max time: 2 days for CPU and 2 days for GPU 
 
+Please check the following official documentation:
+
+- [Creation of CSC user account](https://docs.csc.fi/accounts/how-to-create-new-user-account/)
+- [Getting service access](https://docs.csc.fi/accounts/how-to-add-service-access-for-project/) 
+- [Cloud computing concepts](https://docs.csc.fi/cloud/)
+- [Pouta security guidelines](https://docs.csc.fi/cloud/pouta/security/)
+- [Pouta accounting](https://docs.csc.fi/cloud/pouta/accounting/)
+
 ## High-Level Integration Overview
 
 The following diagram illustrates the architectural design of the cloud-HPC integrated MLOps platform:
@@ -76,14 +84,6 @@ Here are the done modifications:
 9. The deployment envs were modified to have the forwarder deployment
 
 ## Background
-
-In order to use CSC services, you need to create an CSC account, so please check the following official documentation:
-
-- [Creation of CSC user account](https://docs.csc.fi/accounts/how-to-create-new-user-account/)
-- [Getting service access](https://docs.csc.fi/accounts/how-to-add-service-access-for-project/) 
-- [Cloud computing concepts](https://docs.csc.fi/cloud/)
-- [Pouta security guidelines](https://docs.csc.fi/cloud/pouta/security/)
-- [Pouta accounting](https://docs.csc.fi/cloud/pouta/accounting/)
 
 If you want to understand the technical details, check these links:
 
@@ -165,7 +165,7 @@ To install and configure Docker into the VM, use the following official document
 
 ### Storage
 
-You can [optionally](docker-storage.md) add more disk memory for the Docker VM.
+You can [optionally](documentation/docker-storage.md) add more disk memory for the Docker VM.
 
 ### Networking
 
@@ -206,7 +206,7 @@ ps aux | grep ssh
 
 ### GPUs
 
-If your VM has access to GPUs, they can be [setup](gpu-setup.md) for Docker and KinD. 
+If your VM has access to GPUs, they can be [setup](documentation/gpu-setup.md) for Docker and KinD. 
 
 ### OSS
 
