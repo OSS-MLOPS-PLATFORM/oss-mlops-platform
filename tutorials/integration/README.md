@@ -14,7 +14,7 @@ MLOps platforms provide a unified user interface for developing ML workflows and
 
 Thus, MLOps platforms such as OSS provide a MLOps system that enable developers to focus on improving their products such as models. 
 
-## Getting Started with a integrated setup
+## Getting Started
 
 To set up the integrated platform to cloud, you first need to have a CSC account and projects with access to the following services:
 
@@ -600,7 +600,7 @@ monitoring                  grafana-59489dc89-d6mxh                             
 monitoring                  prometheus-deployment-6c54c9d685-rlhhh                            1/1     Running     0             45d
 ```
 
-**Failed to initilize NVML: Driver/library version mismatch**
+**Error: failed to initilize NVML: Driver/library version mismatch**
 
 This happens, when update makes the libraries go out of sync. A common fix is to simply reboot with
 
