@@ -359,7 +359,7 @@ def check_clusters(
 
 We can make the remote clusters install packages using [runtime_env](https://docs.ray.io/en/latest/ray-core/api/doc/ray.runtime_env.RuntimeEnv.html) either in ray.init or remote task. 
 
-**Kubernetes Networking**
+## Kubernetes Networking
 
 The only problem left is setting up easier access to UIs, applications and databases run by the OSS MLOps platform. The default way to do this is to create a local forward with SSH and port forward the service using the following list:
 
@@ -837,3 +837,7 @@ minio = vm_floating_ip:6004
 
 postgres = vm_floating_ip:6005
 ```
+
+## Secure Networking
+
+The security of the current setup relys entirely on the firewall that needs to be constantly changed to enable passage for changed ip addresses. To reduce manual work and provide more secure way of connecting separated nodes, we need to setup a way to secure dashboard and TCP connections.

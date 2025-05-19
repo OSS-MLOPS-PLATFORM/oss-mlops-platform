@@ -71,7 +71,6 @@ def check_clusters(
                 )
             else:
                 head_url = 'ray://' + cluster_urls[i-1]
-                #print(head_url)
                 head_client = ray.init(
                     address = head_url, 
                     allow_multiple = True
