@@ -1,0 +1,3 @@
+resources:
+- redis-gateway.yaml
+- redis-virtualservice.yaml

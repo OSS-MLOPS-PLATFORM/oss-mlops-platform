@@ -8,7 +8,7 @@ If you have either multiple laptops or workstations, it is recommeded to install
 
 **GPU in Containers**
 
-A plus especially with windows machines with NVIDIA GPUs is that docker desktop provides GPU compatability by default, which isn't the case with linux. If you have Linux machine with GPUs, please see [this guide](tutorials/integration/gpu-support.md). When you have managed to setup docker desktop and run hello world, you can check GPU containers with [this yaml](applications/LLMs/inference/compose/gpu-test.yaml).
+A plus especially with windows machines with NVIDIA GPUs is that docker desktop provides GPU compatability by default, which isn't the case with linux. If you have Linux machine with GPUs, please see [this guide](gpu-setup.md). When you have managed to setup docker desktop and run hello world, you can check GPU containers with [this yaml](applications/LLMs/inference/compose/gpu-test.yaml).
 
 **Container Networking**
 
@@ -503,7 +503,7 @@ extraPortMappings:
   protocol: TCP
 ```
 
-We can add these configurations by modifying [create_cluster.sh](scripts/create_cluster.sh) and [create_gpu_cluster.sh](scripts/create_gpu_cluster.sh). When the cluster is running, we first need t modify istio enviroment variables with the following:
+We can add these configurations by modifying [create_cluster.sh](../../../scripts/create_cluster.sh) and [create_gpu_cluster.sh](../../../scripts/create_gpu_cluster.sh). When the cluster is running, we first need t modify istio enviroment variables with the following:
 
 ```
 kubectl get deployment istiod -n istio-system -o yaml > istiod.yaml

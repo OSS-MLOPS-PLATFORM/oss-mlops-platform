@@ -1,0 +1,17 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: minio-server-virtualservice
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - minio-gateway
+  tcp:
+  - match:
+    - port: 205
+    route:
+    - destination:
+        host: minio-service.storage.svc.cluster.local
+        port:
+          number: 9100

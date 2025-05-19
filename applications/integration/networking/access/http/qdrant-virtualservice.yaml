@@ -1,0 +1,15 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: qdrant-virtualservice
+spec:
+  hosts:
+  - "qdrant.oss"
+  gateways:
+  - dashboard-gateway
+  http:
+  - route:
+    - destination:
+        host: qdrant-service.storage.svc.cluster.local
+        port:
+          number: 7201

@@ -1,0 +1,4 @@
+resources:
+- ray-local-dash-1.yaml
+- ray-local-dash-2.yaml
+- ray-local-dash-3.yaml

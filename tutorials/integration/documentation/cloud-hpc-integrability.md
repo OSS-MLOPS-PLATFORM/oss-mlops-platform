@@ -361,20 +361,20 @@ When the time in the squeue starts to count up, open up your browser and type th
 
 Puhti gives the following views:
 
-![Puhti Ray Dashboard Overview](/resources/img/puhti-ray-dashboard-overview.png)
+![Puhti Ray Dashboard Overview](../resources/img/puhti-ray-dashboard-overview.png)
 
-![Puhti Ray Dashboard Cluster](/resources/img/puhti-ray-dashboard-cluster.png)
+![Puhti Ray Dashboard Cluster](../resources/img/puhti-ray-dashboard-cluster.png)
 
 Mahti gives the following views:
 
-![Mahti Ray Dashboard Overview](/resources/img/mahti-ray-dashboard-overview.png)
+![Mahti Ray Dashboard Overview](../resources/img/mahti-ray-dashboard-overview.png)
 
-![Mahti Ray Dashboard Cluster](/resources/img/mahti-ray-dashboard-cluster.png)
+![Mahti Ray Dashboard Cluster](../resources/img/mahti-ray-dashboard-cluster.png)
 
 LUMI gives the following dashboard views:
 
-![LUMI Ray Dashboard Overview](/resources/img/lumi-ray-dashboard-overview.png)
+![LUMI Ray Dashboard Overview](../resources/img/lumi-ray-dashboard-overview.png)
 
-![LUMI Ray Dashboard Cluster](/resources/img/lumi-ray-dashboard-cluster.png)
+![LUMI Ray Dashboard Cluster](../resources/img/lumi-ray-dashboard-cluster.png)
 
 If there is no problems with the dashboard interactions, it means the choosen HPC platform can be used in cloud-HPC integrated distributed computing. For our use case of cloud-HPC integrated MLOps, Ray was choosen due to being an abstracted computing framework for Python based ML workflows and pipelines.

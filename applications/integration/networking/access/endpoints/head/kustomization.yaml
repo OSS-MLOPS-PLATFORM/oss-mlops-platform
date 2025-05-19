@@ -1,0 +1,4 @@
+resources:
+- ray-local-head-1.yaml
+- ray-local-head-2.yaml
+- ray-local-head-3.yaml

@@ -1,0 +1,15 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: forwarder-frontend-virtualservice
+spec:
+  hosts:
+  - "forwarder.frontend.oss"
+  gateways:
+  - dashboard-gateway
+  http:
+  - route:
+    - destination:
+        host: fastapi-service.forwarder.svc.cluster.local
+        port:
+          number: 6500
