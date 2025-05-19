@@ -1,8 +1,8 @@
-# How to Setup Integrated OSS Platform
+# How to Setup Integrated OSS MLOps Platform
 
 We will go thorugh the necessery configuration on how to make the OSS MLOps platofrm run in CSC CPouta and utilize Ray clusters run in CSC supercomputers. We assume that you start from scratch. 
 
-## What are MLOps platforms
+## What are MLOps Platforms
 
 Machine learning operations (MLOps) is a intersection paradigm that [uses principles](https://arxiv.org/abs/2205.02302) to create machine learning products:
 
