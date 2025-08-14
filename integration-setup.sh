@@ -108,7 +108,7 @@ if [ "$INSTALL_RAY" = true ]; then
         y|Y ) SETUP_GPU_RAY=true ;;
         * ) SETUP_GPU_RAY=false ;;
     esac
-esac
+fi
 
 # Save selections to settings file
 echo -e "\nDEPLOYMENT_OPTION=$DEPLOYMENT_OPTION" >> $PLATFORM_CONFIG
