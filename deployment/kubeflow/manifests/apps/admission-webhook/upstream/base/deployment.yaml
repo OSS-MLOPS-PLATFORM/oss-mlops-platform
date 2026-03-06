@@ -5,11 +5,11 @@ metadata:
 spec:
   template:
     metadata:
-      annotations:
+      labels:
         sidecar.istio.io/inject: "false"
     spec:
       containers:
-      - image: docker.io/kubeflownotebookswg/poddefaults-webhook
+      - image: ghcr.io/kubeflow/kubeflow/poddefaults-webhook
         name: admission-webhook
         volumeMounts:
         - mountPath: /etc/webhook/certs

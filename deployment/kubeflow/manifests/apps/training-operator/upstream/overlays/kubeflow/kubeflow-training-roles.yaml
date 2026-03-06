@@ -25,9 +25,9 @@ rules:
       - mpijobs
       - tfjobs
       - pytorchjobs
-      - mxjobs
       - xgboostjobs
       - paddlejobs
+      - jaxjobs
     verbs:
       - create
       - delete
@@ -42,11 +42,29 @@ rules:
       - mpijobs/status
       - tfjobs/status
       - pytorchjobs/status
-      - mxjobs/status
       - xgboostjobs/status
       - paddlejobs/status
+      - jaxjobs/status
     verbs:
       - get
+  - apiGroups:
+      - ""
+    resources:
+      - persistentvolumeclaims
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - events
+    verbs:
+      - get
+      - list
+      - watch
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -62,9 +80,9 @@ rules:
       - mpijobs
       - tfjobs
       - pytorchjobs
-      - mxjobs
       - xgboostjobs
       - paddlejobs
+      - jaxjobs
     verbs:
       - get
       - list
@@ -75,8 +93,8 @@ rules:
       - mpijobs/status
       - tfjobs/status
       - pytorchjobs/status
-      - mxjobs/status
       - xgboostjobs/status
       - paddlejobs/status
+      - jaxjobs/status
     verbs:
       - get

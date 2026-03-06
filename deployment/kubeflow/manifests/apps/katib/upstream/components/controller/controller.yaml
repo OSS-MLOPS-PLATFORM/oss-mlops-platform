@@ -15,16 +15,15 @@ spec:
     metadata:
       labels:
         katib.kubeflow.org/component: controller
-        katib.kubeflow.org/metrics-collector-injection: disabled
+        sidecar.istio.io/inject: "false"
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "8080"
-        sidecar.istio.io/inject: "false"
     spec:
       serviceAccountName: katib-controller
       containers:
         - name: katib-controller
-          image: docker.io/kubeflowkatib/katib-controller
+          image: ghcr.io/kubeflow/katib/katib-controller
           command: ["./katib-controller"]
           args:
             - --katib-config=/katib-config.yaml

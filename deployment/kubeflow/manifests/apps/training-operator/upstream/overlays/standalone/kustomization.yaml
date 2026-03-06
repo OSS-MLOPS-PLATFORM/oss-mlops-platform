@@ -5,5 +5,9 @@ resources:
   - ../../base
   - namespace.yaml
 images:
-  - name: kubeflow/training-operator
-    newTag: "v1-855e096"
+  - name: ghcr.io/kubeflow/training-v1/training-operator
+    newTag: v1-3f15cb8
+secretGenerator:
+  - name: training-operator-webhook-cert
+    options:
+      disableNameSuffixHash: true

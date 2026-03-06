@@ -15,6 +15,9 @@ spec:
       annotations:
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
     spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       containers:
       - env:
           - name: NAMESPACE
@@ -25,15 +28,32 @@ spec:
             value: "86400"
           - name: NUM_WORKERS
             value: "2"
-          - name: KUBEFLOW_USERID_HEADER
-            value: kubeflow-userid
-          - name: KUBEFLOW_USERID_PREFIX
-            value: ""
-        image: gcr.io/ml-pipeline/persistenceagent:dummy
+          - name: LOG_LEVEL
+            value: "info"
+        image: ghcr.io/kubeflow/kfp-persistence-agent:dummy
         imagePullPolicy: IfNotPresent
         name: ml-pipeline-persistenceagent
         resources:
           requests:
             cpu: 120m
             memory: 500Mi
+        volumeMounts:
+          - mountPath: /var/run/secrets/kubeflow/tokens
+            name: persistenceagent-sa-token
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          runAsUser: 1000
+          runAsGroup: 0
+          capabilities:
+            drop:
+            - ALL
       serviceAccountName: ml-pipeline-persistenceagent
+      volumes:
+        - name: persistenceagent-sa-token
+          projected:
+            sources:
+              - serviceAccountToken:
+                  path: persistenceagent-sa-token
+                  expirationSeconds: 3600
+                  audience: pipelines.kubeflow.org
