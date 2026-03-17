@@ -1,0 +1,15 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: kubeflow-minio-virtualservice
+spec:
+  hosts:
+  - "minio.kubeflow.oss"
+  gateways:
+  - dashboard-gateway
+  http:
+  - route:
+    - destination:
+        host: minio-service.kubeflow.svc.cluster.local
+        port:
+          number: 9000

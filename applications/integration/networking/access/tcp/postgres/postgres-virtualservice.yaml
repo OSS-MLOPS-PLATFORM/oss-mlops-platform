@@ -1,0 +1,17 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: postgres-virtualservice
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - postgres-gateway
+  tcp:
+  - match:
+    - port: 206
+    route:
+    - destination:
+        host: postgres-service.storage.svc.cluster.local
+        port:
+          number: 5532 

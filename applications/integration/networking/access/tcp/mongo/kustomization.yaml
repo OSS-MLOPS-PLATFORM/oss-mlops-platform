@@ -1,0 +1,3 @@
+resources:
+- mongo-gateway.yaml
+- mongo-virtualservice.yaml

@@ -1,0 +1,15 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: forwarder-monitor-virtualservice
+spec:
+  hosts:
+  - "forwarder.monitor.oss"
+  gateways:
+  - dashboard-gateway
+  http:
+  - route:
+    - destination:
+        host: flower-service.forwarder.svc.cluster.local
+        port:
+          number: 6501

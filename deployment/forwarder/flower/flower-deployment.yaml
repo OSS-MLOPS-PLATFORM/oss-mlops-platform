@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flower-server
+  labels:
+    app: flower-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flower-server
+  template:
+    metadata:
+      labels:
+        app: flower-server
+    spec:
+      containers:
+        - name: flower-server
+          image: t9k4b5ndjok1/cloud-hpc-integration:forwarder_monitor_v1.00.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 6501
+          env:
+          - name: REDIS_ENDPOINT
+            value: 'redis-service.forwarder.svc.cluster.local'
+          - name: REDIS_PORT
+            value: '6379'
+          - name: REDIS_DB 
+            value: '0'
+          - name: FLOWER_USERNAME
+            value: 'flower123'
+          - name: FLOWER_PASSWORD
+            value: 'flower456'
