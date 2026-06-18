@@ -53,7 +53,7 @@ Fraunhofer Institute:
 
 - Dorian Knoblauch
 
-Haaga-Helia University of Applied Sciences (DevOps tooling):
+Haaga-Helia University of Applied Sciences (DevOps tooling and platform updates and extensions):
 
 - Jukka Remes
 - Aleksi Hyppönen
@@ -66,6 +66,19 @@ Haaga-Helia University of Applied Sciences (DevOps tooling):
 - Nikolai Ylänne
 - Prasanna Tamang Bomjan
 - Tommi Lavi
+- Netta Hintsala
+- Jukka Virolainen
+- Huang Wong
+- Ike Aniebonam
+- Kosti Kangasmaa
+- Jouni Tuomela
+- Tu Nguyen
+- Eemil Airaksinen
+- Ali Romar
+- Anh Tran
+- Emanuaela Luciani
+- Roope Salonen
+- Zhen Qi
 
 ### Special Thanks
 
