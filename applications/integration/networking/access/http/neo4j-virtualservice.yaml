@@ -1,0 +1,15 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: neo4j-virtualservice
+spec:
+  hosts:
+  - "neo4j.oss"
+  gateways:
+  - dashboard-gateway
+  http:
+  - route:
+    - destination:
+        host: neo4j-service.storage.svc.cluster.local
+        port:
+          number: 7474

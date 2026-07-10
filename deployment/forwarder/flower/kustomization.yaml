@@ -1,0 +1,3 @@
+resources:
+- flower-deployment.yaml
+- flower-service.yaml

@@ -1,0 +1,15 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: prometheus-virtualservice
+spec:
+  hosts:
+  - "prometheus.oss"
+  gateways:
+  - dashboard-gateway
+  http:
+  - route:
+    - destination:
+        host: prometheus-service.monitoring.svc.cluster.local
+        port:
+          number: 8080

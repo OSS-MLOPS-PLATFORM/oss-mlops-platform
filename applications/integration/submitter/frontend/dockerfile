@@ -1,0 +1,25 @@
+# syntax=docker/dockerfile:1
+
+FROM python:3.11-slim-bookworm
+
+ENV REDIS_ENDPOINT=127.0.0.1
+ENV REDIS_PORT=6379
+ENV REDIS_DB=0
+
+WORKDIR /frontend
+
+COPY setup_fastapi.py .
+
+COPY run_fastapi.py .
+
+COPY routes /frontend/routes
+
+COPY functions /frontend/functions
+
+COPY requirements.txt .
+
+RUN pip3 install -r requirements.txt
+
+EXPOSE 6600
+
+CMD ["python", "run_fastapi.py"]

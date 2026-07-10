@@ -1,0 +1,4 @@
+resources:
+- celery-permissions.yaml
+- celery-deployment.yaml
+- celery-service.yaml

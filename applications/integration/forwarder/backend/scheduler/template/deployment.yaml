@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: beat-server
+  labels:
+    app: beat-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: beat-server
+  template:
+    metadata:
+      labels:
+        app: beat-server
+    spec:
+      containers:
+        - name: beat-server
+          image: t9k4b5ndjok1/cloud-hpc-integration:forwarder_scheduler_v1.00.0
+          imagePullPolicy: Always
+          env:
+          - name: REDIS_ENDPOINT
+            value: 'redis-service.forwarder.svc.cluster.local'
+          - name: REDIS_PORT
+            value: '6379'
+          - name: REDIS_DB 
+            value: '0'
+          - name: 'SCHEDULER_TIMES'
+            value: '50|165|230'

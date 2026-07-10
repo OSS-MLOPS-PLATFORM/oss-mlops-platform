@@ -1,0 +1,15 @@
+resources:
+- gateway.yaml
+- kubeflow-virtualservice.yaml
+- kubeflow-minio-virtualservice.yaml
+- mlflow-virtualservice.yaml
+- mlflow-minio-virtualservice.yaml
+- prometheus-virtualservice.yaml
+- grafana-virtualservice.yaml
+- express-virtualservice.yaml
+- qdrant-virtualservice.yaml
+- neo4j-virtualservice.yaml
+- minio-virtualservice.yaml
+- forwarder-frontend-virtualservice.yaml
+- forwarder-monitor-virtualservice.yaml
+- kiali-virtualservice.yaml

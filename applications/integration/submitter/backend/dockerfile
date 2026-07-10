@@ -1,0 +1,31 @@
+# syntax=docker/dockerfile:1
+
+FROM python:3.11-slim-bookworm
+
+ENV REDIS_ENDPOINT=127.0.0.1
+ENV REDIS_PORT=6379
+ENV REDIS_DB=0
+
+ENV CELERY_CONCURRENCY=8
+ENV CELERY_LOGLEVEL=warning
+
+ENV FLOWER_ENDPOINT=127.0.0.1
+ENV FLOWER_PORT=6601
+ENV FLOWER_USERNAME=flower123
+ENV FLOWER_PASSWORD=flower456
+
+WORKDIR /backend
+
+COPY setup_celery.py .
+
+COPY run_celery.py .
+
+COPY functions /backend/functions
+
+COPY tasks /backend/tasks
+
+COPY requirements.txt .
+
+RUN pip3 install -r requirements.txt
+
+CMD ["python", "run_celery.py"]

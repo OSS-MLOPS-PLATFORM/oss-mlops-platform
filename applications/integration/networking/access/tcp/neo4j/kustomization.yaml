@@ -1,0 +1,3 @@
+resources:
+- neo4j-gateway.yaml
+- neo4j-virtualservice.yaml

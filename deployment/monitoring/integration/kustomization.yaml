@@ -1,0 +1,6 @@
+namespace: monitoring
+
+resources:
+  - monitoring-namespace.yaml
+  - ../prometheus/
+  - ../grafana/

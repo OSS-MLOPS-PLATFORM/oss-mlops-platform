@@ -1,0 +1,15 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: express-virtualservice
+spec:
+  hosts:
+  - "mongo.oss"
+  gateways:
+  - dashboard-gateway
+  http:
+  - route:
+    - destination:
+        host: express-service.storage.svc.cluster.local
+        port:
+          number: 7200

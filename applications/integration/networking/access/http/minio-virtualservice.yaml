@@ -1,0 +1,15 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: minio-virtualservice
+spec:
+  hosts:
+  - "minio.oss"
+  gateways:
+  - dashboard-gateway
+  http:
+  - route:
+    - destination:
+        host: minio-service.storage.svc.cluster.local
+        port:
+          number: 9101

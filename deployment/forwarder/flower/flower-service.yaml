@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: flower-service
+spec:
+  selector: 
+    app: flower-server 
+  ports:
+    - port: 6501
+      targetPort: 6501

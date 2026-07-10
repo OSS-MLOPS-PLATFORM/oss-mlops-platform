@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- kiali-serviceaccount.yaml
+- kiali-configmap.yaml
+- kiali-role-viewer.yaml
+- kiali-role.yaml
+- kiali-rolebinding.yaml
+- kiali-role-controlplane.yaml
+- kiali-rolebinding-controlplane.yaml
+- kiali-service.yaml
+- kiali-deployment.yaml

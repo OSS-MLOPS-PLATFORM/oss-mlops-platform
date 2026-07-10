@@ -1,0 +1,15 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: mlflow-minio-virtualservice
+spec:
+  hosts:
+  - "minio.mlflow.oss"
+  gateways:
+  - dashboard-gateway
+  http:
+  - route:
+    - destination:
+        host: mlflow-minio-service.mlflow.svc.cluster.local
+        port:
+          number: 9001

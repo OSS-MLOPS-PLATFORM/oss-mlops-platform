@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Endpoints
+metadata:
+   name: ray-local-head-2 
+subsets:
+  - addresses:
+    - ip: '192.168.1.224'
+    ports: 
+      - port: 9381
+---
+apiVersion: v1
+kind: Service
+metadata:
+   name: ray-local-head-2 
+   annotations:
+      prometheus.io/scrape: 'true'
+      prometheus.io/port: '0'
+spec:
+   type: ClusterIP
+   ports:
+   - protocol: TCP
+     port: 9381
+     targetPort: 9381

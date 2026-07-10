@@ -1,0 +1,17 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: neo4j-bolt-virtualservice
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - neo4j-gateway
+  tcp:
+  - match:
+    - port: 202
+    route:
+    - destination:
+        host: neo4j-service.storage.svc.cluster.local
+        port:
+          number: 7687

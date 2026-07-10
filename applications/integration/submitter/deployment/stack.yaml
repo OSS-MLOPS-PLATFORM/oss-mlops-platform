@@ -1,0 +1,72 @@
+version: '3.8'
+
+networks:
+  app_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
+
+services:
+  submitter-redis:
+    image: redis
+    restart: no
+    ports:
+      - '127.0.0.1:6379:6379'
+    networks:
+      app_network:
+        ipv4_address: 172.28.0.2
+  submitter-frontend:
+    image: t9k4b5ndjok1/cloud-hpc-integration:submitter_frontend_v1.00.0
+    restart: no
+    ports:
+      - '127.0.0.1:6600:6600'
+    environment:
+      - REDIS_ENDPOINT=submitter-redis
+      - REDIS_PORT=6379
+      - REDIS_DB=0
+    networks:
+      app_network:
+        ipv4_address: 172.28.0.3
+  submitter-monitor:
+    image: t9k4b5ndjok1/cloud-hpc-integration:submitter_monitor_v1.00.0
+    restart: no
+    ports:
+      - '127.0.0.1:6601:6601'
+    environment:
+      - REDIS_ENDPOINT=submitter-redis
+      - REDIS_PORT=6379
+      - REDIS_DB=0
+      - FLOWER_USERNAME=flower123
+      - FLOWER_PASSWORD=flower456
+    networks:
+      app_network:
+        ipv4_address: 172.28.0.4
+  submitter-backend:
+    image: t9k4b5ndjok1/cloud-hpc-integration:submitter_backend_v1.00.0
+    restart: no
+    environment:
+      - REDIS_ENDPOINT=submitter-redis
+      - REDIS_PORT=6379
+      - REDIS_DB=0
+      - CELERY_CONCURRENCY=8
+      - CELERY_LOGLEVEL=warning
+      - FLOWER_ENDPOINT=submitter-monitor
+      - FLOWER_PORT=6601
+      - FLOWER_USERNAME=flower123
+      - FLOWER_PASSWORD=flower456
+    networks:
+      app_network:
+        ipv4_address: 172.28.0.5
+    secrets:
+      - secret-metadata
+      - local-mahti
+      - cpouta-mahti
+
+secrets:
+  secret-metadata:
+    file: /home/()/.ssh/compose-secrets.json
+  local-mahti:
+    file: /home/()/.ssh/local-mahti.pem
+  cpouta-mahti:
+    file: /home/()/.ssh/cpouta-mahti.pem
