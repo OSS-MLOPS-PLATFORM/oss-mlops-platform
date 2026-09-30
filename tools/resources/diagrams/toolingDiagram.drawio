@@ -7,14 +7,14 @@
         <mxCell id="jbWS3eqqZUePCtWVH1MQ-3" value="&lt;div&gt;local&lt;/div&gt;MLOPS cluster&lt;div&gt;(local install)&lt;/div&gt;" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;flipV=0;flipH=1;" parent="1" vertex="1">
           <mxGeometry x="478" y="368" width="120" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="jbWS3eqqZUePCtWVH1MQ-5" value="&lt;div&gt;local&lt;/div&gt;GitHub runner&lt;div&gt;(local install)&lt;/div&gt;" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" parent="1" vertex="1">
+        <mxCell id="jbWS3eqqZUePCtWVH1MQ-5" value="&lt;div&gt;local&lt;/div&gt;GitHub / GitLab runner&lt;div&gt;(local install)&lt;/div&gt;" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" parent="1" vertex="1">
           <mxGeometry x="290" y="388" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="jbWS3eqqZUePCtWVH1MQ-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="jbWS3eqqZUePCtWVH1MQ-6" target="jbWS3eqqZUePCtWVH1MQ-5" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="jbWS3eqqZUePCtWVH1MQ-6" value="GitHub action&lt;div&gt;(.yml)&lt;/div&gt;" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" parent="1" vertex="1">
-          <mxGeometry x="120" y="388" width="120" height="60" as="geometry" />
+        <mxCell id="jbWS3eqqZUePCtWVH1MQ-6" value="GitHub Action / GitLab CI&lt;div&gt;(.yml)&lt;/div&gt;" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" parent="1" vertex="1">
+          <mxGeometry x="120" y="388" width="140" height="60" as="geometry" />
         </mxCell>
         <mxCell id="jbWS3eqqZUePCtWVH1MQ-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="jbWS3eqqZUePCtWVH1MQ-22" target="jbWS3eqqZUePCtWVH1MQ-7" edge="1">
           <mxGeometry relative="1" as="geometry" />
@@ -68,11 +68,11 @@
         <mxCell id="jbWS3eqqZUePCtWVH1MQ-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0;entryDx=120;entryDy=50;entryPerimeter=0;" parent="1" source="jbWS3eqqZUePCtWVH1MQ-4" target="jbWS3eqqZUePCtWVH1MQ-2" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="jbWS3eqqZUePCtWVH1MQ-4" value="&lt;div&gt;GitHub hosted&lt;/div&gt;runner" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" parent="1" vertex="1">
+        <mxCell id="jbWS3eqqZUePCtWVH1MQ-4" value="&lt;div&gt;GitHub / GitLab hosted&lt;/div&gt;runner" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" parent="1" vertex="1">
           <mxGeometry x="290" y="216" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="jbWS3eqqZUePCtWVH1MQ-7" value="GitHub action&lt;div&gt;(.yml)&lt;/div&gt;" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" parent="1" vertex="1">
-          <mxGeometry x="120" y="216" width="120" height="60" as="geometry" />
+        <mxCell id="jbWS3eqqZUePCtWVH1MQ-7" value="GitHub Action / GitLab CI&lt;div&gt;(.yml)&lt;/div&gt;" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" parent="1" vertex="1">
+          <mxGeometry x="120" y="216" width="140" height="60" as="geometry" />
         </mxCell>
         <mxCell id="jbWS3eqqZUePCtWVH1MQ-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="jbWS3eqqZUePCtWVH1MQ-7" target="jbWS3eqqZUePCtWVH1MQ-4" edge="1">
           <mxGeometry relative="1" as="geometry" />

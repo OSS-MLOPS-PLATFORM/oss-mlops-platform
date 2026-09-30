@@ -7,15 +7,43 @@ set -e
 cli_tool_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Install the requirements
-python3 -m venv venv
-source venv/bin/activate
-python3 -m pip install -r "${cli_tool_dir}/requirements.txt"
+if ! command -v uv &> /dev/null
+then
+    echo "uv could not be found, installing it..."
+    # Evil, but if uv says so...
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+fi
+
+uv venv --clear &> /dev/null
+source .venv/bin/activate
+uv pip install -r "${cli_tool_dir}/requirements.txt"
 
 # Check if script is run outside of git repository
 if ! python3 "${cli_tool_dir}/check_git_repo.py"; then
     echo "The script must be run from outside any git repository to create working and configuration repositories correctly."
     exit 1
 fi
+
+while true; do
+    echo "Select the platform:"
+    echo "1) GitHub"
+    echo "2) GitLab"
+    read -p "Enter your choice: " platform_choice
+
+    case $platform_choice in
+        1)
+            platform="github"
+            break
+            ;;
+        2)
+            platform="gitlab"
+            break
+            ;;
+        *)
+            echo "Invalid choice. Please select 1 for GitHub or 2 for GitLab."
+            ;;
+    esac
+done
 
 read -p "Enter the organization name: " org_name
 
@@ -27,12 +55,14 @@ fi
 read -p "Enter the name of the config repo (default: Config-%username-%Y-%m-%d-%tag): " repo_name
 
 if [[ -z "$repo_name" ]]; then
-    git_username=$(git config --global user.name | sed 's/ /-/g; s/[\d128-\d255]//g')
+    git_username=$(git config --global user.name | sed 's/ /-/g; s/[^a-zA-Z0-9]/-/g')
     repo_tag=$(openssl rand -hex 4)
     repo_name="Config-${git_username}-$(date +'%Y-%m-%d')-${repo_tag}"
 
     echo "No repository name specified, using generated repository name $repo_name"
 fi
+
+echo "Debug: python3 = $(which python3)"
 
 while true; do
     echo "Select an option:"
@@ -46,21 +76,21 @@ while true; do
 
     case $choice in
         1)
-            python3 "${cli_tool_dir}/configure_gh.py"
+            uv run "${cli_tool_dir}/configure_${platform}.py"
             ;;
         2)
-            python3 "${cli_tool_dir}/configure_gh.py"
-            python3 "${cli_tool_dir}/create_config_repo.py" "$repo_name" "$org_name"                             
+            uv run "${cli_tool_dir}/configure_${platform}.py"
+            uv run "${cli_tool_dir}/${platform}/create_config_repo.py" "$repo_name" "$org_name"
             ;;
         3)
-            python3 "${cli_tool_dir}/configure_gh.py"
-            python3 "${cli_tool_dir}/create_working_repo.py" "$repo_name" "$org_name"
+            uv run "${cli_tool_dir}/configure_${platform}.py"
+            uv run "${cli_tool_dir}/${platform}/create_working_repo.py" "$repo_name" "$org_name"
             exit 0
             ;;
         4)
-            python3 "${cli_tool_dir}/configure_gh.py"
-            python3 "${cli_tool_dir}/create_config_repo.py" "$repo_name" "$org_name"
-            python3 "${cli_tool_dir}/create_working_repo.py" "$repo_name" "$org_name"
+            uv run "${cli_tool_dir}/configure_${platform}.py"
+            uv run "${cli_tool_dir}/${platform}/create_config_repo.py" "$repo_name" "$org_name"
+            uv run "${cli_tool_dir}/${platform}/create_working_repo.py" "$repo_name" "$org_name"
             exit 0
             ;;
         5)

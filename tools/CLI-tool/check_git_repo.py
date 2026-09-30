@@ -1,12 +1,8 @@
 import sys
-import git
+import subprocess
 
-try:
-    # Check if git repository exists in current or parent directories
-    git.Repo('.', search_parent_directories=True)
-    print("Error: git repository exists in this directory.")
-    # exit with error if repository is found
+# We don't need Git lib for this, can just use subproc
+if subprocess.run(["git", "status"], capture_output=True).returncode == 0:
     sys.exit(1)
-except git.exc.InvalidGitRepositoryError:
-    # exit without error if repository is not found
+else:
     sys.exit(0)

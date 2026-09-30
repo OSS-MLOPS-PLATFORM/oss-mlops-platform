@@ -104,7 +104,7 @@ def get_istio_auth_session(url: str, username: str, password: str) -> dict:
 KUBEFLOW_ENDPOINT = "http://localhost:8080"
 KUBEFLOW_USERNAME = "user@example.com"
 KUBEFLOW_PASSWORD = "12341234"
-
+KUBEFLOW_NAMESPACE = "kubeflow-user-example-com"
 
 def client_connect():
     auth_session = get_istio_auth_session(
@@ -112,5 +112,9 @@ def client_connect():
         username=KUBEFLOW_USERNAME,
         password=KUBEFLOW_PASSWORD
     )
-    client = kfp.Client(host=f"{KUBEFLOW_ENDPOINT}/pipeline", cookies=auth_session["session_cookie"])
+    client = kfp.Client(
+        host=f"{KUBEFLOW_ENDPOINT}/pipeline",
+        cookies=auth_session["session_cookie"],
+        namespace=KUBEFLOW_NAMESPACE,
+    )
     return client

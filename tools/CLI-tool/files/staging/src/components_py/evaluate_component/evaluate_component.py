@@ -4,7 +4,7 @@ from kfp.v2.dsl import component
 @component(
     base_image="python:3.10",
     packages_to_install=["numpy", "mlflow~=2.4.1"],
-    output_component_file='src/components/evaluate_component.yaml',
+    output_component_file='src/components_yaml/evaluate_component.yaml',
 )
 def evaluate(
     run_id: str,

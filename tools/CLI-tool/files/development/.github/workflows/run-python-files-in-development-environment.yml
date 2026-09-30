@@ -1,4 +1,4 @@
-name: Start a run from Python file on local server via self-hosted Github Actions runner
+name: Start a run from Python file on local server via self-hosted runner
 
 on:
   push:
@@ -12,18 +12,24 @@ jobs:
     runs-on: self-hosted
     
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v4 # Use the latest version of checkout action
     
-    - name: Set up Python
-      uses: actions/setup-python@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v5 # Use the latest version of setup-python
+      with:
+        python-version: '3.8'
+        cache: 'pip'
         
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pandas
-        pip install numpy
-        pip install kfp~=1.8.14
-        pip install scikit-learn
+        # Automatically use requirements.txt if available, otherwise fallback to explicit installs
+        if [ -f "src/requirements.txt" ]; then
+          pip install -r src/requirements.txt
+        else
+          pip install pandas numpy kfp~=1.8.14 scikit-learn
+        fi
         
     - name: Connect to local server and run the Python files
       run: |       

@@ -4,7 +4,7 @@ from kfp.v2.dsl import component, Input, Artifact
 @component(
     base_image="python:3.9",  # kserve on python 3.10 comes with a dependency that fails to get installed
     packages_to_install=["kserve==0.11.0", "scikit-learn~=1.0.2"],
-    output_component_file='src/components/inference_component.yaml',
+    output_component_file='src/components_yaml/inference_component.yaml',
 )
 def inference(
     model_name: str,

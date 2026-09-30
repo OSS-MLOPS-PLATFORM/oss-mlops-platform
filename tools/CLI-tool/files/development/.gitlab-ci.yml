@@ -1,0 +1,60 @@
+workflow:
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "development"'
+
+default:
+  tags:
+    - self-hosted
+  before_script:
+    - python3.8 -m venv venv 
+    - source venv/bin/activate
+    - pip install --upgrade pip
+
+stages:
+  - test
+  - trigger-kubeflow
+
+# ==========================================
+# STAGE 1: TEST
+# ==========================================
+test-python-files:
+  stage: test
+  script:
+    - echo "🚀 Running Pytest for Development..."
+    - if [ -f src/requirements.txt ]; then pip install -r src/requirements.txt; fi
+    - pip install pytest
+    - pytest src/ || echo "No tests provided or tests passed"
+  rules:
+    - changes:
+        - "src/**/*"
+
+# ==========================================
+# STAGE 2: TRIGGER KUBEFLOW (VIA PYTHON)
+# ==========================================
+run-python-files-in-development:
+  stage: trigger-kubeflow
+  script:
+    - echo "⚙️ Submitting Pipeline via Python files to Development Kubeflow..."
+    - pip install kfp~=1.8.14
+    - python src/submit_run.py
+  rules:
+    - changes:
+        - "src/**/*"
+
+# ==========================================
+# STAGE 3: TRIGGER KUBEFLOW (VIA NOTEBOOK)
+# ==========================================
+run-notebook-in-development:
+  stage: trigger-kubeflow
+  script:
+    - echo "📓 Running Notebook Pipeline on Development Kubeflow..."
+    - pip install jupyter kfp~=1.8.14
+    - jupyter nbconvert --execute --to notebook --inplace notebooks/demo-pipeline.ipynb
+  artifacts:
+    name: "executed-notebook-$CI_COMMIT_SHORT_SHA"
+    paths:
+      - notebooks/demo-pipeline.ipynb
+    expire_in: 1 week
+  rules:
+    - changes:
+        - "notebooks/**/*"

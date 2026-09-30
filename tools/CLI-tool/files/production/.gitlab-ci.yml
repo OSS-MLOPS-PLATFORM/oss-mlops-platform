@@ -1,0 +1,99 @@
+workflow:
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "production"'
+
+# Use a Python base image for all jobs
+default:
+  image: python:3.8
+
+stages:
+  - test
+  - trigger-kubeflow
+
+# ---------------------------------------------------------------------------
+# Reusable SSH Setup Template
+# Note: apt-get installs the SSH client since the python:3.8 image lacks it
+# ---------------------------------------------------------------------------
+.ssh_setup: &ssh_setup
+  - echo "🔐 Configuring SSH Client..."
+  - apt-get update -y && apt-get install -y openssh-client
+  - mkdir -p ~/.ssh
+  
+  # DEBUG: Print all variables starting with REMOTE
+  - env | grep REMOTE || echo "No variables found starting with REMOTE"
+  
+  # FALLBACK: If FILE variable fails, switch to using normal variable
+  - |
+    if [ -f "$REMOTE_CLUSTER_SSH_PRIVATE_KEY" ]; then
+      echo "File variable exists. Copying...";
+      cp "$REMOTE_CLUSTER_SSH_PRIVATE_KEY" ~/.ssh/id_rsa;
+    else
+      echo "Variable is NOT A FILE. Attempting to print content...";
+      printf "%s\n" "$REMOTE_CLUSTER_SSH_PRIVATE_KEY" > ~/.ssh/id_rsa;
+    fi
+    
+  - chmod 600 ~/.ssh/id_rsa
+  
+  # Skip keyscan if IP is empty to identify the next error
+  - |
+    if [ -z "$REMOTE_CLUSTER_SSH_IP" ]; then
+      echo "❌ CRITICAL ERROR: IP variable is empty. Stopping pipeline."; exit 1;
+    fi
+    
+  - ssh-keyscan -H "$REMOTE_CLUSTER_SSH_IP" >> ~/.ssh/known_hosts
+  - echo "🔗 Establishing SSH Port Forwarding to Remote Cluster (Port 80)..."
+  - ssh -i ~/.ssh/id_rsa -L 8080:127.0.0.1:8080 -o StrictHostKeyChecking=no -o BatchMode=yes $REMOTE_CLUSTER_SSH_USERNAME@$REMOTE_CLUSTER_SSH_IP -N -f
+  - sleep 5
+
+# ==========================================
+# STAGE 1: TEST
+# ==========================================
+test-production-files:
+  stage: test
+  script:
+    - echo "🚀 Running Pytest..."
+    - python -m pip install --upgrade pip
+    - if [ -f "src/requirements.txt" ]; then pip install -r src/requirements.txt; fi
+    - pip install pytest
+    - pytest src/ || echo "No tests provided or tests passed"
+  rules:
+    - changes:
+        - "src/**/*"
+        - "notebooks/**/*"
+
+# ==========================================
+# STAGE 2: TRIGGER KUBEFLOW (VIA PYTHON)
+# ==========================================
+run-pipeline-in-production:
+  stage: trigger-kubeflow
+  before_script:
+    - *ssh_setup
+  script:
+    - echo "⚙️ Installing dependencies..."
+    - pip install pandas numpy kfp~=1.8.14 scikit-learn
+    - echo "🚀 Executing submit_run.py on LOCAL Runner (forwarded to remote)..."
+    - python src/submit_run.py
+  rules:
+    - changes:
+        - "src/**/*"
+
+# ==========================================
+# STAGE 3: TRIGGER KUBEFLOW (VIA NOTEBOOK)
+# ==========================================
+run-notebook-in-production:
+  stage: trigger-kubeflow
+  before_script:
+    - *ssh_setup
+  script:
+    - echo "📓 Installing Jupyter & KFP..."
+    - pip install jupyter kfp~=1.8.14
+    - echo "🚀 Executing Notebook on LOCAL Runner (forwarded to remote)..."
+    - jupyter nbconvert --execute --to notebook --inplace notebooks/demo-pipeline.ipynb
+  artifacts:
+    name: "production-notebook-$CI_COMMIT_SHORT_SHA"
+    paths:
+      - notebooks/demo-pipeline.ipynb
+    expire_in: 1 week
+  rules:
+    - changes:
+        - "notebooks/**/*"

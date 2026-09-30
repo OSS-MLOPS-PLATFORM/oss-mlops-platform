@@ -4,7 +4,7 @@ from kfp.v2.dsl import component, Output, Dataset
 @component(
     base_image="python:3.10",
     packages_to_install=["numpy~=1.26.4", "pandas~=1.4.2"],
-    output_component_file='src/components/pull_data_component.yaml',
+    output_component_file='src/components_yaml/pull_data_component.yaml',
 )
 def pull_data(url: str, data: Output[Dataset]):
     """

@@ -12,7 +12,7 @@
 
 **📁 [Step 3: Creating repositories & Setting up the CI/CD Pipeline](#step-3-creating-the-repositories-and-setting-up-the-cicd-pipeline-with-the-tool)**
 
-**🤖 [Step 4: Installing GitHub Actions Runner](#step-4-enabling-github-actions-and-installing-github-actions-runner)**
+**🤖 [Step 4: Installing Local CI/CD Runner](#step-4-enabling-cicd-and-installing-local-runner)**
 
 **🏁 [Step 5: Starting the run on local ML-OPS Platform](#step-5-starting-runs-on-the-ml-ops-platform-instances)**  
 *Including Possible Problems:* ([link](#possible-problems))
@@ -145,11 +145,11 @@
     
     <aside>
     
-    Since Docker Desktop with the WSL 2 backend is used, ***resource limits*** (such as memory, CPU, and swap size) are ***managed by Windows via a configuration file instead of Docker Desktop’s built-in settings***
+    Since Docker Desktop with the WSL 2 backend is used, ***resource limits*** (such as memory, CPU, and swap size) are ***managed by Windows via a configuration file instead of Docker Desktop's built-in settings***
     
     </aside>
     
-    - The `.wslconfig` file is located in the Windows user’s home directory.
+    - The `.wslconfig` file is located in the Windows user's home directory.
       
       This file is read by WSL 2 on startup to apply resource limits and other configurations globally, ***regardless of where Docker Desktop itself is installed***
     
@@ -187,10 +187,10 @@
 
   Continue with the Linux installation beneath after this.
   
-  </details>
+</details>
   
-  <details>
-    <summary>For Linux - Ubuntu (and WSL)</summary>
+<details>
+  <summary>For Linux - Ubuntu (and WSL)</summary>
     
   - **Important:** Your Ubuntu installation **must be at least version 24 LTS**.  
     _If your current version is older, please upgrade to meet this minimum requirement._
@@ -242,9 +242,7 @@
 
   - **Install Kubernetes CLI (kubectl):**
 
- 
     Version of atleast 1.28 of Kubernetes needed.
-
 
       ```bash
       # Download the latest Kubectl
@@ -256,6 +254,7 @@
       # Move it to your user's executable PATH
       sudo mv ./kubectl /usr/local/bin/
       ```
+
   - **Install Kind and kustomize (as of Feb 2025 the platform setup fails with this for Linux and a manual install is recommended):**
    
       ```bash
@@ -462,36 +461,40 @@ A bit of notebook troubleshooting. Depending on the environment you are running 
 
 ### How it works
 
-You need an GitHub organization where you have the permissions to create and modify repositories and adding organizational secrets (Organization owner for example). The tool creates the configuration repository locally first and then pushes the created repository to GitHub. When creating the configuration repository the tool also asks for environmental variables which are setup as organizational level secrets. The working repository is then created from the local configuration repository. This means that if you don't have the configuration created by the tool locally then you need to clone it to local folder where are you trying to run the tool from.
+The tool supports both **GitHub** and **GitLab** as CI/CD platforms. At the start of the tool, you will be asked to select your preferred platform. The tool then creates the configuration repository locally and pushes it to the selected platform. When creating the configuration repository the tool also asks for environmental variables which are set up as secrets. The working repository is then created from the local configuration repository.
+
+> **Note:** You need an organization (GitHub) or a group (GitLab) where you have permissions to create and modify repositories and add secrets (Owner role for example). If you don't have the configuration repository created by the tool locally, you need to clone it to the local folder where you are trying to run the tool from.
 
 ### Run the tool on the terminal
--  Navigate to the same level where the oss-mlops-project folder (but have to be outside of a repo folder) is on and run
 
--  REASON: The tool will create repos in the folder you run the command in and you don't want to create git tracked folders within git tracked folder
+- Navigate to the same level where the oss-mlops-project folder (but have to be outside of a repo folder) is on and run
+
+- REASON: The tool will create repos in the folder you run the command in and you don't want to create git tracked folders within git tracked folder
     
 ```
 oss-mlops-platform/tools/CLI-tool/create_gitrepo_devops_for_ml_work.sh
 ``` 
 
-1. Enter the organisation name 
-2. Enter the name for configuration repository 
-- Please use a naming convetion for config repo and working repos  (f.ex. `confJames` and `workJames`) 
-3. Create both configuration and working repositories (option 4) 
-4. Interactively create config (option 1)
-5. Use default Kubeflow endpoint
-6. Use default Kubeflow username
-7. Use deafult Kubeflow password
-8. You can leave remote private key empty 
-9. You don't have to specify remote cluster IP
-10. You can leave remote cluster username empty 
-11. GitHub asks for pasting secrets, you can skip these with `enter` if you were leaving previous steps empty 
-12. Enter the name for working repository
+1. **Select your platform** — choose `1` for GitHub or `2` for GitLab
+2. Enter the organisation/group name (you can find the exact group name inside that GitLab Group URL)
+3. Enter the name for configuration repository 
+   - Please use a naming convention for config repo and working repos (f.ex. `confJames` and `workJames`) 
+4. Create both configuration and working repositories (option 4) 
+5. Interactively create config (option 1)
+6. Use default Kubeflow endpoint
+7. Use default Kubeflow username
+8. Use default Kubeflow password
+9. You can leave remote private key empty 
+10. You don't have to specify remote cluster IP
+11. You can leave remote cluster username empty 
+12. GitHub/GitLab asks for pasting secrets, you can skip these with `enter` if you were leaving previous steps empty 
+13. Enter the name for working repository
 
 ### Configuration File
 
-The setup script asks you about configuring GitHub secrets using a config.yaml file. You can choose from options:
+The setup script asks you about configuring secrets using a config.yaml file. You can choose from options:
 
-1. Create a new configuration file interactively. (Steps 4-11 above)
+1. Create a new configuration file interactively. (Steps 5-12 above)
 2. You can use an existing config.yaml inputed by giving a path to it. (For example one interactively and modified by hand)
 
 Example config.yaml:
@@ -504,12 +507,14 @@ REMOTE_CLUSTER_SSH_IP: "192.168.1.1"
 REMOTE_CLUSTER_SSH_USERNAME: "user"
 ```
 
-The scripts sets the secrets on the GitHub organizational level. You can set repository level secrets that take precident over organizational level ones if needed.
+The scripts sets the secrets on the organization/group level. You can set repository-level secrets that take precedent over organization-level ones if needed.
 If a non-exact path for the SSH key file is passed, the script will search for the file containing the SSH key across the entire user home directory. This can be very slow on a populated drive (e.g. running the install script on bare metal Linux or MacOS).
 
-  ******
+******
 
-## Step 4: Enabling GitHub Actions and Installing GitHub Actions runner
+## Step 4: Enabling CI/CD and Installing Local Runner
+
+### Option A: For GitHub (GitHub Actions)
 
 After the repositories are made you may need to enable the GitHub Actions for the working repository. This can be done from the GitHub site by navigating to the working repository and it's Actions tab and clicking the big green button. You also need a local-hosted GitHub Actions runner which is provided by GitHub. The runner is bound to a single GitHub organization or a single repository. It can be changed later, see note at the end of this step.
 
@@ -524,13 +529,84 @@ After the repositories are made you may need to enable the GitHub Actions for th
 
 You can restart the runner after the next computer restart by navigating to the runner's `actions-runner/` folder and running:
 
-```
+```bash
 ./run.sh
 ```
 
 **Note about reconfiguring the runner**
 
 If you need to change the repository runners is connected to, you need to either locate to he repository/organization the runner is connected to in GitHub site and remove it (GitHub will give you the script for it) OR delete the *hidden* `.runner` file in the `actions-runner/` folder and redo the step with the new token. *Also do note the runner OS version, don't be like me and try to use the Windows version on Linux.*
+
+---
+
+### Option B: For GitLab (GitLab CI/CD)
+
+To run the `.gitlab-ci.yml` pipelines locally to interact with your local Kubeflow cluster, you need to install and register a **GitLab Runner** on your machine.
+
+#### 1. Install Python 3.8 (required before runner setup)
+
+> **Why is this needed for GitLab but not GitHub?**  
+> GitHub Actions uses `actions/setup-python` which downloads a standalone Python 3.8 environment that is completely independent from the OS — it bypasses Ubuntu's package restrictions entirely. GitLab Runner (Shell executor) simply uses the system Python directly, and Ubuntu 24 ships with Python 3.12 by default. Since `kfp~=1.8.x` requires Python 3.8, you must install it manually first.
+
+Run the following commands:
+
+```bash
+sudo apt-get install software-properties-common -y
+sudo add-apt-repository ppa:deadsnakes/ppa -y
+sudo apt-get update
+sudo apt-get install python3.8 python3.8-venv python3.8-distutils -y
+```
+
+Verify the installation:
+```bash
+python3.8 --version
+```
+
+#### 2. Install GitLab Runner (Linux / WSL)
+
+Open your terminal and run the following verified commands:
+
+```bash
+# Download the binary (Using direct S3 link to avoid URL parsing errors)
+sudo curl -L --output /usr/local/bin/gitlab-runner \
+  "https://s3.dualstack.us-east-1.amazonaws.com/gitlab-runner-downloads/latest/binaries/gitlab-runner-linux-amd64"
+
+# Give it permissions to execute
+sudo chmod +x /usr/local/bin/gitlab-runner
+
+# Install as a user service (Prevents flag errors in certain OS versions)
+gitlab-runner install --user-service --working-directory=$HOME
+```
+
+#### 3. Register the Runner
+
+1. Navigate to your working repository on the GitLab web page.
+2. On the left sidebar, go to **Settings > CI/CD** and expand the **Runners** section.
+3. Click on **New project runner** (you can leave tags empty) and click **Create runner**.
+4. Copy the registration token/command provided.
+5. In your terminal, run the registration command:
+    ```bash
+    gitlab-runner register --url https://gitlab.com --token <YOUR_TOKEN>
+    ```
+    *(When prompted for the executor, type: `shell`)*
+
+#### 4. Configure Permissions & Run
+
+Ensure your current user belongs to the docker group so the pipeline can build images:
+
+```bash
+sudo usermod -aG docker $USER
+```
+
+Finally, since background system services often fail in WSL (`exit status 5`), run the runner directly in user-mode:
+
+```bash
+gitlab-runner run
+```
+
+*(Leave this terminal window open while you want your GitLab pipelines to run).*
+
+---
 
 **Post setup**
 
@@ -551,36 +627,40 @@ To test the source code-based pipelines:
 - The pipeline will start by executing the source code-based workflow
 
 
-> If the change is made on the development branch, it will trigger a run on the local installation <br>
+> If the change is made on the development branch, it will trigger a run on the local installation  
 > If the change is on the staging or production branch, it will trigger a run on the full installation
 
-If everything is in order then by pushing to your working repository GitHub should order the runner on your computer to start the run on your local computer's Kubeflow setup.
+If everything is in order then by pushing to your working repository, the runner on your computer will start the run on your local computer's Kubeflow setup.
 
 ### Verifying the run and debugging
-                                                            
-1. Checking GitHub Actions UI:
-    - Open the working reposotory and click on Actions tab
-    - Find the latest run and check if it has started succesfully
-    - If the run failed, open it to check the logs and debug
-  
-![GitHub Actions tab](../resources/screenshots/GitHubActionSuccess.png)
 
-2. Checking Kubeflow Pipeline UI:
+1. **Checking CI/CD UI:**
+
+   - **GitHub Actions:** Open the working repository and click on the `Actions` tab. Find the latest run and check if it has started successfully. If the run failed, open it to check the logs and debug.
+
+   - **GitLab CI/CD:** Open the working repository and click on `Build > Pipelines` from the left sidebar. Find the latest pipeline and check its status. If it failed, click into the job to view logs and debug.
+
+   ![GitHub Actions tab](../resources/screenshots/GitHubActionSuccess.png)
+
+2. **Checking Kubeflow Pipeline UI:**
     - Open the Kubeflow instance on [localhost:8080](http://localhost:8080/)
     - Navigate to the runs tab and find the pipeline run triggered by your latest commit
     - Monitor the execution and logs to confirm it is running as expected
   
-![Kubeflow Pipeline UI](../resources/screenshots/succesfulRun.png)
+   ![Kubeflow Pipeline UI](../resources/screenshots/succesfulRun.png)
 
-3. If the run hasn't started:
+3. **If the run hasn't started:**
     - Verify that the commit was pushed to the correct branch
-    - Ensure the GitHub Actions workflow is configured correctly
-    - Check the logs in GitHub Actions UI and Kubeflow UI for error messages
+    - Ensure the CI/CD workflow is configured correctly
+    - Check the logs in GitHub Actions / GitLab CI UI and Kubeflow UI for error messages
+    - **GitLab only:** Make sure the `gitlab-runner run` process is still running in your terminal
 
 ### Possible problems
-If commit fails due to the wrong python version, go to .github/workflows ->  run-notebook-in-development-environment.yml, and delete this part of the code: 
+
+**GitHub Actions:** If commit fails due to the wrong python version, go to `.github/workflows` → `run-notebook-in-development-environment.yml`, and delete this part of the code: 
+```yaml
+  with:
+      python-version: 3.8
 ```
 
-  with:
-        python-version: 3.8
-```
+**GitLab CI/CD:** If the runner fails with `externally-managed-environment` when installing pip packages, it means Python 3.8 was not installed before registering the runner. Go back to [Step 4 Option B](#option-b-for-gitlab-gitlab-cicd) and complete the Python 3.8 installation step first.

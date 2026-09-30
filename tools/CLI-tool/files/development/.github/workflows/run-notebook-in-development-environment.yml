@@ -1,4 +1,4 @@
-name: Start a run from Jupyter Notebook on local server via self-hosted Github Actions runner
+name: Start a run from Jupyter Notebook on local server via self-hosted runner
 
 on:
   push:
@@ -12,12 +12,14 @@ jobs:
     runs-on: self-hosted
     
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v4 # Use the latest version of checkout action
     
-    - name: Set up Python
-      uses: actions/setup-python@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v5 # Use the latest version of setup-python
       with:
-        python-version: 3.8
+        python-version: '3.8'
+        cache: 'pip' # Speeds up execution by caching dependencies
         
     - name: Install dependencies
       run: |
@@ -28,3 +30,10 @@ jobs:
       run: |       
         # Execute the Jupyter Notebook and overwrite the existing file with the results
         jupyter nbconvert --execute --to notebook --inplace notebooks/demo-pipeline.ipynb
+        
+    - name: Upload executed Notebook as artifact # This allows you to download the executed notebook from the workflow run page
+      uses: actions/upload-artifact@v4
+      with:
+        name: executed-notebook
+        path: notebooks/demo-pipeline.ipynb
+        retention-days: 7 # Keep the artifact for 7 days (you can adjust this as needed)

@@ -40,8 +40,8 @@
         <mxCell id="pV_ENtJMJlO4xu-01SIK-114" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontSize=15;" edge="1" parent="1" source="pV_ENtJMJlO4xu-01SIK-61" target="pV_ENtJMJlO4xu-01SIK-62">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="pV_ENtJMJlO4xu-01SIK-61" value="Install Github CLI (gh)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;" vertex="1" parent="1">
-          <mxGeometry x="208" y="704" width="120" height="60" as="geometry" />
+        <mxCell id="pV_ENtJMJlO4xu-01SIK-61" value="Install GitHub CLI (gh) / GitLab CLI (glab)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="208" y="704" width="140" height="60" as="geometry" />
         </mxCell>
         <mxCell id="pV_ENtJMJlO4xu-01SIK-115" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=15;" edge="1" parent="1" source="pV_ENtJMJlO4xu-01SIK-62" target="pV_ENtJMJlO4xu-01SIK-63">
           <mxGeometry relative="1" as="geometry" />
@@ -67,7 +67,7 @@
         <mxCell id="pV_ENtJMJlO4xu-01SIK-68" value="Clone the main repository to your local folder" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;" vertex="1" parent="1">
           <mxGeometry x="383" y="235" width="125" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="pV_ENtJMJlO4xu-01SIK-69" value="Authentication with Github" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;" vertex="1" parent="1">
+        <mxCell id="pV_ENtJMJlO4xu-01SIK-69" value="Authentication with GitHub/GitLab" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;" vertex="1" parent="1">
           <mxGeometry x="385" y="344" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="pV_ENtJMJlO4xu-01SIK-71" value="Run setup script" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;" vertex="1" parent="1">
@@ -99,8 +99,8 @@
             <mxPoint x="110" y="579.9999999999999" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="pV_ENtJMJlO4xu-01SIK-85" value="&lt;font&gt;&lt;b&gt;Cloning the tooling repo &amp;amp; gh authentication&lt;/b&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=16;" vertex="1" parent="1">
-          <mxGeometry x="366" y="147" width="159" height="60" as="geometry" />
+        <mxCell id="pV_ENtJMJlO4xu-01SIK-85" value="&lt;font&gt;&lt;b&gt;Cloning the tooling repo &amp;amp; gh/glab authentication&lt;/b&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="345" y="147" width="200" height="60" as="geometry" />
         </mxCell>
         <mxCell id="pV_ENtJMJlO4xu-01SIK-87" value="&lt;font&gt;Setup repositories and CI/CD pipelines with the tool&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=16;" vertex="1" parent="1">
           <mxGeometry x="1064" y="147" width="162" height="66" as="geometry" />
@@ -108,8 +108,8 @@
         <mxCell id="pV_ENtJMJlO4xu-01SIK-88" value="&lt;font&gt;Start the ML pipeline run on MLOps platform&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=16;" vertex="1" parent="1">
           <mxGeometry x="1500" y="147" width="133" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="pV_ENtJMJlO4xu-01SIK-89" value="&lt;font&gt;Setup Github Actions Runner&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=16;" vertex="1" parent="1">
-          <mxGeometry x="1300" y="147" width="120" height="60" as="geometry" />
+        <mxCell id="pV_ENtJMJlO4xu-01SIK-89" value="&lt;font&gt;Setup GitHub Actions / GitLab Runner&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="1290" y="147" width="140" height="60" as="geometry" />
         </mxCell>
         <mxCell id="pV_ENtJMJlO4xu-01SIK-96" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fontSize=16;" edge="1" parent="1" source="pV_ENtJMJlO4xu-01SIK-67" target="pV_ENtJMJlO4xu-01SIK-85">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -138,13 +138,13 @@
         <mxCell id="pV_ENtJMJlO4xu-01SIK-102" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fontStyle=1;fontSize=16;" edge="1" parent="1" target="pV_ENtJMJlO4xu-01SIK-89">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="1227" y="177" as="sourcePoint" />
-            <mxPoint x="1301" y="182" as="targetPoint" />
+            <mxPoint x="1290" y="177" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="pV_ENtJMJlO4xu-01SIK-103" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fontStyle=1;fontSize=16;" edge="1" parent="1" source="pV_ENtJMJlO4xu-01SIK-89" target="pV_ENtJMJlO4xu-01SIK-88">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="1420" y="182" as="sourcePoint" />
-            <mxPoint x="1499" y="181" as="targetPoint" />
+            <mxPoint x="1430" y="177" as="sourcePoint" />
+            <mxPoint x="1499" y="177" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="k2T-g_htHbja577PyHqE-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="k2T-g_htHbja577PyHqE-1" target="pV_ENtJMJlO4xu-01SIK-59">
@@ -207,6 +207,7 @@
         <mxCell id="k2T-g_htHbja577PyHqE-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="k2T-g_htHbja577PyHqE-7" target="pV_ENtJMJlO4xu-01SIK-59">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="220" y="580" as="targetPoint" />
+            <mxPoint x="190" y="524" as="sourcePoint" />
             <Array as="points">
               <mxPoint x="190" y="524" />
               <mxPoint x="240" y="524" />
@@ -236,7 +237,7 @@
         <mxCell id="9jLViu0mf0XPeVJ8ESHT-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="9jLViu0mf0XPeVJ8ESHT-5" target="9jLViu0mf0XPeVJ8ESHT-3">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="9jLViu0mf0XPeVJ8ESHT-5" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;Create a Github organization&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="9jLViu0mf0XPeVJ8ESHT-5" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Create a GitHub org / GitLab group&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="1090" y="236" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="9jLViu0mf0XPeVJ8ESHT-6" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;Create the working repo&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
@@ -245,10 +246,10 @@
         <mxCell id="9jLViu0mf0XPeVJ8ESHT-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="9jLViu0mf0XPeVJ8ESHT-7" target="9jLViu0mf0XPeVJ8ESHT-8">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="9jLViu0mf0XPeVJ8ESHT-7" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;Enable the Github actions&amp;nbsp;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="9jLViu0mf0XPeVJ8ESHT-7" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Enable GitHub Actions / GitLab CI&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="1300" y="236" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="9jLViu0mf0XPeVJ8ESHT-8" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;Install the actions runner &amp;amp; associate with the repo&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="9jLViu0mf0XPeVJ8ESHT-8" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Install the actions/GitLab runner &amp;amp; associate with the repo&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="1294" y="347" width="132" height="84" as="geometry" />
         </mxCell>
         <mxCell id="9jLViu0mf0XPeVJ8ESHT-9" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;Make a commit to the working repo&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">

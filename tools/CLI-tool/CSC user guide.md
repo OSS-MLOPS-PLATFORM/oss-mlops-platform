@@ -24,6 +24,7 @@ For more information on what does all this step means please consult the [user g
 1. Navigate to Key Pairs: Compute -> Key Pairs
 2. Either import SSH key pair that you had made or create a new key pair by press on Create Key Pair
 3. Name your key pair, try to name it in lower case, no space, and no special characters. Key type is SSH Key
+
 **Important:** The key will be save automatically to your computer once you press "Create Key Pair". This will be the only way to access the computer so don't lose it. Type file should be ".pem" for window and linux, for mac it will be ".cer"
 
 Again for more information please consult the [CSC user guide](https://docs.csc.fi/cloud/pouta/launch-vm-from-web-gui/#setting-up-ssh-keys)
@@ -59,13 +60,16 @@ The rest of the setup will then be universal!
 
 1. Locate and navigate your key path in your system
 2. Change the permission by using the command: `chmod 400 <your_key_name>.pem` or `chmod 400 <your_key_name>.cer` on mac
-3. ssh into your Virtual machine using the command line by using the command: `sudo ssh -L 8080:localhost:8080 <your_username>@<your_IP> -i <your_key_name>.pem`
+3. SSH into your Virtual machine with port forwarding so you can access Kubeflow from your local browser:
+   ```bash
+   ssh -L 8080:localhost:8080 ubuntu@<your_IP> -i <your_key_name>.pem
+   ```
+   > **Note:** Do not use `sudo` before `ssh` on your local machine. The username is `ubuntu`, not your personal username — see [CSC user guide](https://docs.csc.fi/cloud/pouta/connecting-to-vm/) for explanation.
 4. Once inside you should do `sudo apt update` and `sudo apt upgrade`
 5. Then you should install docker LTS using the command `sudo apt install docker.io`
 6. Check if you had install docker successfully by using `docker version`
 7. Clone the Github repo into to the VM
 8. go into the Github repo by using `cd`
-**!!!<your_username> in this case actually `ubuntu` reason can be found with detail explaination in [CSC user guide](https://docs.csc.fi/cloud/pouta/connecting-to-vm/)**
 
 **\---------This part is for the version of the project where there is error in the setup script\---------**
 
@@ -77,3 +81,47 @@ The rest of the setup will then be universal!
 
 12. Follow the rest of the tutorial in [Installation guide](https://github.com/OSS-MLOPS-PLATFORM/oss-mlops-platform/blob/main/tools/CLI-tool/Installations%2C%20setups%20and%20usage.md#installations-setups-and-usage)
 
+## IV) Setting Up CI/CD Secrets
+
+After Kubeflow is running on the remote VM, you need to configure your CI/CD pipeline to connect to it automatically. The SSH credentials are stored as secrets — **never commit them to the repository**.
+
+You will need:
+- Your VM's **Floating IP**
+- Your **SSH private key** (the `.pem` or `.cer` file downloaded earlier)
+- SSH username: `ubuntu`
+
+### a) GitHub Secrets
+
+1. Go to your working repository on GitHub.
+2. Navigate to **Settings → Secrets and variables → Actions**.
+3. Click **New repository secret** and add the following:
+
+   | Secret Name | Value |
+   |---|---|
+   | `REMOTE_CLUSTER_SSH_IP` | Your VM's Floating IP (e.g. `86.50.x.x`) |
+   | `REMOTE_CLUSTER_SSH_USERNAME` | `ubuntu` |
+   | `REMOTE_CLUSTER_SSH_PRIVATE_KEY` | Full contents of your `.pem` / `.cer` key file |
+
+   To get the key file contents:
+   ```bash
+   cat <your_key_name>.pem
+   ```
+   Copy everything including the `-----BEGIN RSA PRIVATE KEY-----` and `-----END RSA PRIVATE KEY-----` lines.
+
+### b) GitLab Variables
+
+1. Go to your working repository on GitLab.
+2. Navigate to **Settings → CI/CD** and expand the **Variables** section.
+3. Click **Add variable** and add the following:
+
+   | Variable Name | Value | Type |
+   |---|---|---|
+   | `REMOTE_CLUSTER_SSH_IP` | Your VM's Floating IP (e.g. `86.50.x.x`) | Variable |
+   | `REMOTE_CLUSTER_SSH_USERNAME` | `ubuntu` | Variable |
+   | `REMOTE_CLUSTER_SSH_PRIVATE_KEY` | Full contents of your `.pem` / `.cer` key file | **File** |
+
+   > ⚠️ Set `REMOTE_CLUSTER_SSH_PRIVATE_KEY` as type **File**, not Variable. GitLab writes the key contents to a temporary file and passes the file path to the pipeline — the CI script handles both cases automatically.
+
+   > Make sure **Protect variable** is unchecked if you want the variable available on non-protected branches (e.g. `staging`).
+
+Once secrets are configured, any push to the `staging` or `production` branch will trigger the CI/CD pipeline, which SSHs into your CSC VM and submits the Kubeflow pipeline automatically.

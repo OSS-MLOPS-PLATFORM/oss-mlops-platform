@@ -5,7 +5,7 @@ from kfp.v2.dsl import component
 @component(
     base_image="python:3.9",
     packages_to_install=["kserve==0.11.0"],
-    output_component_file='src/components/deploy_model_component.yaml',
+    output_component_file='src/components_yaml/deploy_model_component.yaml',
 )
 def deploy_model(model_name: str, storage_uri: str):
     """

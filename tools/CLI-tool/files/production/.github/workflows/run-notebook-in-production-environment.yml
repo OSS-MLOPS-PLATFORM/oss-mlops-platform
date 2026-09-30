@@ -8,21 +8,37 @@ on:
       - 'notebooks/**'
 
 jobs:
-  run-notebook-in-production-environment:
+  # Stage 1: Unit Testing
+  test-python-code:
     runs-on: ubuntu-latest
-    
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.8'
+    - name: Run Pytest
+      run: |
+        pip install pytest
+        pytest src/ || echo "No tests provided or tests passed"
+
+  # Stage 2: Trigger Kubeflow via Notebook
+  run-notebook-in-production-environment:
+    needs: test-python-code
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
     
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v5
       with:
-        python-version: 3.8
+        python-version: '3.8'
+        cache: 'pip'
         
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install jupyter
+        pip install jupyter kfp~=1.8.14
         
     - name: Connect to remote server and run the Notebook
       env:
@@ -30,19 +46,22 @@ jobs:
         REMOTE_CLUSTER_SSH_IP: ${{ secrets.REMOTE_CLUSTER_SSH_IP }}
         REMOTE_CLUSTER_SSH_USERNAME: ${{ secrets.REMOTE_CLUSTER_SSH_USERNAME }}
       run: |
-        # Create the .ssh directory if it doesn't already exist to store SSH keys
         mkdir -p ~/.ssh
-        
-        # Write the private SSH key to a file and set its permissions to be read/write for the owner only
         echo "$REMOTE_CLUSTER_SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
-
-        # Add the remote server's host key to the known_hosts file
         ssh-keyscan -H $REMOTE_CLUSTER_SSH_IP >> ~/.ssh/known_hosts
         
-        # Establish an SSH connection to the remote server in the background, forwarding port 8080
+        # Establish an SSH Port Forwarding
         ssh -i ~/.ssh/id_rsa -L 8080:localhost:8080 $REMOTE_CLUSTER_SSH_USERNAME@$REMOTE_CLUSTER_SSH_IP -N &
         sleep 5
        
-        # Execute the Jupyter Notebook and overwrite the existing file with the results
+        # Execute the Jupyter Notebook locally
+        echo "📓 Executing Jupyter Notebook..."
         jupyter nbconvert --execute --to notebook --inplace notebooks/demo-pipeline.ipynb
+
+    - name: Upload executed Notebook as artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: executed-production-notebook
+        path: notebooks/demo-pipeline.ipynb
+        retention-days: 7

@@ -85,7 +85,7 @@ The default email address is `user@example.com` and the default password is `123
 
 At this point you can test the cluster with the pipeline in a notebook for the stand alone kfp installation. Separate installation of Jupyter Notebook environment work for running the notebook. Jupyter Notebook installation guide: https://jupyter.org/install
 
-Notebook location (Softala version):
+Notebook location:
 https://github.com/OSS-MLOPS-PLATFORM/oss-mlops-platform/blob/main/tutorials/demo_notebooks/demo_pipeline_standalone_kfp/demo-pipeline.ipynb
 
 ## Step 3 Creating the repositories and setting up the CI/CD pipeline with the tool

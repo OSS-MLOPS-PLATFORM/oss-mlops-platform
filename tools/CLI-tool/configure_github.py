@@ -13,7 +13,7 @@ def main():
     check_gh_installed()
 
     print("Checking GitHub authentication...")
-    check_gh_auht()
+    check_gh_auth()
 
 
 def check_gh_installed():
@@ -40,7 +40,7 @@ def check_gh_installed():
         sys.exit(1)
 
 
-def check_gh_auht():
+def check_gh_auth():
     """Check if user is authenticated with GitHub."""
     result = subprocess.run("gh auth status", shell=True, capture_output=True, text=True)
 

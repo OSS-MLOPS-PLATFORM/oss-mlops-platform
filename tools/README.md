@@ -2,16 +2,17 @@ OSS MLOps platform related tooling to be developed:
 
 0) aim:
 - tool creates a setup in which data scientist can do ML development and AI deployment through software practices easily
-- the setup involves a git repo in GitHub
+- the setup involves a git repo in GitHub or GitLab
 
 1) development roadmap (done as much as time allows in this order):
-- (A) CLI tool to setup the repo locally and to push it to GitHub (setting up the CI/CD and secrets there also)
+- (A) CLI tool to setup the repo locally and to push it to GitHub or GitLab (setting up the CI/CD and secrets there also)
 - (B) WebApp tool to do the same as CLI using the CLI tool in the backend (perhaps this should be aligned with point (C) to help its later development)
 - (C) VSCode extension to do the same as CLI using the CLI tool in the background
 
 2) functionality:
 - use default settings but ask for changes
-- setup repo structure and branches (create locally, push to GitHub with given credentials)
+- **select CI/CD platform** (GitHub or GitLab) at the start of the tool
+- setup repo structure and branches (create locally, push to GitHub/GitLab with given credentials)
 - setup ci/cd
 - setup secrets (for both the platform and data source access etc.)
 - setup could rely on 2 paths: 1. tools could establish a "main" repo with some configs, 2. tool could establish ML project repos by forking the main repo (this way any configuration updates could propagated to all ML project repos by just pulling configuration updates done to a main repo from which they have been forked)
@@ -43,7 +44,7 @@ Ml repo structure and setup (1-3) to be created by the tool:
 - .gitignore: specifies which files and directories to ignore in the repository.
 - LICENSE: license for the Project (put in place but left empty and with instructions to fill it out with some options to consider)
 
-3) CI/CD pipelines (GitHub actions)
+3) CI/CD pipelines (GitHub Actions or GitLab CI/CD)
 - for each branch: own CI/CD pipeline and configuration files in repo - credentials as secrets and not in repo
 - each pipeline submits kfp pipelines to some instance of OSS MLOps platform
 - in real life those instances could be separate
@@ -52,6 +53,8 @@ Ml repo structure and setup (1-3) to be created by the tool:
   - "staging" and "production" branches CI/CD pipelines could submit to platform installed to CSC
 - each CI/CD pipeline constructs and submits kubeflow pipeline to its configured platform instance
 - that includes testing access to data (and potential previous model versions - which is not part of example pipeline) before submitting kf pipeline
+- **GitHub:** uses `.github/workflows/` YAML files with GitHub Actions; self-hosted runner runs jobs directly on the host machine
+- **GitLab:** uses `.gitlab-ci.yml` with GitLab CI/CD; self-hosted GitLab Runner uses shell executor and requires Python 3.8 to be pre-installed on the host machine
 
 
 Documentation needed:
@@ -65,4 +68,3 @@ Documentation needed:
 
 ------
 ![MLOPS Diagram](./resources/diagrams/MLOPSDiagram.png)
-

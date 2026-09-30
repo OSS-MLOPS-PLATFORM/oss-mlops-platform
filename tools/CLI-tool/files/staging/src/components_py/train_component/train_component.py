@@ -5,7 +5,7 @@ from typing import NamedTuple
 @component(
     base_image="python:3.10",
     packages_to_install=["numpy~=1.26.4", "pandas~=1.4.2", "scikit-learn~=1.0.2", "mlflow~=2.4.1", "boto3~=1.21.0"],
-    output_component_file='src/components/train_component.yaml',
+    output_component_file='src/components_yaml/train_component.yaml',
 )
 def train(
     train_set: Input[Dataset],
