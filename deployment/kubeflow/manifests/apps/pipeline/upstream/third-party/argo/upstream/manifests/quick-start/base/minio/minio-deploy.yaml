@@ -18,7 +18,7 @@ spec:
       automountServiceAccountToken: false
       containers:
         - name: main
-          image: quay.io/minio/minio:RELEASE.2022-11-17T23-20-09Z
+          image: pgsty/silo:RELEASE.2026-09-16T00-00-00Z
           env:
             - name: MINIO_ACCESS_KEY
               value: admin
@@ -29,7 +29,7 @@ spec:
               name: api
             - containerPort: 9001
               name: dashboard
-          command: [minio, server, --console-address, ":9001", /data]
+          command: [silo, server, --console-address, ":9001", /data]
           lifecycle:
             postStart:
               exec:

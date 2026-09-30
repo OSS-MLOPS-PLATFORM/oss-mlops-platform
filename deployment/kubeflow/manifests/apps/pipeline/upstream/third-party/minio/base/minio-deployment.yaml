@@ -37,7 +37,7 @@ spec:
             secretKeyRef:
               name: mlpipeline-minio-artifact
               key: secretkey
-        image: quay.io/minio/minio:RELEASE.2022-11-17T23-20-09Z
+        image: pgsty/silo:RELEASE.2026-09-16T00-00-00Z
         name: minio
         ports:
         - containerPort: 9000

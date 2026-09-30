@@ -22,10 +22,10 @@ spec:
           claimName: mlflow-minio-pvc
       containers:
       - name: mlflow-minio
-        image: quay.io/minio/minio:RELEASE.2023-02-10T18-48-39Z
+        image: pgsty/silo:RELEASE.2026-09-16T00-00-00Z
         imagePullPolicy: IfNotPresent #Always
         command: [ "/bin/bash" ]
-        args: [ "-c", "mkdir -p /data/mlflow  && minio server --address :9000 --console-address :9001 /data" ]
+        args: [ "-c", "mkdir -p /data/mlflow  && silo server --address :9000 --console-address :9001 /data" ]
         volumeMounts:
         - name: mlflow-minio-pvc
           mountPath: '/data'
