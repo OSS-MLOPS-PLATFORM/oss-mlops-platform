@@ -75,11 +75,11 @@ The rest of the setup will then be universal!
 
 9. `cd` into scripts
 10. Open `install_tools.sh` using either nano or vim
-11. Replace the script with the script from this [link](https://github.com/makotosoul/oss-mlops-platform/blob/main/scripts/install_tools.sh)
+11. Replace the script with the script from this [link](https://github.com/OSS-MLOPS-PLATFORM/oss-mlops-platform/blob/main/scripts/install_tools.sh)
 
 **\---------End\---------**
 
-12. Follow the rest of the tutorial in [Installation guide](https://github.com/Softala-MLOPS/oss-mlops-platform/blob/main/tools/CLI-tool/Installations%2C%20setups%20and%20usage.md#installations-setups-and-usage)
+12. Follow the rest of the tutorial in [Installation guide](https://github.com/OSS-MLOPS-PLATFORM/oss-mlops-platform/blob/main/tools/CLI-tool/Installations%2C%20setups%20and%20usage.md#installations-setups-and-usage)
 
 ## IV) Setting Up CI/CD Secrets
 

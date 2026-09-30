@@ -15,7 +15,7 @@ Original project leads and main developers:
 - Joaquin Rives Gambin
 - Iñaki Rodriguez
 
-Other developers and testers of the platform:
+Other developers and testers of the original platform:
 
 - Alari Varmann
 - Alireza Sariaslani
@@ -52,6 +52,33 @@ Other developers and testers of the platform:
 Fraunhofer Institute:
 
 - Dorian Knoblauch
+
+Haaga-Helia University of Applied Sciences (DevOps tooling and platform updates and extensions):
+
+- Jukka Remes
+- Aleksi Hyppönen
+- Tuukka Heinonen
+- Alex Kiippa
+- Emilio Lehto Neira
+- Thien Nguyen
+- Egor Chumakov
+- Alisa Dunaeva
+- Nikolai Ylänne
+- Prasanna Tamang Bomjan
+- Tommi Lavi
+- Netta Hintsala
+- Jukka Virolainen
+- Huang Wong
+- Ike Aniebonam
+- Kosti Kangasmaa
+- Jouni Tuomela
+- Tu Nguyen
+- Eemil Airaksinen
+- Ali Romar
+- Anh Tran
+- Emanuaela Luciani
+- Roope Salonen
+- Zhen Qi
 
 ### Special Thanks
 

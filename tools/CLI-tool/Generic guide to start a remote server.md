@@ -27,7 +27,7 @@ This is just a generic setup guide or checklist to ensure that you can have the 
    sudo apt install docker.io -y
    ```
 
-10. **GitHub Project**: Once you are in, you can clone the GitHub project and continue the rest of the installation as shown in the [Installation guide](https://github.com/Softala-MLOPS/oss-mlops-platform/blob/main/tools/CLI-tool/Installations%2C%20setups%20and%20usage.md#installations-setups-and-usage).
+10. **GitHub Project**: Once you are in, you can clone the GitHub project and continue the rest of the installation as shown in the [Installation guide](https://github.com/OSS-MLOPS-PLATFORM/oss-mlops-platform/blob/main/tools/CLI-tool/Installations%2C%20setups%20and%20usage.md#installations-setups-and-usage).
 
 11. **CI/CD Secrets**: After the platform is running, configure your CI/CD pipeline to connect to the remote server automatically. Store the SSH credentials as secrets — never commit them to the repository.
 

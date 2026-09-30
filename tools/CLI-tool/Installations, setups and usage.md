@@ -344,7 +344,7 @@ jupyter notebook --version
 ### Clone the main repository to your local folder
 
 ```
-git clone https://github.com/Softala-MLOPS/oss-mlops-platform.git
+git clone https://github.com/OSS-MLOPS-PLATFORM/oss-mlops-platform.git
 ```
 
 
@@ -438,8 +438,8 @@ email address is `user@example.com` and the default password is `12341234`.
 
 At this point you can test the cluster with the pipeline in a notebook for the stand alone kfp installation. Separate installation of Jupyter Notebook environment work for running the notebook. Jupyter Notebook installation guide: https://jupyter.org/install
 
-Notebook location (Softala version):
-https://github.com/Softala-MLOPS/oss-mlops-platform/blob/main/tutorials/demo_notebooks/demo_pipeline_standalone_kfp/demo-pipeline.ipynb
+Notebook location:
+https://github.com/OSS-MLOPS-PLATFORM/oss-mlops-platform/blob/main/tutorials/demo_notebooks/demo_pipeline_standalone_kfp/demo-pipeline.ipynb
 
 
 ### Start the Jupiter Notebook

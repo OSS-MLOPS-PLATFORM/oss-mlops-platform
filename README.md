@@ -22,7 +22,7 @@ Welcome to the OSS MLOps Platform, a comprehensive suite designed to streamline 
     - [`ray/`](tutorials/ray): A guide for setting up and using [Ray](https://docs.ray.io/en/latest/index.html).
    
 - **Tooling**
-  - [`tools/CLI-tool/`](tools/CLI-tool): A CLI-tool for creating a GitHub repositories for ML project along with guides
+  - [`tools/CLI-tool/`](tools/CLI-tool): A CLI-tool for creating GitHub repositories for ML projects (incl. detailed guides) - enables use of CI/CD to launch ML pipelines onto the platform
     - [`Components/`](tools/CLI-tool/Components): The ML pipeline Python files for the tool to place into ML project repositories
     - [`files/`](tools/CLI-tool/files): File structures for the tool to place into ML project repositories
     - [`Installations, setups and usage.md`](tools/CLI-tool/Installations,%20setups%20and%20usage.md): A comprehensive guide on setting up the platform and ML project repositories that can use the platform
@@ -67,8 +67,11 @@ Dive into our demo examples to see the platform in action:
 - **Project Use-Cases (e2e)**:
 
   - [Fashion-MNIST MLOPS pipeline](https://github.com/OSS-MLOPS-PLATFORM/demo-fmnist-mlops-pipeline)
-## Using the CLI tool 
-Use the tool in your terminal to create/import config repositories or create work repositories. To get start please refer to the instructions on [Installations, setups and usage.md](tools/CLI-tool/Installations,%20setups%20and%20usage.md). For deploying the platform to a remote server you can also take a look at the [Generic guide to start a remote server.md](tools/CLI-tool/Generic%20guide%20to%20start%20a%20remote%20server.md)
+
+## Using the CLI tool to create git repositories for your ML projects (use OSS MLOps through CI/CD pipelines)
+To get start please refer to the instructions on [Installations, setups and usage.md](tools/CLI-tool/Installations,%20setups%20and%20usage.md). 
+For deploying the platform to a remote server you can also take a look at the [Generic guide to start a remote server.md](tools/CLI-tool/Generic%20guide%20to%20start%20a%20remote%20server.md)
+
 ## High-Level Architecture Overview
 
 The following diagram illustrates the architectural design of the MLOps platform:
@@ -95,6 +98,8 @@ Alternatively, feel free to use GitHub Issues for bugs, tasks or ideas to be dis
 
 Contact people:
 
-Harry Souris - harry.souris@silo.ai
+Jukka Remes - jukka.remes@haaga-helia.fi
 
 Joaquin Rives - joaquin.rives@silo.ai
+
+Harry Souris - harry.souris@silo.ai

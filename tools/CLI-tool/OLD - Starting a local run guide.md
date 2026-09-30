@@ -1,4 +1,4 @@
-# TO BE DELETED SEE NEWER GUIDE AT https://github.com/Softala-MLOPS/oss-mlops-platform/blob/main/tools/CLI-tool/Installations%2C%20setups%20and%20usage.md
+# TO BE DELETED SEE NEWER GUIDE AT https://github.com/OSS-MLOPS-PLATFORM/oss-mlops-platform/blob/main/tools/CLI-tool/Installations%2C%20setups%20and%20usage.md
 
 # Starting a run on local ML-OPS Platform
 
@@ -7,7 +7,7 @@
 Clone the main repository to your local folder:
 
 ```
-git clone https://github.com/Softala-MLOPS/oss-mlops-platform.git
+git clone https://github.com/OSS-MLOPS-PLATFORM/oss-mlops-platform.git
 ```
 For Windows machines you need a WSL environment with (default Ubuntu) and it's unix commandline.
 
@@ -58,7 +58,7 @@ kubectl delete pod -n <namespace> <pod_name>
 ```
 Once you get all the pods running they should start up correctly each time you start the cluster again.
 
-The guides for this are scattered in here https://github.com/Softala-MLOPS/oss-mlops-platform/tree/main/tutorials/local_deployment but they predate the installer which is prefered to be used.
+The guides for this are scattered in here https://github.com/OSS-MLOPS-PLATFORM/oss-mlops-platform/tree/main/tutorials/local_deployment but they predate the installer which is prefered to be used.
 
 The run might fail at deploy-model step due to wine-quality inference service being already running. This can be solved by deleting the service:
 
@@ -85,8 +85,8 @@ The default email address is `user@example.com` and the default password is `123
 
 At this point you can test the cluster with the pipeline in a notebook for the stand alone kfp installation. Separate installation of Jupyter Notebook environment work for running the notebook. Jupyter Notebook installation guide: https://jupyter.org/install
 
-Notebook location (Softala version):
-https://github.com/Softala-MLOPS/oss-mlops-platform/blob/main/tutorials/demo_notebooks/demo_pipeline_standalone_kfp/demo-pipeline.ipynb
+Notebook location:
+https://github.com/OSS-MLOPS-PLATFORM/oss-mlops-platform/blob/main/tutorials/demo_notebooks/demo_pipeline_standalone_kfp/demo-pipeline.ipynb
 
 ## Step 3 Creating the repositories and setting up the CI/CD pipeline with the tool
 
@@ -102,7 +102,7 @@ https://github.com/Softala-MLOPS/oss-mlops-platform/blob/main/tutorials/demo_not
     - In Windows you want to do this on the Unix
 
 ```
-git clone https://github.com/Softala-MLOPS/oss-mlops-platform.git
+git clone https://github.com/OSS-MLOPS-PLATFORM/oss-mlops-platform.git
 ```
 **N.B.! LINK IS TO THE TOOL PROJECT REPO !**
 
